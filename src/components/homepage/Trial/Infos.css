@@ -1,0 +1,34 @@
+.infos_container {
+    width: 100%;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    line-height: normal;
+}
+
+h1 {
+    font-size: 3rem;
+    margin: 0;
+    padding: 0;
+}
+
+h3 {
+    margin: .8rem;
+    font-size: 1.6rem;
+    font-weight: 500;
+}
+
+@media (max-width: 375px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1rem;
+    }
+}
+
+

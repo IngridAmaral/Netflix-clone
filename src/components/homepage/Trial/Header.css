@@ -1,0 +1,31 @@
+.trial_header_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 95%;
+    margin: .8rem 0;
+}
+
+.trial_header_logo {
+    width: 9rem;
+    height: 5rem;
+    margin-left: 1.2rem;
+}
+
+.trial_header_signin_btn {
+    margin-right: 1.8rem ;
+    border-style: none;
+    border-radius: .2rem;
+    background-color: #E50914;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: .5rem 1rem .5rem 1rem;
+    cursor: pointer;
+}
+
+@media (max-width: 375px) {
+    .trial_header_container {
+        margin: 0;
+    }
+}
