@@ -27,5 +27,6 @@
 @media (max-width: 375px) {
     .trial_header_container {
         margin: 0;
+        justify-content: space-around;
     }
 }

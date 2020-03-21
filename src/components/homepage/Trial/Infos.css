@@ -12,7 +12,6 @@
 h1 {
     font-size: 3rem;
     margin: 0;
-    padding: 0;
 }
 
 h3 {
@@ -21,13 +20,16 @@ h3 {
     font-weight: 500;
 }
 
-@media (max-width: 375px) {
-    h1 {
+@media (max-width: 380px) {
+   
+
+    .infos_container h1 {
         font-size: 1.5rem;
     }
 
-    h2 {
+    .infos_container h3 {
         font-size: 1rem;
+        margin: .2;
     }
 }
 
