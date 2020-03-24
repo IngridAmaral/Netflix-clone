@@ -44,6 +44,13 @@ h5 {
     color: #fff;
 }
 
+@media (max-width: 950px) {
+    h5 {
+        font-size: 1.5rem;
+    }
+}
+
+
 @media (min-width: 600px) {
     .form_form {
         flex-direction: row;
@@ -67,7 +74,7 @@ h5 {
 
 @media (max-width: 375px) { 
     h5 {
-        font-size: .8rem;
+        font-size: 1rem;
         padding: 0;
     }
 }

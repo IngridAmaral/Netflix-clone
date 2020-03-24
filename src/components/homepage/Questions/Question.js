@@ -8,15 +8,14 @@ class Question extends React.Component {
   };
 
   handleClick = target => {
-
     let stateNum = this.state.number;
     let stateClicked = this.state.clicked;
 
     if (target === stateNum) {
-        stateClicked = !stateClicked;
+      stateClicked = !stateClicked;
     } else {
-        stateClicked = true;
-        stateNum = target;
+      stateClicked = true;
+      stateNum = target;
     }
 
     this.setState({
@@ -78,20 +77,13 @@ class Question extends React.Component {
     return (
       <div className="question_container">
         {questions.map((question, idx) => {
-            const { clicked, number } = this.state
-            console.log(clicked, number)
-          let visibilityShow =
-            clicked && number === idx ? "show" : "close";
+          const { clicked, number } = this.state;
+          let visibilityShow = clicked && number === idx ? "show" : "close";
 
-          let close =
-            clicked && number === idx
-              ? "rotate(-45deg)"
-              : "";
+          let close = clicked && number === idx ? "rotate(-45deg)" : "";
 
-            //   console.log(idx)
           return (
             <div key={idx} className="question_each_container">
-
               <div
                 id={idx}
                 onClick={() => this.handleClick(idx)}
@@ -111,7 +103,6 @@ class Question extends React.Component {
                   <p>{question.answer[0]}</p>
                 )}
               </div>
-
             </div>
           );
         })}

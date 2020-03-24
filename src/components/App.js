@@ -3,7 +3,7 @@ import Trial from './homepage/Trial';
 import './App.css';
 import Content from './homepage/Content/Content';
 import Questions from './homepage/Questions/Questions';
-
+import Footer from '../components/homepage/Footer/Footer';
 
 class App extends React.Component {
     render() {
@@ -12,6 +12,7 @@ class App extends React.Component {
                 <Trial />
                 <Content />
                 <Questions />
+                <Footer />
             </div>
         )
     }

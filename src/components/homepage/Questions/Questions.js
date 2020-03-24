@@ -10,7 +10,7 @@ class Questions extends React.Component{
             <div className='questions_container'>
                 <h1>Frequently Asked Questions</h1>
                 <Question />
-                <Form />
+                <Form /> 
             </div>
         )
     }
