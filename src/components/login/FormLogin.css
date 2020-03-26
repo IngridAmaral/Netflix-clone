@@ -6,38 +6,6 @@ h1 {
   margin-bottom: 1rem;
 }
 
-.inputId,
-.inputPassword {
-  position: relative;
-  padding: .1rem;
-  box-sizing: border-box;
-  height: 5rem;
-}
-
-.inputId input,
-.inputPassword input {
-  outline: 0;
-  padding: 1rem;
-  width: 100%;
-  border-style: none;
-  background-color: #333;
-  font-size: 1rem;
-  font-weight: normal;
-  border-radius: 0.2rem;
-  box-sizing: border-box;
-  color: #fff;
-  height: 3.4rem;
-}
-
-.inputId > label,
-.inputPassword > label {
-  position: absolute;
-  padding: 1.2rem 1rem ;
-  font-size: 1rem;
-  transition: all 0.25s cubic-bezier(0.5, 0, 0.1, 1);
-  box-sizing: border-box;
-}
-
 .login_submit {
   margin: 1rem 0;
 }
@@ -131,18 +99,6 @@ h1 {
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
-}
-
-/* INPUT ERROS */
-.error {
-  visibility: hidden;
-  margin-bottom: .3rem;
-}
-
-.show_error {
-  visibility: visible;
-  color: #E87C03;
-  font-size: .8rem;
 }
 
 @media (max-width:380px) {

@@ -51,11 +51,15 @@
     border-style: none;
   }
 
+  @media (max-width: 815px) {
+    .footerLogin_container {
+        margin: 0;
+        border-top: .1rem solid #333;
+    }
+  }
+
   @media (max-width:380px) {
-      .footerLogin_container {
-          margin: 0;
-          border-top: .1rem solid #333;
-      }
+      
 
       .footerLogin_container > p {
           font-size: 1rem;
