@@ -44,8 +44,8 @@
 }
 
 .answer.show {
+    margin: .2rem 0;
     max-height: 1200px;
-    border-top: .1rem solid #000;
 }
 
 h2 {

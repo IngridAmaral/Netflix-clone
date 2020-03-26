@@ -65,7 +65,7 @@ option {
   border-style: none;
 }
 
-@media (max-width: 950px) {
+@media (max-width: 550px) {
   .footer_inside_container {
     width: 85%;
     padding: 2rem 2.8rem;

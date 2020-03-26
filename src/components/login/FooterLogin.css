@@ -1,0 +1,52 @@
+.footerLogin_container {
+    background-color: rgba(0, 0, 0, 0.78);
+    width: 100%;
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 1.5rem 2rem;
+    box-sizing: border-box;
+    color: gray;
+}
+
+.footerLogin_container > p {
+    font-size: 1.2rem;
+}
+
+.links {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    padding: 1rem 0;
+}
+
+.links > p{
+    font-size: .9rem;
+}
+
+.links > p:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.footerLogin_language_selector {
+    margin: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+    width: fit-content;
+    border: 0.1rem #333333 solid;
+  }
+  
+  .footerLogin_language_selector select {
+    font-size: 1rem;
+    border-style: none;
+    background-color: #000;
+    color: #a6a6a6;
+    padding: 1rem;
+  }
+  
+  option {
+    padding: 1rem;
+    border-style: none;
+  }

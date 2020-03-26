@@ -1,0 +1,150 @@
+.login_form {
+  width: 100%;
+}
+
+.inputId,
+.inputPassword {
+  margin: 1rem 0;
+  position: relative;
+  padding: 0;
+}
+
+.inputId input,
+.inputPassword input {
+  outline: 0;
+  padding: 1.2rem 1rem;
+  width: 100%;
+  border-style: none;
+  background-color: #333;
+  font-size: 1rem;
+  font-weight: normal;
+  border-radius: 0.2rem;
+  box-sizing: border-box;
+  color: #fff;
+  height: 3.4rem;
+}
+
+.inputId > label,
+.inputPassword > label {
+  position: absolute;
+  padding: 1.2rem;
+  font-size: 1rem;
+  transition: all 0.25s cubic-bezier(0.5, 0, 0.1, 1);
+}
+
+.login_submit {
+  margin: 2rem 0;
+}
+
+.login_submit button {
+  background-color: #e50914;
+  color: #fff;
+  width: 100%;
+  padding: 1.2rem;
+  font-size: 1rem;
+  border-style: none;
+  border-radius: 0.2rem;
+  font-weight: bold;
+}
+
+.login_submit button:hover {
+  cursor: pointer;
+}
+
+.login_check_help {
+  display: flex;
+  font-size: 0.8rem;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.login_check_help > p:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+@media (max-width: 740px) {
+  .login_form {
+    width: 100%;
+  }
+
+  .login_inputs,
+  .login_submit {
+    width: 100%;
+    padding: 0;
+  }
+
+  .login_inputs input {
+    width: 100%;
+    margin: 1rem 0;
+    box-sizing: border-box;
+  }
+  .login_submit button {
+    width: 100%;
+    padding: 1rem 0;
+  }
+}
+
+/* CHECKBOX */
+.login_check_help div {
+  display: flex;
+}
+
+.login_checkbox_container {
+  display: block;
+  position: relative;
+  padding-left: 1.5rem;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.login_checkbox_container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  left: 0;
+  height: 1rem;
+  width: 1rem;
+  border-radius: 0.2rem;
+  background-color: #333;
+}
+
+/* When the checkbox is checked, add a background color */
+/* .login_checkbox_container input:checked ~ .checkmark {
+    background-color: #333;
+} */
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.login_checkbox_container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.login_checkbox_container .checkmark:after {
+  left: 0.25rem;
+  top: 0;
+  width: 0.29rem;
+  height: 0.6rem;
+  border: solid grey;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}

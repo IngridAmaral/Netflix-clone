@@ -80,7 +80,7 @@ class Footer extends React.Component {
           <h4>Questions? Call 0800-724-0697</h4>
           <div className="footer_links">
             {footerLinks.map((link, idx) => {
-              return <div><p>{link.name}</p></div>;
+              return <div key={idx}><p>{link.name}</p></div>;
             })}
           </div>
           <div className="footer_language_selector">
