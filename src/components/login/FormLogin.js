@@ -5,6 +5,8 @@ class FormLogin extends React.Component {
   state = {
     userIdInput: "",
     userPasswordInput: "",
+    showErrorId: false,
+    showErrorPassword: false,
     rememberMe: false
   };
 
@@ -17,30 +19,52 @@ class FormLogin extends React.Component {
     } else {
       this.setState(state => ({ userPasswordInput: value }));
     }
+
+    this.handleError(value, id);
   };
 
   handleRememberMe = () => {
-    this.setState(state => ({rememberMe: !state.rememberMe}))
-  }
+    this.setState(state => ({ rememberMe: !state.rememberMe }));
+  };
+
+  handleError = (input, id) => {
+    if (id === "userId") {
+      if (
+        !input.match(
+          /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/
+        ) ||
+        !input.match(/^[2-9]\d{2}\d{3}\d{4}$/)
+      ) {
+        this.setState({ showErrorId: true });
+      }
+    } else {
+      if (!this.state.userPasswordInput.match(/^.{4,60}$/)) {
+        this.setState({ showErrorPassword: true });
+      }
+    }
+  };
 
   render() {
-    let styleLabelId =
-      this.state.userIdInput.length > 0
-        ? { padding: ".3rem 0 0 .9rem", fontSize: ".9rem" }
-        : {};
-    let styleLabelPass =
-      this.state.userPasswordInput.length > 0
-        ? { padding: ".3rem 0 0 .9rem", fontSize: ".9rem" }
-        : {};
+    const {
+      userIdInput,
+      userPasswordInput,
+      showErrorId,
+      showErrorPassword
+    } = this.state;
 
-    let styleInputId =
-      this.state.userIdInput.length > 0
-        ? { paddingTop: "1.6rem", paddingBottom: ".6rem" }
-        : {};
-    let styleInputPass =
-      this.state.userPasswordInput.length > 0
-        ? { paddingTop: "1.6rem", paddingBottom: ".6rem" }
-        : {};
+    const labelStyle = { padding: ".3rem 0 0 .9rem", fontSize: ".9rem" };
+    const inputStyle = { paddingTop: "1.6rem", paddingBottom: ".6rem" };
+    const errorStyleBorder = { borderBottom: ".1rem solid #E87C03" };
+    const userIdLength = userIdInput.length > 0;
+    const userPLength = userPasswordInput.length > 0;
+
+    let styleLabelId = userIdLength ? labelStyle : {};
+    let styleInputId = userIdLength ? inputStyle : {};
+    let showEId = showErrorId ? errorStyleBorder : {};
+
+    let styleLabelPass = userPLength ? labelStyle : {};
+    let styleInputPass = userPLength ? inputStyle : {};
+    let showEPass = showErrorPassword ? errorStyleBorder : {};
 
     return (
       <form className="login_form">
@@ -57,9 +81,12 @@ class FormLogin extends React.Component {
               onChange={this.handleInput}
               value={this.state.userIdInput}
               id="userId"
-              style={styleInputId}
+              style={{ ...styleInputId, ...showEId }}
               type="email"
             />
+            <p className={`error ${showErrorId ? "show_error" : ""}`}>
+              Please enter a valid email or phone number.
+            </p>
           </div>
           <div className="inputPassword">
             <label
@@ -74,8 +101,11 @@ class FormLogin extends React.Component {
               id="userPassword"
               value={this.state.userPasswordInput}
               type="password"
-              style={styleInputPass}
+              style={{ ...styleInputPass, ...showEPass }}
             />
+            <p className={`error ${showErrorPassword ? "show_error" : ""}`}>
+              Your password must contain between 4 and 60 characters.
+            </p>
           </div>
         </div>
 
@@ -83,7 +113,10 @@ class FormLogin extends React.Component {
           <button type="submit">Sign In</button>
           <div className="login_check_help">
             <div>
-              <label onClicl={this.handleRememberMe} className="login_checkbox_container">
+              <label
+                onClick={this.handleRememberMe}
+                className="login_checkbox_container"
+              >
                 <input className="checkbox" type="checkbox" />
                 <span className="checkmark"></span>
               </label>
