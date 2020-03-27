@@ -1,6 +1,7 @@
 import React from "react";
 import "./LoginEnterCard.css";
-import FormLogin from './FormLogin';
+import FormLogin from "./FormLogin";
+import { Link } from 'react-router-dom'
 
 class LoginEnterCard extends React.Component {
   state = {
@@ -13,10 +14,12 @@ class LoginEnterCard extends React.Component {
   };
 
   render() {
+    const title  = this.props.signup === true ? 'Sign Up' : 'Sign In';
     return (
       <div className="login_enter_session">
-        <h1>Sign In</h1>
-        <FormLogin />
+        <h1>{title}</h1>
+
+        <FormLogin isSignUpPage={this.props.signup} title={title} />
 
         <div className="login_facebook">
           <img
@@ -26,10 +29,14 @@ class LoginEnterCard extends React.Component {
           <p>Login with Facebook</p>
         </div>
 
-        <div className="login_signup">
-          New to Netflix?
-          <p> Sign up now</p>.
-        </div>
+        {this.props.signup === true ? (
+          ""
+        ) : (
+          <div className="login_signup">
+            New to Netflix?
+            <Link to='/signup' style={{textDecoration: 'none'}}><p> Sign up now </p></Link>.
+          </div>
+        )}
 
         <div className="login_infos_google">
           <div>

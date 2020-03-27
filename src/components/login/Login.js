@@ -14,7 +14,7 @@ class Login extends React.Component {
               alt="Netflix Logo"
             />
           </div>
-          <LoginEnterCard />
+          <LoginEnterCard signup={this.props.signup} />
           <FooterLogin />
         </div>
       </div>
