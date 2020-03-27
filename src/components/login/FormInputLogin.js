@@ -16,25 +16,45 @@ class FormInputLogin extends React.Component {
     this.handleError(value, id);
   };
 
-  handleRememberMe = () => {
-    this.setState(state => ({ rememberMe: !state.rememberMe }));
-  };
-
   handleError = (input, id) => {
-    if (id === "userId") {
-      if (
-        !input.match(
-          /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/
-        ) ||
-        !input.match(/^[2-9]\d{2}\d{3}\d{4}$/)
-      ) {
-        this.setState({ showError: true });
-      }
-    } else {
-      if (!input.match(/^.{4,60}$/)) {
-        this.setState({ showError: true });
-      }
+    let error = false;
+    let regex = null;
+    let regex2 = null;
+
+    switch (id) {
+        case 'userId':
+            regex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+            regex2 = /^[2-9]\d{2}\d{3}\d{4}$/;
+            break;
+        case 'userEmail':
+            regex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+            break;
+        case 'userPhone':
+            regex = /^[2-9]\d{2}\d{3}\d{4}$/;
+            break;
+        case 'userName':
+            regex = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/;
+            break;
+        case 'userPassword':
+        case 'userPasswordRepeat':
+            regex = /^.{4,60}$/
+            break;
+        default:
+            regex = null;
+            regex2 = null
     }
+
+    if (regex) {
+        if (id === 'userId' && !regex.test(input) && !regex2.test(input)) {
+            error = true;
+        } else if (!regex.test(input)) {
+            error = true
+        } else {
+            error = false
+        }
+    }
+
+    this.setState({ showError: error });
   };
 
   render() {
@@ -58,12 +78,10 @@ class FormInputLogin extends React.Component {
           onChange={this.handleInput}
           value={this.state.userInput}
           id={id}
-          style={{ ...styleInput, ...showError ? errorStyleBorder : {} }}
+          style={{ ...styleInput, ...(showError ? errorStyleBorder : {}) }}
           type={inputType}
         />
-        <p className={`error ${showError ? "show_error" : ""}`}>
-          {errorMsg}
-        </p>
+        <p className={`error ${showError ? "show_error" : ""}`}>{errorMsg}</p>
       </div>
     );
   }
