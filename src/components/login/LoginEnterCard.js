@@ -19,7 +19,7 @@ class LoginEnterCard extends React.Component {
       <div className="login_enter_session">
         <h1>{title}</h1>
 
-        <FormLogin isSignUpPage={this.props.signup} title={title} />
+        <FormLogin signup={this.props.signup} title={title} />
 
         <div className="login_facebook">
           <img
