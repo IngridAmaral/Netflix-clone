@@ -1,13 +1,15 @@
 import React from "react";
 import "./FormLogin.css";
 import FormInputLogin from "./FormInputLogin";
+// import { users } from '../../Users';
 
 class FormLogin extends React.Component {
   state = {
     userInput: "",
     lastInputId: "",
     rememberMe: false,
-    userSignUp: {}
+    userSignUp: {},
+    userSignIn: {}
   };
 
   componentDidMount = () => {
@@ -22,16 +24,79 @@ class FormLogin extends React.Component {
     if (this.props.signup) {
       const { userSignUp } = this.state;
       const newUserKeys = Object.keys(userSignUp);
-      let newUser = { ...users };
-      newUserKeys.map(id => {
-        newUser = {
-          [userSignUp["userEmail"]["userEmail"]]: {
-            ...newUser[userSignUp["userEmail"]["userEmail"]],
-            [id]: userSignUp[id][id]
+      if (newUserKeys.length === 5) {
+        let newUser = {};
+        newUserKeys.forEach(id => {
+          let userId = userSignUp["userEmail"]["userEmail"];
+          newUser = {
+            [userId]: {
+              ...newUser[userId],
+              [id]: userSignUp[id][id]
+            }
+          };
+        });
+
+        window.localStorage.setItem(
+          "users",
+          JSON.stringify({ ...users, ...newUser })
+        );
+        this.setState({
+          userInput: "",
+          lastInputId: "",
+          rememberMe: false,
+          userSignUp: {},
+          userSignIn: {}
+        });
+      } else {
+        const signUpKeys = [
+          "userEmail",
+          "userPhone",
+          "userPassword",
+          "userRepeatPassword",
+          "userName"
+        ];
+        signUpKeys.forEach((id) => {
+          if (!this.state.userSignUp[id]) {
+            this.setState(state => ({
+              userSignUp: {
+                ...state.userSignUp,
+                [id]: { [id]: "", showError: true }
+              }
+            }));
           }
-        };
-      });
-      window.localStorage.setItem("users", JSON.stringify({...users, ...newUser}));
+        });
+      }
+    } else {
+      const signInKeys = ['userId', 'userSignInPassword'];
+      const userSignInKeys = Object.keys(this.state.userSignIn)
+    
+      if (userSignInKeys.length === 2) {
+        const signInPassword = this.state.userSignIn["userSignInPassword"][
+          "userSignInPassword"
+        ];
+        const usersPassword =
+          users[this.state.userSignIn["userId"]["userId"]]["userPassword"];
+        if (users[this.state.userSignIn["userId"]["userId"]]) {
+          if (signInPassword === usersPassword) {
+            console.log("welcome");
+          } else {
+            console.log("incorrect password");
+          }
+        } else {
+          console.log("incorrect user Id");
+        }
+      } else {
+        signInKeys.forEach((id) => {
+          if (!this.state.userSignIn[id]) {
+            this.setState(state => ({
+              userSignIn: {
+                ...state.userSignIn,
+                [id]: { [id]: "", showError: true }
+              }
+            }));
+          }
+        });
+      }
     }
   };
 
@@ -65,6 +130,7 @@ class FormLogin extends React.Component {
       case "userName":
         regex = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/;
         break;
+      case "userSignInPassword":
       case "userPassword":
       case "userPasswordRepeat":
         regex = /^.{4,60}$/;
@@ -84,12 +150,21 @@ class FormLogin extends React.Component {
       }
     }
 
-    this.setState(state => ({
-      userSignUp: {
-        ...state.userSignUp,
-        [id]: { [id]: input, showError: error }
-      }
-    }));
+    if (this.props.signup) {
+      this.setState(state => ({
+        userSignUp: {
+          ...state.userSignUp,
+          [id]: { [id]: input, showError: error }
+        }
+      }));
+    } else {
+      this.setState(state => ({
+        userSignIn: {
+          ...state.userSignIn,
+          [id]: { [id]: input, showError: error }
+        }
+      }));
+    }
   };
 
   render() {
@@ -103,7 +178,7 @@ class FormLogin extends React.Component {
         errorMsg: "Please enter a valid email or phone number."
       },
       {
-        id: "userPassword",
+        id: "userSignInPassword",
         placeholder: "Password",
         inputType: "password",
         errorMsg: "Your password must contain between 4 and 60 characters."
@@ -149,11 +224,17 @@ class FormLogin extends React.Component {
         <div className="login_inputs">
           {renderInputsArr.map((input, idx) => {
             const { id, placeholder, inputType, errorMsg } = input;
+            const { userSignIn, userSignUp } = this.state;
             let value = "";
             let showError = false;
-            if (this.state.userSignUp[id]) {
-              value = this.state.userSignUp[id][id];
-              showError = this.state.userSignUp[id]["showError"];
+            if (userSignUp[id]) {
+              showError = userSignUp[id]["showError"];
+              value = userSignUp[id][id];
+            }
+
+            if (userSignIn[id]) {
+              showError = userSignIn[id]["showError"];
+              value = userSignIn[id][id];
             }
             return (
               <FormInputLogin
