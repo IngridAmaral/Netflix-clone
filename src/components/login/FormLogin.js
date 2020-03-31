@@ -1,6 +1,8 @@
 import React from "react";
 import "./FormLogin.css";
 import FormInputLogin from "./FormInputLogin";
+import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 class FormLogin extends React.Component {
   state = {
@@ -13,7 +15,9 @@ class FormLogin extends React.Component {
 
   componentDidMount = () => {
     let users = {};
-    window.localStorage.setItem("users", JSON.stringify(users));
+    if(!localStorage.getItem('users')){
+      window.localStorage.setItem("users", JSON.stringify(users));
+    }
   };
 
   handleSubmit = e => {
@@ -48,44 +52,47 @@ class FormLogin extends React.Component {
           userSignIn: {}
         });
       } else {
-        this.handleInputEmpty('signUp')
+        this.handleInputEmpty("signUp");
       }
     } else {
-      const userSignInKeys = Object.keys(this.state.userSignIn)
-    
-      if (userSignInKeys.length === 2) { 
-        if (users[this.state.userSignIn["userId"]["userId"]]) {
+      const userSignInKeys = Object.keys(this.state.userSignIn);
 
-          const usersPassword = users[this.state.userSignIn["userId"]["userId"]]["userPassword"];
-          const signInPassword = this.state.userSignIn["userSignInPassword"]["userSignInPassword"];
+      if (userSignInKeys.length === 2) {
+        if (users[this.state.userSignIn["userId"]["userId"]]) {
+          const usersPassword =
+            users[this.state.userSignIn["userId"]["userId"]]["userPassword"];
+          const signInPassword = this.state.userSignIn["userSignInPassword"][
+            "userSignInPassword"
+          ];
 
           if (signInPassword === usersPassword) {
-            console.log("welcome");
+            const history = useHistory();
+            history.push("/bowse");
           } else {
-            this.handleIncorrectTypeInput('userSignInPassword')
+            this.handleIncorrectTypeInput("userSignInPassword");
           }
         } else {
-          this.handleIncorrectTypeInput('userId')
-          this.handleIncorrectTypeInput('userSignInPassword')
+          this.handleIncorrectTypeInput("userId");
+          this.handleIncorrectTypeInput("userSignInPassword");
         }
       } else {
-        this.handleInputEmpty('signIn')
+        this.handleInputEmpty("signIn");
       }
     }
   };
 
-  handleIncorrectTypeInput = (id) => {
+  handleIncorrectTypeInput = id => {
     this.setState(state => ({
       userSignIn: {
         ...state.userSignIn,
         [id]: { [id]: "", showError: true }
       }
     }));
-  }
+  };
 
-  handleInputEmpty = (sign) => {
-    const { userSignIn, userSignUp } = this.state
-    const signInKeys = ['userId', 'userSignInPassword'];
+  handleInputEmpty = sign => {
+    const { userSignIn, userSignUp } = this.state;
+    const signInKeys = ["userId", "userSignInPassword"];
     const signUpKeys = [
       "userEmail",
       "userPhone",
@@ -94,10 +101,10 @@ class FormLogin extends React.Component {
       "userName"
     ];
 
-    const mapWhichSign = sign === 'signIn' ? signInKeys : signUpKeys;
-    const stateSign = sign === 'signIn' ? userSignIn : userSignUp;
-    const signString = sign === 'signIn' ? 'userSignIn' : 'userSignUp';
-    mapWhichSign.forEach((id) => {
+    const mapWhichSign = sign === "signIn" ? signInKeys : signUpKeys;
+    const stateSign = sign === "signIn" ? userSignIn : userSignUp;
+    const signString = sign === "signIn" ? "userSignIn" : "userSignUp";
+    mapWhichSign.forEach(id => {
       if (!stateSign[id]) {
         this.setState(state => ({
           [signString]: {
@@ -107,7 +114,7 @@ class FormLogin extends React.Component {
         }));
       }
     });
-  }
+  };
 
   handleSubmitSignIn = e => {
     const id = e.target.id;
@@ -153,24 +160,27 @@ class FormLogin extends React.Component {
       if (id === "userId" && !regex.test(input) && !regex2.test(input)) {
         error = true;
       } else if (!regex.test(input)) {
-          error = true;
+        error = true;
       } else {
-        if (id === 'userPasswordRepeat' && this.state.userSignUp['userPassword'] !== input) {
-          error = true
+        if (
+          id === "userPasswordRepeat" &&
+          this.state.userSignUp["userPassword"]['userPassword'] !== input
+        ) {
+          error = true;
         } else {
           error = false;
         }
       }
     }
 
-    const signString = this.props.signup ? 'userSignUp' : 'userSignIn';
+    const signString = this.props.signup ? "userSignUp" : "userSignIn";
 
-      this.setState(state => ({
-        [signString]: {
-          ...state[signString],
-          [id]: { [id]: input, showError: error }
-        }
-      }));
+    this.setState(state => ({
+      [signString]: {
+        ...state[signString],
+        [id]: { [id]: input, showError: error }
+      }
+    }));
   };
 
   render() {
@@ -228,7 +238,7 @@ class FormLogin extends React.Component {
     return (
       <form className="login_form">
         <div className="login_inputs">
-          {renderInputsArr.map((input, idx) => {
+          {renderInputsArr.map(input => {
             const { id, placeholder, inputType, errorMsg } = input;
             const { userSignIn, userSignUp } = this.state;
             let value = "";
