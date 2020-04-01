@@ -14,10 +14,10 @@ class App extends React.Component {
       <Router>
         <div className="app_container">
           <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/login" component={Login} />
-            <Route path="/signup" render={props => <Login {...props} signup />} />} />
-            <Route path='/browse' component={BrowsePage} />
+            <Route path="/" exact component={ Home } />
+            <Route path="/login" component={ Login } />
+            <Route path="/signup" render={ props => <Login {...props} signup /> } />
+            <Route path='/browse' component={ BrowsePage } />
           </Switch>
         </div>
       </Router>

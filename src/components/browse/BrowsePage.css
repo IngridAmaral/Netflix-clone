@@ -1,4 +1,10 @@
 .browse_container {
     display: flex;
     flex-direction: column;
+    min-height: 120vh;
+    padding-left: 4.4%;
+    box-sizing: border-box;
+    background-image: url('https://images3.alphacoders.com/111/thumb-1920-111207.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
 }

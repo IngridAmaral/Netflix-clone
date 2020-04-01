@@ -1,8 +1,7 @@
 import React from "react";
 import "./FormLogin.css";
 import FormInputLogin from "./FormInputLogin";
-import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 class FormLogin extends React.Component {
   state = {
@@ -10,7 +9,8 @@ class FormLogin extends React.Component {
     lastInputId: "",
     rememberMe: false,
     userSignUp: {},
-    userSignIn: {}
+    userSignIn: {},
+    isLoggedIn: false
   };
 
   componentDidMount = () => {
@@ -66,8 +66,7 @@ class FormLogin extends React.Component {
           ];
 
           if (signInPassword === usersPassword) {
-            const history = useHistory();
-            history.push("/bowse");
+            this.setState({ isLoggedIn: true })
           } else {
             this.handleIncorrectTypeInput("userSignInPassword");
           }
@@ -266,11 +265,20 @@ class FormLogin extends React.Component {
             );
           })}
         </div>
-
+          
         <div className="login_submit">
-          <button onClick={this.handleSubmit} type="submit">
-            {title}
-          </button>
+        {
+            this.state.isLoggedIn ?
+               (
+                <Redirect to='/browse' />
+              )
+            :
+              (
+                <button onClick={this.handleSubmit} type="submit">
+                  {title}
+                </button>
+              )
+          }
           <div className="login_check_help">
             {this.props.signup ? (
               ""
