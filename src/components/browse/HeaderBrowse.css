@@ -1,52 +1,126 @@
-.header-container {
+.header-rigth-items,
+.header-avatar,
+.header-rigth,
+.header-left,
+.header-container,
+.header-content {
   display: flex;
   align-items: center;
+}
+
+.header-container {
+  min-height: 3.5rem;
   position: fixed;
   left: 0;
   top: 0;
   width: 100%;
   box-sizing: border-box;
   height: max-content;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 10%, rgba(0, 0, 0, 0));
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.7) 10%,
+    rgba(0, 0, 0, 0)
+  );
 }
 
 .header-left {
-    display: flex;
-    align-items: center;
-    width: 60%;
+  width: 60%;
 }
 
 .header-rigth {
-    padding-right: 4.4%;
-    display: flex;
-    align-items: center;
+  min-width: 20%;
+}
+
+.header-rigth-items > * {
+  margin: 0.5rem 0;
+  padding: 0 0.5rem;
+  cursor: pointer;
 }
 
 .header-content {
-  display: flex;
-  align-items: center;
   padding-left: 3.6%;
   padding-right: 3.6%;
   justify-content: space-between;
 }
 
-img {
+.header-left > img {
   max-width: 16%;
   min-width: 4.2rem;
   height: auto;
 }
 
 .menu-items {
-    padding-left: 2.2%;
-    width: 45%;
-    display: flex;
-    justify-content: space-between;
-}
-
-.menu-item {
-    font-size: .8em;
+  padding-left: 2.2%;
+  width: 45%;
+  display: flex;
+  justify-content: space-between;
 }
 
 .menu-item:hover {
-    opacity: .8;
+  opacity: 0.8;
+}
+
+.header-rigth-items > span,
+.menu-item {
+  font-size: 0.8rem;
+}
+
+.caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  vertical-align: middle;
+  content: "";
+  border-top-style: solid;
+  border-top-width: 4px;
+  border-right: 4px solid transparent;
+  border-bottom: 0 solid transparent;
+  border-left: 4px solid transparent;
+}
+
+.header-avatar > img {
+  width: 1.8em;
+  height: auto;
+  padding-right: 0.3rem;
+}
+
+@media (max-width: 1100px) {
+    .header-container {
+        max-height: 3rem;
+    }
+
+  .menu-items {
+    min-width: 60%;
+  }
+
+  .header-rigth-items > * {
+    padding: 0 0.2rem;
+  }
+
+  .header-rigth-items > span {
+    display: none;
+    visibility: hidden;
+  }
+
+  .header-rigth-items > svg {
+    height: 0.9em;
+    width: auto;
+  }
+  .header-rigth {
+    justify-content: flex-end;
+  }
+
+  .header-avatar > img {
+    width: 1.4rem;
+  }
+
+  .header-rigth > * {
+    padding: 0 0.2rem;
+  }
+}
+
+@media (max-width: 840px) {
+    .menu-items {
+        display: none;
+    }
 }
