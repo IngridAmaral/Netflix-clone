@@ -1,52 +1,56 @@
-.dropdown {
-    display: none;
-}
-
 /* Dropdown Button */
 .dropbtn {
-    color: #fff;
-    background-color: transparent;
-    font-size: .7rem;
-    border: none;
-    padding: .6rem;
-    outline: transparent;
-  }
-  
-  /* The container <div> - needed to position the dropdown content */
-  .dropdown {
-    position: relative;
-  }
-  
-  /* Dropdown Content (Hidden by Default) */
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background: rgba(0, 0, 0, 0.5);
-    min-width: 10rem;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    top: 2rem;
-    border-top: #fff solid .1rem;
-  }
-  
-  /* Links inside the dropdown */
-  .dropdown-content a {
-    font-size: .9rem;
-    padding: .5rem 1rem;
-    text-decoration: none;
-    display: block;
-    color: #fff;
+  color: #fff;
+  background-color: transparent;
+  font-size: 0.6rem;
+  border: none;
+  padding: 1rem;
+  outline: transparent;
+  font-weight: bolder;
 }
-  
-  /* Change color of dropdown links on hover */
-  .dropdown-content a:hover {background: rgba(0, 0, 0, 0.5);}
-  
-  /* Show the dropdown menu on hover */
-  .dropdown:hover .dropdown-content {display: block;}
-  
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  display: none;
+  position: relative;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+visibility: hidden;  position: absolute;
+  background: rgba(0, 0, 0, 0.5);
+  min-width: 10rem;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  top: 2.5rem;
+  border-top: #fff solid 0.1rem;
+  opacity: 0;
+  transition: all 1s ease-in-out;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  display: block;
+  color: #fff;
+  transition: all 0.4s ease;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    visibility: visible;  
+    opacity: 1;
+}
 
 @media (max-width: 840px) {
-    .dropdown {
-        display: block;
-    }
+  .dropdown {
+    display: block;
+  }
 }
