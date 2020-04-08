@@ -1,0 +1,156 @@
+.carousel__container {
+  display: flex;
+  align-items: flex-end;
+  box-sizing: border-box;
+  /* background: #00008b; */
+  /* border: 1px solid sandybrown; */
+  position: relative;
+  min-height: 15vw;
+  margin-bottom: 1vw;
+  z-index: 0;
+}
+
+.carousel__container > p {
+  position: absolute;
+  left: 0;
+  top: 1vw;
+  font-size: 1.5vw;
+  font-weight: bold;
+}
+
+.carousel-container {
+  width: 100%;
+  transition: all 0.5s ease-in-out;
+}
+
+.carousel-img {
+  width: 100%;
+  height: auto;
+  background-color: #141414;
+}
+
+.carousel-item {
+  display: flex;
+  align-items: center;
+  margin: 0 0.2rem;
+  transform-origin: scale(1) translateX(0);
+  flex: 0 0 19.7%;
+  transition: all 0.5s ease-in-out;
+  position: relative;
+}
+
+.carousel-item:hover {
+  cursor: pointer;
+  transform: scale(1.6) !important;
+  z-index: 0;
+}
+
+.carousel-img:hover {
+  box-sizing: border-box;
+  border: 0.2vw #141414 solid;
+}
+
+.react-multi-carousel-list {
+  overflow: unset !important;
+}
+
+.carousel__container:hover {
+  z-index: 2;
+}
+
+.carousel-container:hover .carousel-item {
+  transform: translateX(-30%);
+}
+
+.carousel-item:hover ~ .carousel-item {
+  transform: translateX(30%);
+}
+
+.carousel-button-group {
+  visibility: hidden;
+  width: 100%;
+  justify-content: space-between;
+  display: flex;
+  background: none;
+  pointer-events: none;
+  height: 100%;
+  align-items: center;
+  transition: all 0.8s ease-in-out;
+}
+
+.carousel-container:hover .carousel-button-group {
+  visibility: visible;
+}
+
+.carousel-button-group > button {
+  pointer-events: all;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  width: 5vw;
+  height: 15vw;
+  display: flex;
+  justify-content: center;
+  background: rgb(20, 20, 20);
+  background: radial-gradient(
+    circle,
+    rgba(20, 20, 20, 0.539720856741573) 0%,
+    rgba(20, 20, 20, 0.2503950140449438) 25%,
+    rgba(20, 20, 20, 0) 100%
+  );
+  border: none;
+  align-items: center;
+}
+
+.svg-icon-arrow-left,
+.svg-icon-arrow-rigth {
+  position: relative;
+}
+
+.svg-icon-arrow-left,
+.svg-icon-arrow-rigth {
+  width: 3rem;
+  height: 3rem;
+}
+
+.svg-icon-arrow-left path,
+.svg-icon-arrow-left polygon,
+.svg-icon-arrow-left rect,
+.svg-icon-arrow-rigth path,
+.svg-icon-arrow-rigth polygon,
+.svg-icon-arrow-rigth rect {
+  fill: #fff;
+}
+
+.svg-icon-arrow-left circle,
+.svg-icon-arrow-rigth circle {
+  stroke: #fff;
+  stroke-width: 2;
+}
+
+@media (max-width: 1100px) {
+  .carousel__container {
+    min-height: 18vw;
+  }
+
+  .carousel__container > p {
+    top: 1.5vw;
+  }
+}
+
+@media (max-width: 800px) {
+    .carousel__container {
+        min-height: 23vw;
+    }
+}
+
+@media (max-width: 500px) {
+    .carousel__container {
+        min-height: 35vw;
+    }
+
+    .carousel__container > p {
+        top: 3.5vw;
+        font-size: 2.5vw;
+      }
+}

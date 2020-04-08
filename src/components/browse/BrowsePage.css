@@ -1,10 +1,21 @@
 .browse_container {
-    display: flex;
-    flex-direction: column;
-    min-height: 120vh;
-    padding-left: 4.4%;
-    box-sizing: border-box;
-    background-image: url('https://images3.alphacoders.com/111/thumb-1920-111207.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.browse_cover_container {
+  width: 100%;
+  height: auto;
+}
+
+.browse_cover_container > img {
+  width: 100%;
+  height: auto;
+  position: absolute;
+}
+
+.lists-browse-container {
+  top: 100vw;
+  position: relative;
 }

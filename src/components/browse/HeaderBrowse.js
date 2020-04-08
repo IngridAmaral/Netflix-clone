@@ -20,12 +20,10 @@ class HeaderBrowse extends React.Component {
     } else {
       state = "";
     }
-    console.log(window.pageYOffset);
     this.setState({ bgColor: state });
   };
 
   render() {
-    console.log(this.state.bgColor);
     const menu = ["Start", "Series", "Movies", "Most Recent", "My list"];
     const styleHover = {
       cursor: "pointer"
@@ -38,7 +36,7 @@ class HeaderBrowse extends React.Component {
 
     let user = {
       avatar:
-        "https://mir-s3-cdn-cf.behance.net/project_modules/disp/84c20033850498.56ba69ac290ea.png"
+        "https://mir-s3-cdn-cf.behance.net/project_modules/disp/1bdc9a33850498.56ba69ac2ba5b.png"
     };
     return (
       <div
@@ -54,7 +52,7 @@ class HeaderBrowse extends React.Component {
             <DropdownMenu items={menu} />
             <div className="menu-items">
               {menu.map(id => (
-                <span
+                <span key={id}
                   className="menu-item"
                   style={id === "Start" ? styleCurrent : styleHover}
                 >
@@ -75,9 +73,9 @@ class HeaderBrowse extends React.Component {
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="#fff"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 >
                   <rect x="3" y="12" width="18" height="10" />
                   <rect x="2" y="7" width="20" height="5" />
@@ -88,7 +86,7 @@ class HeaderBrowse extends React.Component {
               
               
                 <svg
-                  class="octicon octicon-bell"
+                  className="octicon octicon-bell"
                   viewBox="0 0 14 16"
                   version="1.1"
                   width="1.3em"
@@ -97,14 +95,14 @@ class HeaderBrowse extends React.Component {
                   fill="#fff"
                 >
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M14 12v1H0v-1l.73-.58c.77-.77.81-2.55 1.19-4.42C2.69 3.23 6 2 6 2c0-.55.45-1 1-1s1 .45 1 1c0 0 3.39 1.23 4.16 5 .38 1.88.42 3.66 1.19 4.42l.66.58H14zm-7 4c1.11 0 2-.89 2-2H5c0 1.11.89 2 2 2z"
                   ></path>
                 </svg>
               
               <div className="header-avatar">
                 <img src={user.avatar} alt="user avatar" />
-                <span class="caret"></span>
+                <span className="caret"></span>
               </div>
             </div>
           </div>

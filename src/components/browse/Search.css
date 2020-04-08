@@ -26,13 +26,13 @@
   display: flex;
   background-color: transparent;
   box-sizing: border-box;
-  padding: 0.3rem;
+  padding: 0.3rem 0 0.3rem 0.3rem;
   border: 0.1rem solid transparent;
   -webkit-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
   position: relative;
   margin: .5rem 0;
-
+  width: 1.1em;
 }
 
 .search_browser_container input {
@@ -51,3 +51,4 @@
     margin: .2rem 0;
   }
 }
+

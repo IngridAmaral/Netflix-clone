@@ -5,12 +5,13 @@ class DropdownMenu extends React.Component {
   render() {
     return (
       <div className="dropdown">
-        <button class="dropbtn">
-          To browse<span class="caret"></span>
+        <button className="dropbtn">
+          To browse<span className="caret"></span>
         </button>
-        <div class="dropdown-content">
+        <span className="caret-up"></span>
+        <div className="dropdown-content">
             {this.props.items.map(id => (
-                <a href='#'
+                <a key={id} href='#'
                   className="dropdown-item"
                 >
                   {id}
