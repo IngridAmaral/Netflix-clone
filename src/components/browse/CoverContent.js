@@ -1,6 +1,6 @@
 import React from "react";
 import "./CoverContent.css";
-import CarouselSlider from './CarouselSlider';
+import CarouselSlider from './carousel/CarouselSlider';
 import Lists from './Lists';
 
 class CoverContent extends React.Component {

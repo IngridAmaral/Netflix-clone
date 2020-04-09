@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .browse_cover_container {

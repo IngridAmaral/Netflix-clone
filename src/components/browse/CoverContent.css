@@ -49,7 +49,7 @@
   text-align: left;
   box-sizing: border-box;
   margin-top: 21vw;
-  margin-bottom: 6vw;
+  margin-bottom: 3vw;
 }
 
 .trailer_title > h1 {
@@ -135,6 +135,7 @@
 @media (max-width: 940px) {
   .layer_informations {
     margin-top: 16%;
+    margin-bottom: 2vw;
   }
 
   #video-container {
@@ -154,8 +155,8 @@
     font-size: 1.6vw;
   }
 }
-
-@media (max-width: 500px) {
+/* 
+@media (max-width: 600px) {
   .btn_watch > * {
     font-size: 2.5vw;
   }
@@ -170,5 +171,35 @@
 
   .layer_informations {
     margin-bottom: 0;
+  }
+} */
+
+@media (max-width: 600px) {
+  .btn_watch > * {
+    font-size: 2vw;
+  }
+
+  .trailer_title > h1 {
+    font-size: 4.5vw;
+  }
+
+  .trailer_title > h5 {
+    font-size: 2vw;
+  }
+
+  .caret-rigth {
+    width: 0;
+    height: 0;
+    border: .8vw solid transparent;
+    border-left-color: #fff;
+  }
+}
+
+@media (max-width: 380px) {
+  .trailer_title > h5 {
+    font-size: 2vw;
+  }
+  .btn_watch > * {
+    font-size: 2vw;
   }
 }

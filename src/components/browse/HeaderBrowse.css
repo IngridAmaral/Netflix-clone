@@ -11,7 +11,6 @@
 .header-container {
   z-index: 10;
   min-height: 5vw;
-  /* min-height: 4rem; */
   position: fixed;
   left: 0;
   top: 0;
@@ -92,9 +91,9 @@
 }
 
 @media (max-width: 1100px) {
-    .header-container {
-        max-height: 3rem;
-    }
+  .header-container {
+    max-height: 3rem;
+  }
 
   .menu-items {
     min-width: 60%;
@@ -119,7 +118,17 @@
 }
 
 @media (max-width: 840px) {
-    .menu-items {
-        display: none;
-    }
+  .menu-items {
+    display: none;
+  }
+}
+
+@media (max-width: 500px) {
+  .header-container {
+    min-height: 9vw;
+}
+
+  .header-content {
+    padding: 3vw;
+  }
 }

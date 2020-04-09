@@ -37,8 +37,6 @@ class Search extends React.Component {
         }
       >
         <svg
-          onClick={this.handleClick}
-          className="svg-icon"
           viewBox="0 0 20 20"
         >
           <path

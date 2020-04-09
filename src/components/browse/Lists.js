@@ -1,10 +1,9 @@
 import React from "react";
-import CarouselSlider from './CarouselSlider'
+import CarouselSlider from './carousel/CarouselSlider'
 
 class Lists extends React.Component {
   render() {
       const { movies } = this.props;
-    //   console.log
     return (
       <div>
         <CarouselSlider
