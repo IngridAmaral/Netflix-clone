@@ -1,4 +1,4 @@
-.svg-icon {
+.search-icon {
   width: 1.1em;
   height: 1.1em;
   position: absolute;
@@ -7,7 +7,7 @@
   transform: translateY(-50%);
 }
 
-.svg-icon path,
+/* .svg-icon path,
 .svg-icon polygon,
 .svg-icon rect {
   fill: #fff;
@@ -16,9 +16,9 @@
 .svg-icon circle {
   stroke: #fff;
   stroke-width: 1rem;
-}
+} */
 
-.svg-icon:hover {
+.search-icon:hover {
   cursor: pointer;
 }
 
