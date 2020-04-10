@@ -8,8 +8,9 @@ class Question extends React.Component {
   };
 
   handleClick = (target) => {
-    let stateNum = this.state.number;
-    let stateClicked = this.state.clicked;
+    const { number, clicked } = this.state;
+    let stateNum = number;
+    let stateClicked = clicked;
 
     if (target === stateNum) {
       stateClicked = !stateClicked;
@@ -83,15 +84,16 @@ class Question extends React.Component {
           const close = clicked && number === idx ? 'rotate(-45deg)' : '';
 
           return (
-            <div key={idx} className="question_each_container">
-              <div
+            <div key={question.question} className="question_each_container">
+              <button
+                type="button"
                 id={idx}
                 onClick={() => this.handleClick(idx)}
                 className="question_title"
               >
                 <h2>{question.question}</h2>
                 <p style={{ transform: close }}>+</p>
-              </div>
+              </button>
 
               <div className={`answer ${visibilityShow}`}>
                 {question.answer.length > 1 ? (

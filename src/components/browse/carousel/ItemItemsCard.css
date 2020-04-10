@@ -2,10 +2,11 @@
   background-color: rgba(0, 0, 0, 0.78);
   display: flex;
   box-sizing: border-box;
-  align-items: center;
   justify-content: center;
+  padding: .3vw;
   border-radius: 50%;
-  padding: 8px;
+  cursor: pointer;
+  outline: none;
 }
 
 .icon-card.small:hover {
@@ -36,8 +37,10 @@
 .big > i {
   font-size: 0.9vw;
   margin-left: 0.2vw;
+  color: white;
 }
 
 .small > i {
+  color: white;
   font-size: 0.6vw;
 }

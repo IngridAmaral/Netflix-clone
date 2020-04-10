@@ -16,18 +16,12 @@ class Search extends React.Component {
   };
 
   render() {
-    const layerStyleOn = {
-      height: '100rem',
-      width: '1000rem',
-      background: '#g6d5s5',
-      display: 'block',
-    };
-
+    const { openSearch } = this.state;
     return (
       <div
         className="search_browser_container"
         style={
-          this.state.openSearch
+          openSearch
             ? {
               border: '.05rem solid #fff',
               background: '#141414',
@@ -36,12 +30,12 @@ class Search extends React.Component {
             : { width: '1.5rem' }
         }
       >
-        <span className="search-icon" onClick={this.handleClick}>
+        <button type="button" className="search-icon" onClick={this.handleClick}>
           <i className="fas fa-search" />
-        </span>
+        </button>
         <input
           style={
-            this.state.openSearch
+            openSearch
               ? { width: '15rem', opacity: '1' }
               : { width: '0', opacity: '0' }
           }

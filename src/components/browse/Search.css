@@ -8,9 +8,8 @@
   top: 50%;
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
-}
-
-.search-icon:hover {
+  border: none;
+  color: white;
   cursor: pointer;
 }
 

@@ -17,7 +17,11 @@
     padding: .5rem 1rem;
     background-color: #333333;
     cursor: pointer;
-    border-top: .2rem solid #000;    
+    border-top: .2rem solid #000;
+    color: white;    
+    outline: none;
+    width: 100%;
+    border-style: none;
 }
 
 .question_title p {
