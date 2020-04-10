@@ -1,4 +1,7 @@
 .search-icon {
+  outline: none;
+  background: none;
+  padding: 0;
   width: 1.1em;
   height: 1.1em;
   position: absolute;
@@ -6,17 +9,6 @@
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
 }
-
-/* .svg-icon path,
-.svg-icon polygon,
-.svg-icon rect {
-  fill: #fff;
-}
-
-.svg-icon circle {
-  stroke: #fff;
-  stroke-width: 1rem;
-} */
 
 .search-icon:hover {
   cursor: pointer;

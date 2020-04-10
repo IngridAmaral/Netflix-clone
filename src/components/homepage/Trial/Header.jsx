@@ -1,6 +1,6 @@
-import React from "react";
-import "./Header.css";
-import {Link} from 'react-router-dom';
+import React from 'react';
+import './Header.css';
+import { Link } from 'react-router-dom';
 
 class Header extends React.Component {
   render() {
@@ -11,7 +11,7 @@ class Header extends React.Component {
           src="https://upload.wikimedia.org/wikipedia/commons/0/0f/Logo_Netflix.png"
           alt="Netflix Logo"
         />
-        <Link to='/login'><button className="trial_header_signin_btn">Sign in</button></Link>
+        <Link to="/login"><button className="trial_header_signin_btn">Sign in</button></Link>
       </div>
     );
   }

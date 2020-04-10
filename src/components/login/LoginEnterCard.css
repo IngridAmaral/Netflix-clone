@@ -55,6 +55,14 @@
     flex-direction: column;
 }
 
+.login_infos_google button {
+    outline: none;
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+}
+
 .login_infos_google div {
     display: flex;
 }

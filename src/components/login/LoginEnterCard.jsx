@@ -1,25 +1,29 @@
-import React from "react";
-import "./LoginEnterCard.css";
-import FormLogin from "./FormLogin";
-import { Link } from 'react-router-dom'
+import React from 'react';
+import PropTypes from 'prop-types';
+import './LoginEnterCard.css';
+import { Link } from 'react-router-dom';
+import FormLogin from './FormLogin';
 
 class LoginEnterCard extends React.Component {
   state = {
     showInfo: false,
   };
 
-  handleClickShow = e => {
+  handleClickShow = (e) => {
     e.preventDefault();
-    this.setState(state => ({ showInfo: !state.showInfo }));
+    this.setState((state) => ({ showInfo: !state.showInfo }));
   };
 
   render() {
-    const title  = this.props.signup === true ? 'Sign Up' : 'Sign In';
+    const { signup } = this.props;
+    const { showInfo } = this.state;
+
+    const title = signup === true ? 'Sign Up' : 'Sign In';
     return (
       <div className="login_enter_session">
         <h1>{title}</h1>
 
-        <FormLogin signup={this.props.signup} title={title} />
+        <FormLogin signup={signup} title={title} />
 
         <div className="login_facebook">
           <img
@@ -29,31 +33,35 @@ class LoginEnterCard extends React.Component {
           <p>Login with Facebook</p>
         </div>
 
-        {this.props.signup === true ? (
-          ""
+        {signup === true ? (
+          ''
         ) : (
           <div className="login_signup">
             New to Netflix?
-            <Link to='/signup' style={{textDecoration: 'none'}}><p> Sign up now </p></Link>.
+            <Link to="/signup" style={{ textDecoration: 'none' }}>
+              <p> Sign up now </p>
+            </Link>
+            .
           </div>
         )}
 
         <div className="login_infos_google">
           <div>
             <p>
-              This page is protected by Google reCAPTCHA to ensure you're not a
-              bot.{" "}
-              <a
-                href="#"
+              {
+                "This page is protected by Google reCAPTCHA to ensure you're not a bot. "
+              }
+              <button
+                type="button"
                 onClick={this.handleClickShow}
-                className={!this.state.showInfo ? "showLearn" : "hide"}
+                className={!showInfo ? 'showLearn' : 'hide'}
               >
                 Learn more.
-              </a>
+              </button>
             </p>
           </div>
 
-          <p className={this.state.showInfo ? "show" : "hide"}>
+          <p className={showInfo ? 'show' : 'hide'}>
             The information collected by Google reCAPTCHA is subject to the
             Google Privacy Policy and Terms of Service, and is used for
             providing, maintaining, and improving the reCAPTCHA service and for
@@ -65,5 +73,9 @@ class LoginEnterCard extends React.Component {
     );
   }
 }
+
+LoginEnterCard.propTypes = {
+  signup: PropTypes.bool.isRequired,
+};
 
 export default LoginEnterCard;

@@ -1,10 +1,10 @@
-import React from "react";
-import "./Form.css";
+import React from 'react';
+import './Form.css';
 
 class Form extends React.Component {
   render() {
     return (
-      <div className='form_container'>
+      <div className="form_container">
         <h5>Ready to watch? Enter your email to create or access your account.</h5>
         <form className="form_form">
           <input placeholder="Email address" />

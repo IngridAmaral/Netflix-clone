@@ -1,77 +1,77 @@
-import React from "react";
-import "./Footer.css";
+import React from 'react';
+import './Footer.css';
 
 class Footer extends React.Component {
   render() {
     const footerLinks = [
       {
-        name: "FAQ",
-        path: ""
+        name: 'FAQ',
+        path: '',
       },
       {
-        name: "Help Center",
-        path: ""
+        name: 'Help Center',
+        path: '',
       },
       {
-        name: "Account",
-        path: ""
+        name: 'Account',
+        path: '',
       },
       {
-        name: "Media Center",
-        path: ""
+        name: 'Media Center',
+        path: '',
       },
       {
-        name: "Investor Relations",
-        path: ""
+        name: 'Investor Relations',
+        path: '',
       },
       {
-        name: "Jobs",
-        path: ""
+        name: 'Jobs',
+        path: '',
       },
       {
-        name: "Redeem Gift Cards",
-        path: ""
+        name: 'Redeem Gift Cards',
+        path: '',
       },
       {
-        name: "Buy Gift Cards",
-        path: ""
+        name: 'Buy Gift Cards',
+        path: '',
       },
       {
-        name: "Ways to Watch",
-        path: ""
+        name: 'Ways to Watch',
+        path: '',
       },
       {
-        name: "Terms of Use",
-        path: ""
+        name: 'Terms of Use',
+        path: '',
       },
       {
-        name: "Privacy",
-        path: ""
+        name: 'Privacy',
+        path: '',
       },
       {
-        name: "Cookie Preferences",
-        path: ""
+        name: 'Cookie Preferences',
+        path: '',
       },
       {
-        name: "Impressum",
-        path: ""
+        name: 'Impressum',
+        path: '',
       },
       {
-        name: "Contact Us",
-        path: ""
+        name: 'Contact Us',
+        path: '',
       },
       {
-        name: "Speed Test",
-        path: ""
+        name: 'Speed Test',
+        path: '',
       },
       {
-        name: "Legal Notices",
-        path: ""
+        name: 'Legal Notices',
+        path: '',
       },
       {
-        name: "Netflix Originals",
-        path: ""
-      }
+        name: 'Netflix Originals',
+        path: '',
+      },
     ];
 
     return (
@@ -79,22 +79,21 @@ class Footer extends React.Component {
         <div className="footer_inside_container">
           <h4>Questions? Call 0800-724-0697</h4>
           <div className="footer_links">
-            {footerLinks.map((link, idx) => {
-              return <div key={idx}><p>{link.name}</p></div>;
-            })}
+            {footerLinks.map((link, idx) => <div key={idx}><p>{link.name}</p></div>)}
           </div>
           <div className="footer_language_selector">
-           <select>
+            <select>
               <option>
-              
-                  English
 
-                  </option><option>
-                  Deutsch
+                English
 
-                  </option>
-                </select>
-            </div>
+              </option>
+              <option>
+                Deutsch
+
+              </option>
+            </select>
+          </div>
           <p>Netflx Germany</p>
         </div>
       </div>
