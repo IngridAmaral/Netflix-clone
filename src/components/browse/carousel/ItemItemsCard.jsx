@@ -11,7 +11,11 @@ const ItemItemsCard = ({ icon, size, onClick }) => (
 ItemItemsCard.propTypes = {
   icon: PropTypes.string.isRequired,
   size: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
+};
+
+ItemItemsCard.defaultProps = {
+  onClick: PropTypes.string,
 };
 
 export default ItemItemsCard;

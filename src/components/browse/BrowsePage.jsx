@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+
 import './BrowsePage.css';
 
 import HeaderBrowse from './HeaderBrowse';
@@ -46,11 +47,11 @@ class Browse extends React.Component {
       <div className="browse_container">
         <div className="browse_cover_container">
           {movies ? (
-            <>
+            <div>
               <CoverContent movies={movies} />
               <HeaderBrowse />
               {' '}
-            </>
+            </div>
           ) : (
             ''
           )}

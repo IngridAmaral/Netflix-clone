@@ -1,5 +1,8 @@
 import React from 'react';
+
 import './Content.css';
+
+import ContentInfos from './ContentInfos';
 
 const Content = () => {
   const content = [
@@ -26,33 +29,15 @@ const Content = () => {
   ];
   return (
     <div className="content_container">
-      {content.map((cont, idx) => {
-        if (idx % 2 === 0) {
-          return (
-            <div className="content_container_rigth">
-              <div className="content_text">
-                <h1>{cont.title}</h1>
-                <h2>{cont.text}</h2>
-              </div>
-              <div className="content_image_container">
-                <img src={cont.imgUrl} alt={cont.title} />
-              </div>
-            </div>
-          );
-        }
-        return (
-          <div className="content_container_left">
-            <div className="content_image_container">
-              <img src={cont.imgUrl} alt={cont.title} />
-            </div>
-            {' '}
-            <div className="content_text">
-              <h1>{cont.title}</h1>
-              <h2>{cont.text}</h2>
-            </div>
-          </div>
-        );
-      })}
+      {content.map((cont, idx) => (
+        <ContentInfos
+          key={cont.title}
+          title={cont.title}
+          text={cont.text}
+          imgUrl={cont.imgUrl}
+          side={idx % 2 === 0 ? 'right' : 'left'}
+        />
+      ))}
     </div>
   );
 };

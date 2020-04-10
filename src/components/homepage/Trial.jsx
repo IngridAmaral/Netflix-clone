@@ -1,7 +1,9 @@
 import React from 'react';
+
+import './Trial.css';
+
 import Header from './Trial/Header';
 import UserFreeTry from './Trial/UserFreeTry';
-import './Trial.css';
 
 const Trial = () => (
   <div className="trial_container">

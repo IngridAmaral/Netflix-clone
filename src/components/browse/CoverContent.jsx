@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import './CoverContent.css';
+
 import CarouselSlider from './carousel/CarouselSlider';
 import Lists from './Lists';
 
@@ -42,8 +44,10 @@ const CoverContent = ({ movies }) => (
 
 CoverContent.propTypes = {
   movies: PropTypes.arrayOf(
-    PropTypes.oneOfType(PropTypes.number, PropTypes.string,
-      PropTypes.arrayOf(PropTypes.number)),
+    PropTypes.oneOfType(
+      [PropTypes.number, PropTypes.string,
+        PropTypes.arrayOf(PropTypes.number)],
+    ),
   ).isRequired,
 };
 
