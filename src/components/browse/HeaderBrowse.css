@@ -62,6 +62,13 @@
   justify-content: space-between;
 }
 
+.menu-item {
+  border-style: none;
+  outline: none;
+  background-color: transparent;
+  color: white;
+}
+
 .menu-item:hover {
   opacity: 0.8;
 }

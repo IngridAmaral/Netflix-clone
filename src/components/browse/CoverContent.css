@@ -21,23 +21,14 @@
   height: 90%;
   overflow: hidden;
   position: absolute;
-  background: rgb(20, 20, 20);
-  background: linear-gradient(
-    0deg,
-    rgba(20, 20, 20, 1) 0%,
-    rgba(20, 20, 20, 1) 0%,
-    rgba(20, 20, 20, 0.8346646769662921) 8%,
-    rgba(20, 20, 20, 0.4498332162921348) 16%,
-    rgba(20, 20, 20, 0.2503950140449438) 26%,
-    rgba(20, 20, 20, 0) 100%
-  );
 }
 
 #video-container > img {
   position: absolute;
   z-index: -1;
   width: 100%;
-  height: auto;
+  height: 52vw;
+  border-bottom: 1vw solid #101010;
 }
 
 .layer_informations {

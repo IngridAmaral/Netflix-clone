@@ -1,6 +1,6 @@
 import React from 'react';
-import './Search.css';
 import onClickOutside from 'react-onclickoutside';
+import './Search.css';
 
 class Search extends React.Component {
   state = {
@@ -15,8 +15,15 @@ class Search extends React.Component {
     this.setState((state) => ({ openSearch: !state.openSearch }));
   };
 
+  handleClose = () => {
+    const { handleSearch } = this.props;
+    this.setState({ openSearch: false });
+    handleSearch('789456123');
+  }
+
   render() {
     const { openSearch } = this.state;
+    const { handleInput, input } = this.props;
     return (
       <div
         className="search_browser_container"
@@ -40,8 +47,18 @@ class Search extends React.Component {
               : { width: '0', opacity: '0' }
           }
           type="text"
+          value={input}
+          onChange={handleInput}
           placeholder="Titles, actors, genre"
         />
+        {input.length > 0
+          ? (
+            <button type="button" className="close-icon" onClick={this.handleClose}>
+              <i className="fas fa-times" />
+            </button>
+          )
+          : null}
+
       </div>
     );
   }

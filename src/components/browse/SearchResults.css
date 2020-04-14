@@ -1,0 +1,24 @@
+.results_container {
+    display: flex;
+    min-height: 100vh;
+    flex-wrap: wrap;
+    padding: 6vw 3.5vw;
+    box-sizing: border-box;
+}
+
+.item-result {
+    display: flex;
+    min-width: 15vw;
+    flex: 1;
+    margin: 1vw;
+    height: 10vw;
+}
+
+.item-result:hover {
+    transform: scale(1.5);
+}
+
+.item-result:hover {
+    transform: translateX(25%);
+}
+ 

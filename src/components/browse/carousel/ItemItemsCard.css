@@ -10,7 +10,7 @@
 }
 
 .icon-card.small:hover {
-  transform: scale(.8);
+  transform: scale(1.1);
   transform-origin: center;
 }
 
@@ -22,7 +22,7 @@
   height: 1.2vw;
   width: 1.2vw;
   transform: scale(.9);
-  margin-top: .1vw;
+  margin-top: .3vw;
   border: 1px solid rgba(255, 255, 255, 0.6);
 }
 

@@ -1,0 +1,88 @@
+.carousel-item:hover .item-informations {
+  visibility: visible;
+  opacity: 1;
+}
+
+.item-informations {
+  visibility: hidden;
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  transition: all 0.8s ease-in-out;
+}
+
+.item-card-interaction {
+  min-height: 80%;
+}
+
+.item-more-infos-icon {
+  min-height: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.item-play,
+.item-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 1vw;
+  box-sizing: border-box;
+}
+
+.item-actions {
+  width: 50%;
+  display: flex;
+  align-items: flex-end;
+}
+
+.item-card-interaction:hover .item-play i {
+  color: #e50914;
+}
+
+.item-title {
+  font-weight: bold;
+  font-size: 0.8vw;
+}
+
+.item-more-infos-icon {
+  width: 100%;
+  height: 1.4vw;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.item-more-infos-icon > svg {
+  display: flex;
+  width: 5vw;
+  max-height: 1.5vw;
+  justify-content: center;
+  align-items: center;
+  transform: scale(0.6);
+}
+
+.item-card-interaction {
+  display: flex;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.item-more-infos-icon:hover > svg > path {
+  fill: #e50914;
+}
+
+@media (max-width: 600px) {
+  .item-play,
+  .item-actions {
+    padding: 1w;
+  }
+
+  .item-more-infos-icon > svg {
+    max-height: 4vw;
+    width: 15vw;
+  }
+}

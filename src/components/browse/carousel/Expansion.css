@@ -1,0 +1,28 @@
+.expanded-informations {
+    width: 100%;
+    height: 35vw;
+    margin-top: .5vw;
+}
+
+.expanded-layer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: rgb(20,20,20);
+    background: linear-gradient(90deg, rgba(20,20,20,1) 0%, rgba(20,20,20,1) 50%, rgba(20,20,20,0.9189343398876404) 58%, rgba(20,20,20,0) 73%);
+}
+.expanded-top {
+    display: flex;
+    padding: 1.5vw;
+    box-sizing: border-box;
+    width: 100%;
+    justify-content: space-between;
+    height: 90%;
+}
+
+.expanded-bottom{
+    display: flex;
+    justify-content: center;
+}
+

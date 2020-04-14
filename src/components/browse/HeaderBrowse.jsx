@@ -1,6 +1,9 @@
 import React from 'react';
-import { netflixLogo } from '../netflixLogo';
+import { Link } from 'react-router-dom';
+
 import './HeaderBrowse.css';
+
+import { netflixLogo } from '../netflixLogo';
 import Search from './Search';
 import DropdownMenu from './DropdownMenu';
 
@@ -24,8 +27,14 @@ class HeaderBrowse extends React.Component {
   };
 
   render() {
-    const { bgColor } = this.state;
+    const {
+      bgColor, currentPage,
+    } = this.state;
+    const {
+      page, onClick, handleSearch, handleInput, input,
+    } = this.props;
     const menu = ['Start', 'Series', 'Movies', 'Most Recent', 'My list'];
+
     const styleHover = {
       cursor: 'pointer',
     };
@@ -39,6 +48,7 @@ class HeaderBrowse extends React.Component {
       avatar:
         'https://mir-s3-cdn-cf.behance.net/project_modules/disp/1bdc9a33850498.56ba69ac2ba5b.png',
     };
+
     return (
       <div
         className="header-container"
@@ -53,18 +63,21 @@ class HeaderBrowse extends React.Component {
             <DropdownMenu items={menu} />
             <div className="menu-items">
               {menu.map((id) => (
-                <span
-                  key={id}
-                  className="menu-item"
-                  style={id === 'Start' ? styleCurrent : styleHover}
-                >
-                  {id}
-                </span>
+                <Link key={id} to={id === 'Start' ? 'browse' : id.toLowerCase().replace(' ', '')}>
+                  <button
+                    type="button"
+                    className="menu-item"
+                    onClick={() => onClick(id)}
+                    style={currentPage === id ? styleCurrent : styleHover}
+                  >
+                    {id}
+                  </button>
+                </Link>
               ))}
             </div>
           </div>
           <div className="header-rigth">
-            <Search />
+            <Search input={input} handleSearch={handleSearch} handleInput={handleInput} />
             <div className="header-rigth-items">
               <span>CHILD</span>
 

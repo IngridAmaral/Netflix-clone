@@ -6,11 +6,10 @@ import './CoverContent.css';
 import CarouselSlider from './carousel/CarouselSlider';
 import Lists from './Lists';
 
-
-const CoverContent = ({ movies }) => (
+const CoverContent = ({
+  movies, handleExpand, activeId, sectionName,
+}) => (
   <div className="cover_container">
-
-    {console.log(movies)}
     <div id="video-container">
       <img src={`https://image.tmdb.org/t/p/original${movies[11].backdrop_path}`} alt="img" />
     </div>
@@ -37,8 +36,15 @@ const CoverContent = ({ movies }) => (
         </button>
       </div>
     </div>
-    <CarouselSlider title="My List" movies={movies} imageRootPath="https://image.tmdb.org/t/p/original" />
-    <Lists movies={movies} />
+    <CarouselSlider
+      title="My List"
+      imageRootPath="https://image.tmdb.org/t/p/original"
+      activeId={activeId}
+      movies={movies}
+      handleExpand={handleExpand}
+      sectionName={sectionName}
+    />
+    <Lists sectionName={sectionName} handleExpand={handleExpand} activeId={activeId} movies={movies} />
   </div>
 );
 
@@ -49,6 +55,11 @@ CoverContent.propTypes = {
         PropTypes.arrayOf(PropTypes.number)],
     ),
   ).isRequired,
+  getMovies: PropTypes.func,
+};
+
+CoverContent.defaultProps = {
+  getMovies: PropTypes.string,
 };
 
 export default CoverContent;

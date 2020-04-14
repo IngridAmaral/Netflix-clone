@@ -279,9 +279,7 @@ class FormLogin extends React.Component {
             </button>
           )}
           <div className="login_check_help">
-            {signup ? (
-              ''
-            ) : (
+            {!signup && (
               <div>
                 <label
                   className="login_checkbox_container"
