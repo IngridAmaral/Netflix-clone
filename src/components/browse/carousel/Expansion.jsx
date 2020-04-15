@@ -33,14 +33,26 @@ class Expansion extends React.Component {
             <div className="expanded-top">
               <div className="expanded-left">
                 <div className="expanded-title">
-                  {activeId.title}
+                  {activeId.title || activeId.original_name}
                 </div>
                 <div className="expanded-date">
                   {activeId.release_date !== undefined ? activeId.release_date.slice(0, 4) : activeId.first_air_date.slice(0, 4)}
                 </div>
                 <div className="expanded-overview">
-                  {activeId.overview.slice(0, 200)}
+                  {activeId.overview.slice(0, 150)}
                 </div>
+                <div className="expansion-btns">
+                  <button type="button" className="expansion-btn-watch">
+                    <svg id="expansion-play-icon" viewBox="0 0 28 28">
+                      <polygon fill="#fff" className="arrow" points="10 20 10 8 20 14" />
+                    </svg>
+                    watch
+                  </button>
+                  <button type="button" className="expansion-btn-mylist">
+                    + My List
+                  </button>
+                </div>
+
               </div>
               <div className="item-active-right">
                 <button type="button" onClick={this.handleClose} className="close-item-active">

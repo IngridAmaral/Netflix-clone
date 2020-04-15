@@ -37,7 +37,7 @@ class Lists extends React.Component {
       return null;
     }
 
-    console.log(popular);
+    console.log(similar);
     return (
       <div>
         <CarouselSlider

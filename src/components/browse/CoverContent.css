@@ -21,6 +21,8 @@
   height: 90%;
   overflow: hidden;
   position: absolute;
+  background: linear-gradient(77deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 85%);
+
 }
 
 #video-container > img {
@@ -40,7 +42,7 @@
   text-align: left;
   box-sizing: border-box;
   margin-top: 21vw;
-  margin-bottom: 3vw;
+  margin-bottom: 3.5vw;
 }
 
 .trailer_title > h1 {

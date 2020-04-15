@@ -32,6 +32,8 @@ class Item extends React.Component {
         border: `${activeId && activeId.id === movie.id ? '.3vw solid white' : ''}`,
       };
 
+      const relevantCutDecimal = movie.popularity.toString().split('.');
+      const relevant = Number(relevantCutDecimal[0]) > 100 ? 9 + (Math.random() * (9 - 0) + 0).toFixed(0) : relevantCutDecimal[0];
       return (
         <div
           key={movie.id}
@@ -51,6 +53,10 @@ class Item extends React.Component {
                       </g>
                     </svg>
                     <span className="item-title">{movie.title || movie.name}</span>
+                    <span className="item-relevant">
+                      {relevant}
+                      % relevant
+                    </span>
                   </div>
                   <div className="item-actions">
                     <ItemItemsCard
@@ -60,11 +66,11 @@ class Item extends React.Component {
                     ? 'fas fa-volume-mute'
                     : 'fas fa-volume-up'
                 }
-                      size="small"
+
                     />
-                    <ItemItemsCard icon="far fa-thumbs-up" size="small" />
-                    <ItemItemsCard icon="far fa-thumbs-down" size="small" />
-                    {/* <ItemItemsCard icon="fas fa-check" size="small" /> */}
+                    <ItemItemsCard icon="far fa-thumbs-up" />
+                    <ItemItemsCard icon="far fa-thumbs-down" />
+                    {/* <ItemItemsCard icon="fas fa-check" /> */}
                   </div>
                 </div>
 

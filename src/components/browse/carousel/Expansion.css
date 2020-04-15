@@ -2,6 +2,7 @@
 
 .expanded-informations {
     width: 100%;
+    background-image: linear-gradient(to right, #000, transparent);
     transition: all .5s cubic-bezier(0.5, 0, 0.1, 1);
 }
 
@@ -12,8 +13,7 @@
     height: 35vw;
     display: flex;
     flex-direction: column;
-    background: rgb(0,0,0);
-    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.989159058988764) 35%, rgba(20,20,20,0.94140625) 38%, rgba(20,20,20,0.8121927668539326) 41%, rgba(20,20,20,0.7672489466292135) 45%, rgba(20,20,20,0) 100%);
+    background: linear-gradient(90deg, rgba(0,0,0,0.9807320926966292) 35%, rgba(0,0,0,1) 37%, rgba(0,0,0,0.8992714185393258) 39%, rgba(0,0,0,0.741968047752809) 41%, rgba(0,0,0,0.343091643258427) 45%);
 }
 
 .expanded-informations.close {
@@ -65,7 +65,7 @@
 }
 
 .expanded-left{
-    width: 45%;
+    width: 40%;
     display: flex;
     flex-direction: column;
     padding-top: 1vw;
@@ -75,11 +75,68 @@
     display: flex;
     justify-content: flex-start;
     font-weight: bold;
-    font-size: 3vw;
+    font-size: 3.5vw;
+    margin-bottom: .8vw;
+    width: 85%;
+}
+
+.expanded-date {
+    font-weight: bold;
     margin-bottom: 1vw;
 }
 
 .expanded-overview {
     font-weight: 300;
+    padding: 0;
     color: gray;
+    font-size: 1.27vw;
+}
+
+.expansion-btns {
+    display: flex;
+}
+
+.expansion-btn-watch > #expansion-play-icon {
+    height: 2.2vw;
+    width: 2.2vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.expansion-btn-watch, .expansion-btn-mylist {
+    font-size: 1vw;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    outline: none;
+    width: fit-content;
+    text-transform: uppercase;
+    transition: all .2s ease;
+    cursor: pointer;
+    margin: 2vw 0;
+    color: #fff;
+}
+
+.expansion-btn-mylist {
+    background-color: transparent;
+    border: .1vw solid white;
+    padding: 0 2vw;
+}
+
+.expansion-btn-watch {
+    background-color: #e50914;
+    margin-right: 1vw;
+    padding: .2vw 2.5vw .2vw 1vw;
+
+}
+
+.expansion-btn-watch:hover, .expansion-btn-mylist:hover {
+    transform: scale(1.025);
+}
+
+.expansion-btn-mylist {
+
 }
