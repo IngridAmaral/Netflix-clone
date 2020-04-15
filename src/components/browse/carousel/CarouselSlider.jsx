@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import './Carousel.css';
-import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
+
+import Carousel from 'react-multi-carousel';
 import Item from './Item';
 import Expansion from './Expansion';
 
@@ -60,7 +62,7 @@ class CarouselSlider extends React.Component {
           // partialVisible={true}
           // minimumTouchDrag={10}
           customButtonGroup={
-            <ButtonGroup removeMargin={removeMargin} />
+            activeId ? '' : <ButtonGroup removeMargin={removeMargin} />
           }
           // showDots={true}
           responsive={responsive}
@@ -72,25 +74,28 @@ class CarouselSlider extends React.Component {
           keyBoardControl={false}
           customTransition="all .5s ease-in-out"
           transitionDuration={500}
-          containerClass="carousel-container"
+          containerClass={`carousel-container ${activeId && title === sectionName ? 'block-container' : 'hover-container'}`}
           removeArrowOnDeviceType={['mobile']}
           deviceType={this.props.deviceType}
-          itemClass="carousel-item"
+          itemClass={`carousel-item ${activeId && title === sectionName ? 'block-item' : 'hover-item'}`}
         >
           {movies.map((movie) => (
             <Item
               key={movie.id}
               movie={movie}
+              image={imageRootPath + movie.poster_path}
               activeId={activeId}
               handleExpand={handleExpand}
               title={title}
+              sectionName={sectionName}
             />
           ))}
         </Carousel>
         <Expansion
           activeId={activeId}
-          imageRootPath={imageRootPath}
+          image={activeId ? imageRootPath + activeId.backdrop_path : ''}
           movie={movies}
+          handleExpand={handleExpand}
           sectionName={sectionName}
           title={title}
         />
@@ -137,6 +142,12 @@ CarouselSlider.propTypes = {
   ).isRequired,
   imageRootPath: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  handleExpand: PropTypes.func.isRequired,
+  sectionName: PropTypes.string,
+};
+
+CarouselSlider.defaultProps = {
+  sectionName: '',
 };
 
 export default CarouselSlider;

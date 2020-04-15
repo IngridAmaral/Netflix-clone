@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import './HeaderBrowse.css';
 
@@ -31,7 +32,7 @@ class HeaderBrowse extends React.Component {
       bgColor, currentPage,
     } = this.state;
     const {
-      page, onClick, handleSearch, handleInput, input,
+      onClick, handleSearch, handleInput, input,
     } = this.props;
     const menu = ['Start', 'Series', 'Movies', 'Most Recent', 'My list'];
 
@@ -126,5 +127,16 @@ class HeaderBrowse extends React.Component {
     );
   }
 }
+
+HeaderBrowse.propTypes = {
+  handleSearch: PropTypes.func.isRequired,
+  handleInput: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
+  input: PropTypes.string,
+};
+
+HeaderBrowse.defaultProps = {
+  input: '',
+};
 
 export default HeaderBrowse;

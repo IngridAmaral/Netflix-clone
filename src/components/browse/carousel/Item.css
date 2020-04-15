@@ -3,6 +3,33 @@
   opacity: 1;
 }
 
+.carousel-img {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.carousel-img:hover {
+  outline: #141414 .1vw solid;
+}
+
+.caret-item-open {
+  position: absolute;
+  font-size: 2.5vw;
+  color: #fff;
+  bottom: -2vw;
+}
+
+.item-layer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+}
+
 .item-informations {
   visibility: hidden;
   opacity: 0;
@@ -14,14 +41,28 @@
 }
 
 .item-card-interaction {
-  min-height: 80%;
+  min-height: 85%;
 }
 
 .item-more-infos-icon {
-  min-height: 20%;
+  padding: .2vw;
+  min-height: 15%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  width: 100%;
+}
+
+#chevron-down {
+  width: 2vw;
+}
+
+#play-with-ring {
+  width: 1.5vw;
+  padding-bottom: .2vw;
+}
+
+.item-card-interaction:hover polygon {
+  fill: #e50914;
 }
 
 .item-play,
@@ -39,30 +80,9 @@
   align-items: flex-end;
 }
 
-.item-card-interaction:hover .item-play i {
-  color: #e50914;
-}
-
 .item-title {
   font-weight: bold;
   font-size: 0.8vw;
-}
-
-.item-more-infos-icon {
-  width: 100%;
-  height: 1.4vw;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-}
-
-.item-more-infos-icon > svg {
-  display: flex;
-  width: 5vw;
-  max-height: 1.5vw;
-  justify-content: center;
-  align-items: center;
-  transform: scale(0.6);
 }
 
 .item-card-interaction {
@@ -75,14 +95,35 @@
   fill: #e50914;
 }
 
+.chevron-down-active {
+  display: flex;
+  padding: .5vw;
+  align-items: flex-end;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+  background-color: hsla(0, 0%, 0%, 0.21);
+}
+
+#chevron-down {
+  visibility: hidden;
+  opacity: 0;
+  transition: all .5s ease;
+}
+
+.chevron-down-active > #chevron-down {
+  width: 3vw;
+}
+
+.carousel-img:hover #chevron-down {
+  visibility: visible;
+  opacity: 1;
+}
+
 @media (max-width: 600px) {
   .item-play,
   .item-actions {
     padding: 1w;
-  }
-
-  .item-more-infos-icon > svg {
-    max-height: 4vw;
-    width: 15vw;
   }
 }

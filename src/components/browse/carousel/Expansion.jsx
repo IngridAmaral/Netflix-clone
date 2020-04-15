@@ -1,61 +1,76 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import './Expansion.css';
 
 class Expansion extends React.Component {
-    state={
-      expandedMovie: null,
-    }
-
-    handleExpandedMovie = (movie) => {
-    //   const {
-    //     movies, imageRootPath, activeId, handleExpand,
-    //   } = this.props;
-    //   const { expandedMovie } = this.state;
-
-    //   if (movie.id === activeId.id && expandedMovie.id !== movie.id) {
-    //     this.setState((state) => ({ expandedMovie: movie.id !== state.expandedMovie.id ? movie : state.expandedMovie }));
-    //   }
+    handleClose = () => {
+      const { handleExpand } = this.props;
+      handleExpand(null, '');
     }
 
     render() {
       const {
-        imageRootPath, activeId, sectionName, title,
+        activeId, sectionName, title, image,
       } = this.props;
 
-      if (!activeId || title !== sectionName) {
-        return null;
-      }
       return (
         <div
-          className="expanded-informations"
+          className={`expanded-informations ${activeId ? 'open' : 'close'}`}
           style={{
             position: 'relative',
             zIndex: '-1',
-            backgroundSize: 'contain',
+            backgroundSize: '65% 100%',
             backgroundPosition: 'right',
             backgroundRepeat: 'no-repeat',
             backgroundImage: `url(${
-              imageRootPath + activeId.backdrop_path
+              image
             })`,
           }}
         >
+          {activeId && title === sectionName && (
           <div className="expanded-layer">
             <div className="expanded-top">
               <div className="expanded-left">
-                {activeId.title}
+                <div className="expanded-title">
+                  {activeId.title}
+                </div>
+                <div className="expanded-date">
+                  {activeId.release_date !== undefined ? activeId.release_date.slice(0, 4) : activeId.first_air_date.slice(0, 4)}
+                </div>
+                <div className="expanded-overview">
+                  {activeId.overview.slice(0, 200)}
+                </div>
               </div>
-              <div>
-                x
+              <div className="item-active-right">
+                <button type="button" onClick={this.handleClose} className="close-item-active">
+                  x
+                </button>
+                <div />
               </div>
             </div>
             <div className="expanded-bottom">
               bottom
             </div>
           </div>
+          )}
 
         </div>
       );
     }
 }
+
+Expansion.propTypes = {
+  handleExpand: PropTypes.func.isRequired,
+  sectionName: PropTypes.string,
+  title: PropTypes.string,
+  image: PropTypes.string,
+};
+
+Expansion.defaultProps = {
+  sectionName: '',
+  title: '',
+  image: '',
+};
 
 export default Expansion;

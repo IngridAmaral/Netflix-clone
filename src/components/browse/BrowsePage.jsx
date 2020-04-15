@@ -16,7 +16,6 @@ class Browse extends React.Component {
     currentPage: 'Start',
     input: '',
     resultSearch: null,
-    expand: false,
     activeId: null,
     sectionName: '',
   };
@@ -71,12 +70,10 @@ class Browse extends React.Component {
   }
 
   handleExpand = (movie, sectionName) => {
-    const { activeId } = this.state;
-
-    if (activeId && activeId.id === movie.id) {
-      this.setState((state) => ({ expand: !state.expand }));
+    if (!movie) {
+      this.setState({ activeId: movie, sectionName });
     } else {
-      this.setState({ expand: true, activeId: movie, sectionName });
+      this.setState({ activeId: movie, sectionName });
     }
   }
 
@@ -100,7 +97,7 @@ class Browse extends React.Component {
 
   render() {
     const {
-      input, resultSearch, movies, activeId, sectionName,
+      input, resultSearch, movies, activeId, sectionName, expand,
     } = this.state;
     return (
       <div className="browse_container">
@@ -109,7 +106,7 @@ class Browse extends React.Component {
             <div>
               { resultSearch
                 ? <SearchResults result={resultSearch} />
-                : <CoverContent handleExpand={this.handleExpand} sectionName={sectionName} activeId={activeId} movies={movies} />}
+                : <CoverContent expand={expand} handleExpand={this.handleExpand} sectionName={sectionName} activeId={activeId} movies={movies} />}
               <HeaderBrowse
                 onClick={this.handlePageChange}
                 handleSearch={this.handleSearch}

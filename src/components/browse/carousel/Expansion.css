@@ -1,28 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Paaji+2&display=swap');
+
 .expanded-informations {
     width: 100%;
-    height: 35vw;
-    margin-top: .5vw;
+    transition: all .5s cubic-bezier(0.5, 0, 0.1, 1);
 }
 
 .expanded-layer {
+    padding-left: 3vw;
+    box-sizing: border-box;
     width: 100%;
-    height: 100%;
+    height: 35vw;
     display: flex;
     flex-direction: column;
-    background: rgb(20,20,20);
-    background: linear-gradient(90deg, rgba(20,20,20,1) 0%, rgba(20,20,20,1) 50%, rgba(20,20,20,0.9189343398876404) 58%, rgba(20,20,20,0) 73%);
+    background: rgb(0,0,0);
+    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.989159058988764) 35%, rgba(20,20,20,0.94140625) 38%, rgba(20,20,20,0.8121927668539326) 41%, rgba(20,20,20,0.7672489466292135) 45%, rgba(20,20,20,0) 100%);
 }
+
+.expanded-informations.close {
+    max-height: 0;
+    opacity: 0;
+}
+
+.expanded-informations.open {
+    max-height: 1200px;
+    opacity: 1;
+}
+
+.expanded-date {
+    margin-bottom: 3vw;
+}
+
+.close-item-active {
+    border: none;
+    font-family: 'Baloo Paaji 2', cursive;
+    outline: transparent;
+    line-height: 0;
+    color: #fff;
+    font-size: 3vw;
+    height: 4vw;
+    width: 4vw;
+    cursor: pointer;
+    background: radial-gradient(ellipse at top right, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 70%, rgba(0, 0, 0, 0) 100%);
+}
+
+.item-active-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 .expanded-top {
     display: flex;
-    padding: 1.5vw;
     box-sizing: border-box;
     width: 100%;
     justify-content: space-between;
-    height: 90%;
+    /* height: 90%; */
 }
 
 .expanded-bottom{
     display: flex;
+    /* min-height:3vw; */
     justify-content: center;
+    align-items: flex-end;
 }
 
+.expanded-left{
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 1vw;
+}
+
+.expanded-title {
+    display: flex;
+    justify-content: flex-start;
+    font-weight: bold;
+    font-size: 3vw;
+    margin-bottom: 1vw;
+}
+
+.expanded-overview {
+    font-weight: 300;
+    color: gray;
+}

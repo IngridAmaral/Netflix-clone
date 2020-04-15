@@ -16,7 +16,9 @@ class Lists extends React.Component {
   componentDidMount = async () => {
     const requestPaths = ['movie/now_playing', 'movie/popular', 'movie/upcoming', 'discover/tv'];
 
-    const moviesList = await Promise.all(requestPaths.map((movie, idx) => getMovies(movie, idx + 1)));
+    const moviesList = await Promise.all(
+      requestPaths.map((movie, idx) => getMovies(movie, idx + 1)),
+    );
 
     const [nowPlaying, popular, upcoming, similar] = moviesList.map((movie) => movie.data.results);
 
@@ -26,8 +28,6 @@ class Lists extends React.Component {
   }
 
   render() {
-    // const res = this.handleGetList('movie/now_playing');
-    // console.log(res);
     const {
       nowPlaying, popular, upcoming, loading, similar,
     } = this.state;
@@ -37,6 +37,7 @@ class Lists extends React.Component {
       return null;
     }
 
+    console.log(popular);
     return (
       <div>
         <CarouselSlider
@@ -71,7 +72,6 @@ class Lists extends React.Component {
           title="Action"
           movies={similar}
           sectionName={sectionName}
-
           imageRootPath="https://image.tmdb.org/t/p/original"
         />
       </div>
@@ -80,10 +80,12 @@ class Lists extends React.Component {
 }
 
 Lists.propTypes = {
-  movies: PropTypes.arrayOf(
-    PropTypes.oneOfType([PropTypes.number, PropTypes.string,
-      PropTypes.arrayOf(PropTypes.number)]),
-  ).isRequired,
+  handleExpand: PropTypes.func.isRequired,
+  sectionName: PropTypes.string,
+};
+
+Lists.defaultProps = {
+  sectionName: '',
 };
 
 export default Lists;

@@ -7,7 +7,7 @@ import CarouselSlider from './carousel/CarouselSlider';
 import Lists from './Lists';
 
 const CoverContent = ({
-  movies, handleExpand, activeId, sectionName,
+  movies, handleExpand, activeId, sectionName, expand,
 }) => (
   <div className="cover_container">
     <div id="video-container">
@@ -37,6 +37,7 @@ const CoverContent = ({
       </div>
     </div>
     <CarouselSlider
+      expand={expand}
       title="My List"
       imageRootPath="https://image.tmdb.org/t/p/original"
       activeId={activeId}
