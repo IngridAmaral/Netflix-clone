@@ -32,12 +32,14 @@ class Lists extends React.Component {
       nowPlaying, popular, upcoming, loading, similar,
     } = this.state;
 
-    const { handleExpand, activeId, sectionName } = this.props;
+    const {
+      handleExpand, activeId, sectionName, genres,
+    } = this.props;
     if (loading) {
       return null;
     }
 
-    console.log(similar);
+    // console.log(similar);
     return (
       <div>
         <CarouselSlider
@@ -46,6 +48,7 @@ class Lists extends React.Component {
           title="Continue watching"
           movies={nowPlaying}
           sectionName={sectionName}
+          genres={genres}
           imageRootPath="https://image.tmdb.org/t/p/original"
         />
         <CarouselSlider
@@ -54,7 +57,7 @@ class Lists extends React.Component {
           title="Popular"
           movies={popular}
           sectionName={sectionName}
-
+          genres={genres}
           imageRootPath="https://image.tmdb.org/t/p/original"
         />
         <CarouselSlider
@@ -62,6 +65,7 @@ class Lists extends React.Component {
           activeId={activeId}
           title="Series EUA"
           movies={upcoming}
+          genres={genres}
           sectionName={sectionName}
 
           imageRootPath="https://image.tmdb.org/t/p/original"
@@ -71,6 +75,7 @@ class Lists extends React.Component {
           activeId={activeId}
           title="Action"
           movies={similar}
+          genres={genres}
           sectionName={sectionName}
           imageRootPath="https://image.tmdb.org/t/p/original"
         />

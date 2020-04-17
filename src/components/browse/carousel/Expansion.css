@@ -2,28 +2,30 @@
 
 .expanded-informations {
     width: 100%;
-    background-image: linear-gradient(to right, #000, transparent);
-    transition: all .5s cubic-bezier(0.5, 0, 0.1, 1);
+    transition: all .25s cubic-bezier(0.5, 0, 0.1, 1);
 }
 
 .expanded-layer {
     padding-left: 3vw;
     box-sizing: border-box;
     width: 100%;
-    height: 35vw;
+    min-height: 35vw;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     background: linear-gradient(90deg, rgba(0,0,0,0.9807320926966292) 35%, rgba(0,0,0,1) 37%, rgba(0,0,0,0.8992714185393258) 39%, rgba(0,0,0,0.741968047752809) 41%, rgba(0,0,0,0.343091643258427) 45%);
 }
 
 .expanded-informations.close {
     max-height: 0;
     opacity: 0;
+    visibility: hidden;
 }
 
 .expanded-informations.open {
     max-height: 1200px;
     opacity: 1;
+    visibility: visible;
 }
 
 .expanded-date {
@@ -54,12 +56,11 @@
     box-sizing: border-box;
     width: 100%;
     justify-content: space-between;
-    /* height: 90%; */
 }
+
 
 .expanded-bottom{
     display: flex;
-    /* min-height:3vw; */
     justify-content: center;
     align-items: flex-end;
 }
@@ -85,15 +86,23 @@
     margin-bottom: 1vw;
 }
 
-.expanded-overview {
+.expansion-overview, .expansion-genre {
     font-weight: 300;
     padding: 0;
     color: gray;
+}
+
+.expansion-overview {
     font-size: 1.27vw;
+}
+
+.expansion-genre {
+    font-size: 1.15vw;
 }
 
 .expansion-btns {
     display: flex;
+    align-items: center;
 }
 
 .expansion-btn-watch > #expansion-play-icon {
@@ -123,20 +132,50 @@
 .expansion-btn-mylist {
     background-color: transparent;
     border: .1vw solid white;
-    padding: 0 2vw;
+    padding: .6vw 2vw;
+    box-sizing: border-box;
 }
 
 .expansion-btn-watch {
     background-color: #e50914;
     margin-right: 1vw;
     padding: .2vw 2.5vw .2vw 1vw;
-
+    box-sizing: border-box;
 }
 
 .expansion-btn-watch:hover, .expansion-btn-mylist:hover {
     transform: scale(1.025);
 }
 
-.expansion-btn-mylist {
+.expansion-thumbs {
+    border-radius: 50%;
+    border: 1.5px solid gray;
+    margin-left: 1vw;
+    cursor: pointer;
+    transition: all .25s ease;
+}
 
+.expansion-thumbs > i {
+    font-size: 1.2vw;
+    padding: .5vw;
+}
+
+.expansion-thumbs:hover {
+    border: 1.5px solid white;
+    transform: scale(1.1);
+}
+
+.expanded-bottom > * {
+    cursor: pointer;
+    text-transform: uppercase;
+    color: white;
+    padding: 1vw 0;
+    margin: 0 1.4vw;
+    font-weight: bold;
+    background: transparent;
+    outline: none;
+    border: none;
+    font-size: 1vw;
+    border-bottom: .5vw solid transparent; 
+    transition: border .5s ease
 }

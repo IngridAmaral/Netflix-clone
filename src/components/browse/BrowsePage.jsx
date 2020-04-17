@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  getMovies, findMovie,
+  getMovies, findMovie, getGenres,
 } from '../../Api';
 
 import './BrowsePage.css';
@@ -18,6 +18,7 @@ class Browse extends React.Component {
     resultSearch: null,
     activeId: null,
     sectionName: '',
+    genres: null,
   };
 
   componentDidMount = () => {
@@ -29,6 +30,16 @@ class Browse extends React.Component {
           // handle success
           this.setState({ movies: response.data.results });
         })
+        .catch((error) => {
+          console.log(error);
+        })
+        .then(() => {
+          // always executed
+        });
+      getGenres().then((response) => {
+        // handle success
+        this.setState({ genres: response.data.genres });
+      })
         .catch((error) => {
           console.log(error);
         })
@@ -48,6 +59,7 @@ class Browse extends React.Component {
     getMovies(type)
       .then((response) => {
         // handle success
+        console.log(response.data.results);
         this.setState({ movies: response.data.results });
       })
       .catch((error) => {
@@ -97,7 +109,7 @@ class Browse extends React.Component {
 
   render() {
     const {
-      input, resultSearch, movies, activeId, sectionName, expand,
+      input, resultSearch, movies, activeId, sectionName, expand, genres,
     } = this.state;
     return (
       <div className="browse_container">
@@ -106,7 +118,7 @@ class Browse extends React.Component {
             <div>
               { resultSearch
                 ? <SearchResults result={resultSearch} />
-                : <CoverContent expand={expand} handleExpand={this.handleExpand} sectionName={sectionName} activeId={activeId} movies={movies} />}
+                : <CoverContent genres={genres} expand={expand} handleExpand={this.handleExpand} sectionName={sectionName} activeId={activeId} movies={movies} />}
               <HeaderBrowse
                 onClick={this.handlePageChange}
                 handleSearch={this.handleSearch}

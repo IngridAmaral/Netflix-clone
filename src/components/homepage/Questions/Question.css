@@ -42,15 +42,17 @@
     transition: max-height 0.25s cubic-bezier(0.5, 0, 0.1, 1);
 }
 
+.answer.show {
+    margin: .2rem 0;
+    max-height: 1200px;
+}
+
 .answer p {
     padding: 1rem;
     font-size: 2rem;
 }
 
-.answer.show {
-    margin: .2rem 0;
-    max-height: 1200px;
-}
+
 
 h2 {
     margin: 0;

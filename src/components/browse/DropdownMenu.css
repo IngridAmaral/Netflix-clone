@@ -17,6 +17,7 @@
   border-style: none;
   width: 100%;
   cursor: pointer;
+  outline: none;
 }
 
 /* Dropdown Button */

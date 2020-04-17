@@ -44,3 +44,10 @@ export const findSeries = async (text) => {
   );
   return resp;
 };
+
+export const getGenres = async () => {
+  const resp = await api.get(
+    `genre/movie/list?api_key=${API_KEY}&language=en-US`,
+  );
+  return resp;
+};
