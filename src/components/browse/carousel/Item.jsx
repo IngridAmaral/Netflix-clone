@@ -15,7 +15,7 @@ class Item extends React.Component {
     render() {
       const { mute } = this.state;
       const {
-        movie, handleExpand, activeId, title, sectionName, image,
+        movie, handleItemExpand, activeId, title, sectionName, image,
       } = this.props;
 
       const itemStyle = {
@@ -68,13 +68,15 @@ class Item extends React.Component {
                 }
 
                     />
+                    {/* <svg id="audio-off" viewBox="0 0 28 28"><polygon points="13 22 7 18 3 18 3 10 7 10 13 6"></polygon><g stroke="currentColor" stroke-width="2" transform="translate(19.500000, 14.000000) rotate(-315.000000) translate(-19.500000, -14.000000) translate(15.000000, 9.000000)" stroke-linecap="square"><path d="M0,5 L9,5"></path><path d="M4.5,0.5 L4.5,9.5"></path></g></svg> */}
+                    {/* <svg id="audio-on" viewBox="0 0 28 28"><path d="M13,22 L7,18 L3,18 L3,10 L7,10 L13,6 L13,22 Z M16.7437869,18.3889482 L15.3295734,16.9747347 C16.9546583,15.3496497 16.9546583,12.7148664 15.3295734,11.0897815 L16.7437869,9.6755679 C19.1499205,12.0817014 19.1499205,15.9828147 16.7437869,18.3889482 Z M19.2137399,20.2137399 L17.7995264,18.7995264 C20.4324159,16.1666368 20.4324159,11.8978793 17.7995264,9.26498977 L19.2137399,7.8507762 C22.6276781,11.2647144 22.6276781,16.7998018 19.2137399,20.2137399 Z M21.6836929,22.0385316 L20.2694793,20.6243181 C23.9101736,16.9836239 23.9101736,11.0808923 20.2694793,7.44019807 L21.6836929,6.02598451 C26.1054357,10.4477273 26.1054357,17.6167888 21.6836929,22.0385316 Z"></path></svg> */}
                     <ItemItemsCard icon="far fa-thumbs-up" />
                     <ItemItemsCard icon="far fa-thumbs-down" />
                     {/* <ItemItemsCard icon="fas fa-check" /> */}
                   </div>
                 </div>
 
-                <div className="item-more-infos-icon" onClick={() => handleExpand(movie, title)}>
+                <div className="item-more-infos-icon" onClick={() => handleItemExpand(movie, title)}>
                   <svg id="chevron-down" viewBox="0 0 60 19">
                     <path fill="currentColor" d="M59.5615866,2.44258873 L31.1899791,17.6617954 C30.7515658,17.9123173 30.2505219,18.1002088 30.0626305,18.1002088 C29.874739,18.1002088 29.6242171,18.0375783 29.5615866,18.0375783 C29.4363257,17.9749478 28.9979123,17.7244259 28.559499,17.5365344 L0.501043841,2.44258873 C0.187891441,2.31732777 0,1.94154489 0,1.62839248 C0,1.50313152 0.0626304802,1.37787056 0.12526096,1.18997912 L0.501043841,0.501043841 C0.688935282,0.187891441 1.00208768,0 1.31524008,0 C1.50313152,0 1.62839248,0 1.75365344,0.12526096 L29.1858038,14.8434238 C29.3736952,14.9686848 29.6868476,15.0313152 30,15.0313152 C30.3131524,15.0313152 30.6263048,14.9686848 30.8141962,14.8434238 L58.2463466,0.12526096 C58.6847599,-0.12526096 59.2484342,0 59.4989562,0.501043841 L59.874739,1.18997912 C60.125261,1.62839248 60,2.19206681 59.5615866,2.44258873" />
                   </svg>
@@ -83,7 +85,7 @@ class Item extends React.Component {
             )}
           {
               activeId && title === sectionName && activeId.id !== movie.id && (
-              <div className="chevron-down-active" onClick={() => handleExpand(movie, title)}>
+              <div className="chevron-down-active" onClick={() => handleItemExpand(movie, title)}>
                 <svg id="chevron-down" viewBox="0 0 60 19">
                   <path fill="currentColor" d="M59.5615866,2.44258873 L31.1899791,17.6617954 C30.7515658,17.9123173 30.2505219,18.1002088 30.0626305,18.1002088 C29.874739,18.1002088 29.6242171,18.0375783 29.5615866,18.0375783 C29.4363257,17.9749478 28.9979123,17.7244259 28.559499,17.5365344 L0.501043841,2.44258873 C0.187891441,2.31732777 0,1.94154489 0,1.62839248 C0,1.50313152 0.0626304802,1.37787056 0.12526096,1.18997912 L0.501043841,0.501043841 C0.688935282,0.187891441 1.00208768,0 1.31524008,0 C1.50313152,0 1.62839248,0 1.75365344,0.12526096 L29.1858038,14.8434238 C29.3736952,14.9686848 29.6868476,15.0313152 30,15.0313152 C30.3131524,15.0313152 30.6263048,14.9686848 30.8141962,14.8434238 L58.2463466,0.12526096 C58.6847599,-0.12526096 59.2484342,0 59.4989562,0.501043841 L59.874739,1.18997912 C60.125261,1.62839248 60,2.19206681 59.5615866,2.44258873" />
                 </svg>
@@ -103,7 +105,7 @@ class Item extends React.Component {
 }
 
 Item.propTypes = {
-  handleExpand: PropTypes.func.isRequired,
+  handleItemExpand: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   sectionName: PropTypes.string,
   image: PropTypes.string.isRequired,

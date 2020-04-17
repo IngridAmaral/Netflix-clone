@@ -58,7 +58,6 @@
     justify-content: space-between;
 }
 
-
 .expanded-bottom{
     display: flex;
     justify-content: center;
@@ -153,16 +152,20 @@
     margin-left: 1vw;
     cursor: pointer;
     transition: all .25s ease;
-}
-
-.expansion-thumbs > i {
-    font-size: 1.2vw;
-    padding: .5vw;
+    width: 2.4vw;
+    height: 2.4vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .expansion-thumbs:hover {
     border: 1.5px solid white;
     transform: scale(1.1);
+}
+
+.expansion-thumbs svg{
+    width: 1.5vw;
 }
 
 .expanded-bottom > * {

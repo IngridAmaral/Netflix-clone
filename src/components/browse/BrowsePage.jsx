@@ -12,17 +12,20 @@ import SearchResults from './SearchResults';
 class Browse extends React.Component {
   state = {
     movies: null,
+    genres: null,
     redirectPath: 'browse',
     currentPage: 'Start',
+    headerBackgound: '',
     input: '',
     resultSearch: null,
     activeId: null,
     sectionName: '',
-    genres: null,
   };
 
   componentDidMount = () => {
-    const { movies, redirectPath, currentPage } = this.state;
+    const { movies, redirectPath } = this.state;
+
+    window.addEventListener('scroll', this.handleHeaderScroll);
 
     if (!movies) {
       getMovies(redirectPath)
@@ -49,17 +52,30 @@ class Browse extends React.Component {
     }
   };
 
-  handlePageChange = (id) => {
+  handleHeaderScroll = () => {
+    const { currentPage } = this.state;
+    let state;
+    if (window.pageYOffset > 1 || currentPage !== 'Start') {
+      state = '#141414';
+    } else {
+      state = '';
+    }
+    this.setState({ headerBackgound: state });
+  };
+
+  handleHeaderPageChange = (id) => {
     const redirectPath = id === 'Start' ? 'browse' : id.toLowerCase().replace(' ', '');
-    this.setState({ redirectPath, currentPage: id });
-    this.handleGetMovies(id, redirectPath);
+    const headerBackgound = id === 'Start' ? '' : '#141414';
+    this.setState({
+      redirectPath, currentPage: id, headerBackgound, activeId: null, sectionName: '',
+    });
+    this.handleGetMovies(redirectPath);
   }
 
   handleGetMovies = (type) => {
     getMovies(type)
       .then((response) => {
         // handle success
-        console.log(response.data.results);
         this.setState({ movies: response.data.results });
       })
       .catch((error) => {
@@ -70,7 +86,7 @@ class Browse extends React.Component {
       });
   }
 
-  handleInput = (e) => {
+  handleSearchInput = (e) => {
     const target = e.target.value;
     this.setState({ input: target });
 
@@ -78,14 +94,6 @@ class Browse extends React.Component {
       this.handleSearch(target);
     } else {
       this.handleSearch('789456123');
-    }
-  }
-
-  handleExpand = (movie, sectionName) => {
-    if (!movie) {
-      this.setState({ activeId: movie, sectionName });
-    } else {
-      this.setState({ activeId: movie, sectionName });
     }
   }
 
@@ -107,9 +115,25 @@ class Browse extends React.Component {
     }
   }
 
+  handleItemExpand = (movie, sectionName) => {
+    if (!movie) {
+      this.setState({ activeId: movie, sectionName });
+    } else {
+      this.setState({ activeId: movie, sectionName });
+    }
+  }
+
   render() {
     const {
-      input, resultSearch, movies, activeId, sectionName, expand, genres,
+      input,
+      resultSearch,
+      movies,
+      activeId,
+      sectionName,
+      expand,
+      genres,
+      currentPage,
+      headerBackgound,
     } = this.state;
     return (
       <div className="browse_container">
@@ -118,12 +142,24 @@ class Browse extends React.Component {
             <div>
               { resultSearch
                 ? <SearchResults result={resultSearch} />
-                : <CoverContent genres={genres} expand={expand} handleExpand={this.handleExpand} sectionName={sectionName} activeId={activeId} movies={movies} />}
+                : (
+                  <CoverContent
+                    genres={genres}
+                    expand={expand}
+                    handleItemExpand={this.handleItemExpand}
+                    sectionName={sectionName}
+                    activeId={activeId}
+                    movies={movies}
+                    currentPage={currentPage}
+                  />
+                )}
               <HeaderBrowse
-                onClick={this.handlePageChange}
+                onClick={this.handleHeaderPageChange}
                 handleSearch={this.handleSearch}
-                handleInput={this.handleInput}
+                handleInput={this.handleSearchInput}
                 input={input}
+                currentPage={currentPage}
+                background={headerBackgound}
               />
               {' '}
             </div>

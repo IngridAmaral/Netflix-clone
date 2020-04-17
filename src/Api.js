@@ -10,6 +10,7 @@ export const getMovies = async (current, num = '') => {
   let page = num;
   if (current === 'browse') {
     path = 'movie/upcoming';
+    page = '&page=2';
   } else if (current === 'series') {
     path = 'tv/top_rated';
   } else if (current === 'movies') {
@@ -24,6 +25,28 @@ export const getMovies = async (current, num = '') => {
   const resp = await api.get(
     `${path}?api_key=${API_KEY}${page}`,
   );
+  return resp;
+};
+
+export const getMovie = () => {
+  const current = ['trending/all/day', 'movie/now_playing', 'movie/popular'];
+  const resp = current.map(
+    async (path, idx) => api.get(
+      `${path}?api_key=${API_KEY}&page=${idx + 1}`,
+    ).then((response) => response.data.results),
+  );
+
+  return resp;
+};
+
+export const getSeries = () => {
+  const current = ['discover/tv', 'tv/airing_today', 'tv/on_the_air', 'tv/popular', 'tv/top_rated'];
+  const resp = current.map(
+    async (path) => api.get(
+      `${path}?api_key=${API_KEY}`,
+    ).then((response) => response.data.results),
+  );
+
   return resp;
 };
 

@@ -20,7 +20,7 @@ class CarouselSlider extends React.Component {
 
   render() {
     const {
-      movies, imageRootPath, title, activeId, handleExpand, sectionName, genres,
+      movies, imageRootPath, title, activeId, handleItemExpand, sectionName, genres,
     } = this.props;
     const { removeMargin } = this.state;
     const responsive = {
@@ -85,7 +85,7 @@ class CarouselSlider extends React.Component {
               movie={movie}
               image={imageRootPath + movie.poster_path}
               activeId={activeId}
-              handleExpand={handleExpand}
+              handleItemExpand={handleItemExpand}
               title={title}
               sectionName={sectionName}
             />
@@ -96,7 +96,7 @@ class CarouselSlider extends React.Component {
           image={activeId ? imageRootPath + activeId.backdrop_path : ''}
           movie={movies}
           genres={genres}
-          handleExpand={handleExpand}
+          handleItemExpand={handleItemExpand}
           sectionName={sectionName}
           title={title}
         />
@@ -143,7 +143,7 @@ CarouselSlider.propTypes = {
   ).isRequired,
   imageRootPath: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  handleExpand: PropTypes.func.isRequired,
+  handleItemExpand: PropTypes.func.isRequired,
   sectionName: PropTypes.string,
 };
 

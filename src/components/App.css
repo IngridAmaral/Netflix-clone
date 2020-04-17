@@ -1,4 +1,5 @@
 .app_container {
     width: 100vw;
     background-color: #000;
+    overflow: hidden;
 }

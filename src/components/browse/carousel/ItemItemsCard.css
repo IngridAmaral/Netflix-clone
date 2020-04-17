@@ -12,9 +12,10 @@
 .icon-card.small:hover {
   transform: scale(1.1);
   transform-origin: center;
+  border: 1px solid white;
 }
 
-.small:hover i {
+.icon-card.small:hover i {
   transform: scale(.9);
 }
 

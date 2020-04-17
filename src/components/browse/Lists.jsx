@@ -2,90 +2,77 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import CarouselSlider from './carousel/CarouselSlider';
-import { getMovies } from '../../Api';
+import { getMovies, getMovie, getSeries } from '../../Api';
 
 class Lists extends React.Component {
   state = {
-    nowPlaying: null,
-    popular: null,
-    upcoming: null,
-    similar: null,
+    movies: null,
+    series: null,
     loading: true,
   }
 
   componentDidMount = async () => {
-    const requestPaths = ['movie/now_playing', 'movie/popular', 'movie/upcoming', 'discover/tv'];
-
-    const moviesList = await Promise.all(
-      requestPaths.map((movie, idx) => getMovies(movie, idx + 1)),
-    );
-
-    const [nowPlaying, popular, upcoming, similar] = moviesList.map((movie) => movie.data.results);
-
+    const movies = await Promise.all(getMovie());
+    const series = await Promise.all(getSeries());
     this.setState({
-      nowPlaying, popular, upcoming, similar, loading: false,
+      loading: false, movies, series,
     });
+  }
+
+  renderNewList = () => {
+    const {
+      handleItemExpand, activeId, sectionName, genres, currentPage,
+    } = this.props;
+    const { movies, series, lastPage } = this.state;
+    let render = [...movies, ...series];
+    let sectionNames = ['Top rated', 'Now Playing', 'Discover', 'Popular', 'Latest', 'Discover Series', 'Airing Today', 'On The Air', 'Popular', 'Top Rated'];
+
+    switch (currentPage) {
+      case 'Start':
+        render = [...movies, ...series];
+        sectionNames = ['Top rated', 'Now Playing', 'Discover', 'Popular', 'Latest', 'Discover Series', 'Airing Today', 'On The Air', 'Popular', 'Top Rated'];
+        break;
+      case 'Series':
+        // console.log('here');
+        render = series;
+        sectionNames = ['Latest', 'Discover Series', 'Airing Today', 'On The Air', 'Popular', 'Top Rated'];
+        break;
+      default:
+        render = movies;
+        sectionNames = ['Latest', 'Discover Series', 'Airing Today', 'On The Air', 'Popular', 'Top Rated'];
+    }
+
+    console.log('render ', render, currentPage, lastPage !== currentPage);
+
+    return render.map((list, idx) => (
+      <CarouselSlider
+        handleItemExpand={handleItemExpand}
+        activeId={activeId}
+        title={sectionNames[idx]}
+        movies={list}
+        sectionName={sectionName}
+        genres={genres}
+        imageRootPath="https://image.tmdb.org/t/p/original"
+      />
+    ));
   }
 
   render() {
     const {
-      nowPlaying, popular, upcoming, loading, similar,
+      loading, movies,
     } = this.state;
 
-    const {
-      handleExpand, activeId, sectionName, genres,
-    } = this.props;
     if (loading) {
       return null;
     }
-
-    // console.log(similar);
     return (
-      <div>
-        <CarouselSlider
-          handleExpand={handleExpand}
-          activeId={activeId}
-          title="Continue watching"
-          movies={nowPlaying}
-          sectionName={sectionName}
-          genres={genres}
-          imageRootPath="https://image.tmdb.org/t/p/original"
-        />
-        <CarouselSlider
-          handleExpand={handleExpand}
-          activeId={activeId}
-          title="Popular"
-          movies={popular}
-          sectionName={sectionName}
-          genres={genres}
-          imageRootPath="https://image.tmdb.org/t/p/original"
-        />
-        <CarouselSlider
-          handleExpand={handleExpand}
-          activeId={activeId}
-          title="Series EUA"
-          movies={upcoming}
-          genres={genres}
-          sectionName={sectionName}
-
-          imageRootPath="https://image.tmdb.org/t/p/original"
-        />
-        <CarouselSlider
-          handleExpand={handleExpand}
-          activeId={activeId}
-          title="Action"
-          movies={similar}
-          genres={genres}
-          sectionName={sectionName}
-          imageRootPath="https://image.tmdb.org/t/p/original"
-        />
-      </div>
+      movies && (this.renderNewList())
     );
   }
 }
 
 Lists.propTypes = {
-  handleExpand: PropTypes.func.isRequired,
+  handleItemExpand: PropTypes.func.isRequired,
   sectionName: PropTypes.string,
 };
 

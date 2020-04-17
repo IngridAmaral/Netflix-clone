@@ -7,7 +7,7 @@ import CarouselSlider from './carousel/CarouselSlider';
 import Lists from './Lists';
 
 const CoverContent = ({
-  movies, handleExpand, activeId, sectionName, genres,
+  movies, handleItemExpand, activeId, sectionName, genres, currentPage,
 }) => (
   <div className="cover_container">
     <div id="video-container">
@@ -15,7 +15,7 @@ const CoverContent = ({
     </div>
     <div className="layer_informations">
       <div className="trailer_title">
-        <h1>{movies[11].title}</h1>
+        <h1>{movies[11].title || movies[11].original_name}</h1>
         <h5>
           {movies[11].overview.slice(0, 100)}
           .
@@ -28,8 +28,8 @@ const CoverContent = ({
         </button>
         <button type="button" className="btn_watch">
           <div className="svg-icon-info-container">
-            <svg className="svg-icon-info" viewBox="0 0 20 20">
-              <path d="M10,2.172c-4.324,0-7.828,3.504-7.828,7.828S5.676,17.828,10,17.828c4.324,0,7.828-3.504,7.828-7.828S14.324,2.172,10,2.172M10,17.004c-3.863,0-7.004-3.141-7.004-7.003S6.137,2.997,10,2.997c3.862,0,7.004,3.141,7.004,7.004S13.862,17.004,10,17.004M10,8.559c-0.795,0-1.442,0.646-1.442,1.442S9.205,11.443,10,11.443s1.441-0.647,1.441-1.443S10.795,8.559,10,8.559 M10,10.619c-0.34,0-0.618-0.278-0.618-0.618S9.66,9.382,10,9.382S10.618,9.661,10.618,10S10.34,10.619,10,10.619 M14.12,8.559c-0.795,0-1.442,0.646-1.442,1.442s0.647,1.443,1.442,1.443s1.442-0.647,1.442-1.443S14.915,8.559,14.12,8.559 M14.12,10.619c-0.34,0-0.618-0.278-0.618-0.618s0.278-0.618,0.618-0.618S14.738,9.661,14.738,10S14.46,10.619,14.12,10.619 M5.88,8.559c-0.795,0-1.442,0.646-1.442,1.442s0.646,1.443,1.442,1.443S7.322,10.796,7.322,10S6.675,8.559,5.88,8.559 M5.88,10.619c-0.34,0-0.618-0.278-0.618-0.618S5.54,9.382,5.88,9.382S6.498,9.661,6.498,10S6.22,10.619,5.88,10.619" />
+            <svg id="svg-icon-info" viewBox="0 0 22 22">
+              <path fill="#fff" d="M12,20 C16.418278,20 20,16.418278 20,12 C20,7.581722 16.418278,4 12,4 C7.581722,4 4,7.581722 4,12 C4,16.418278 7.581722,20 12,20 Z M12,22 C6.4771525,22 2,17.5228475 2,12 C2,6.4771525 6.4771525,2 12,2 C17.5228475,2 22,6.4771525 22,12 C22,17.5228475 17.5228475,22 12,22 Z M11,7 L11,9 L13,9 L13,7 L11,7 Z M11,11 L11,17 L13,17 L13,11 L11,11 Z" id="path-1" />
             </svg>
           </div>
           <p>Informations</p>
@@ -41,11 +41,18 @@ const CoverContent = ({
       imageRootPath="https://image.tmdb.org/t/p/original"
       activeId={activeId}
       movies={movies}
-      handleExpand={handleExpand}
+      handleItemExpand={handleItemExpand}
       sectionName={sectionName}
       genres={genres}
     />
-    <Lists sectionName={sectionName} genres={genres} handleExpand={handleExpand} activeId={activeId} movies={movies} />
+    <Lists
+      currentPage={currentPage}
+      sectionName={sectionName}
+      genres={genres}
+      handleItemExpand={handleItemExpand}
+      activeId={activeId}
+      movies={movies}
+    />
   </div>
 );
 

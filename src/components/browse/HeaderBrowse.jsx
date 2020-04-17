@@ -9,30 +9,9 @@ import Search from './Search';
 import DropdownMenu from './DropdownMenu';
 
 class HeaderBrowse extends React.Component {
-  state = {
-    bgColor: '',
-  };
-
-  componentDidMount() {
-    window.addEventListener('scroll', this.handleScroll);
-  }
-
-  handleScroll = () => {
-    let state;
-    if (window.pageYOffset > 1) {
-      state = '#141414';
-    } else {
-      state = '';
-    }
-    this.setState({ bgColor: state });
-  };
-
   render() {
     const {
-      bgColor, currentPage,
-    } = this.state;
-    const {
-      onClick, handleSearch, handleInput, input,
+      onClick, handleSearch, handleInput, input, currentPage, background,
     } = this.props;
     const menu = ['Start', 'Series', 'Movies', 'Most Recent', 'My list'];
 
@@ -54,8 +33,8 @@ class HeaderBrowse extends React.Component {
       <div
         className="header-container"
         style={{
-          transition: 'background-color 400ms',
-          background: `${bgColor}`,
+          transition: 'background-color 800ms',
+          background: `${background}`,
         }}
       >
         <div className="header-content">
