@@ -104,7 +104,7 @@
     align-items: center;
 }
 
-.expansion-btn-watch > #expansion-play-icon {
+.expansion-btn-watch > #play {
     height: 2.2vw;
     width: 2.2vw;
     display: flex;

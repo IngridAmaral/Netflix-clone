@@ -1,0 +1,3 @@
+<svg id="play" fill="#fff" viewBox="0 0 28 28">
+    <polygon  className="arrow" points="10 20 10 8 20 14" />
+</svg>

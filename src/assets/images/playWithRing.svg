@@ -1,0 +1,6 @@
+<svg id="play-with-ring" viewBox="0 0 28 28">
+    <g fill="none" fillRule="evenodd">
+        <circle stroke="#FFF" className="ring" fill="#000" fillOpacity="0.5" strokeWidth="1" cx="14" cy="14" r="13" />
+        <polygon fill="#fff" className="arrow" points="10 20 10 8 20 14" />
+    </g>
+</svg>

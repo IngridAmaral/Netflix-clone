@@ -43,8 +43,8 @@
 
 .item-card-interaction {
   min-height: 85%;
-display: flex;
-align-items: flex-end;
+  display: flex;
+  align-items: flex-end;
 }
 
 .item-more-infos-icon {
@@ -60,12 +60,37 @@ align-items: flex-end;
 }
 
 #play-with-ring {
-  width: 1.5vw;
+  width: 2vw;
   padding-bottom: .2vw;
 }
 
-.item-card-interaction:hover polygon {
+.item-card-interaction:hover .item-play polygon {
   fill: #e50914;
+}
+
+.audio-icon {
+  display: flex;
+  justify-content: center;
+  align-items:center;
+}
+
+.item-actions > svg, .audio-icon > svg {
+  margin-top: .3vw;
+  border-radius: 50%;
+  padding: .2vw;
+  background-color: rgba(0, 0, 0, 0.68);
+  width: .55vw;
+  height: .55vw;
+  border: .1vw solid grey;
+}
+
+.item-actions > svg > path {
+  fill: #fff;
+}
+
+.item-actions > svg:hover, .audio-icon > svg:hover {
+  border-color: #fff;
+  transform: scale(1.1);
 }
 
 .item-play,

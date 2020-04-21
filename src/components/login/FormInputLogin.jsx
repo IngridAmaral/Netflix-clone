@@ -12,7 +12,6 @@ const FormInputLogin = ({
 
   const styleLabel = userLength ? labelStyle : {};
   const styleInput = userLength ? inputStyle : {};
-
   return (
     <div className="login_input">
       <label style={styleLabel} htmlFor={id}>

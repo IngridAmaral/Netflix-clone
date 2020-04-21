@@ -66,7 +66,7 @@
 .btn_watch {
   display: flex;
   align-items: center;
-  padding: 0.8vw 1.8vw;
+  padding: .4vw 1.8vw .4vw 1vw;
   border-radius: 0.2rem;
   color: #fff;
   border: none;
@@ -85,33 +85,24 @@
   background-color: #fff;
   opacity: 0.9;
   transform: scale(1.05);
+  cursor: pointer;
 }
 
-.btn_watch:hover .caret-rigth {
-  border-left-color: #000;
+.btn_watch > #play {
+  width: 2vw;
+}
+
+.btn_watch > #info {
+  width: 1.2vw;
+  margin-right: .4vw
+}
+
+.btn_watch:hover > #play, .svg-icon-info-container:hover > #info {
+    fill: #000;
 }
 
 .btns_clip {
   display: flex;
-}
-
-.svg-icon-info-container svg {
-  width: 1vw;
-  height: 1vw;
-}
-
-.btn_watch:hover path {
-  fill: #000;
-}
-
-.btn_watch:hover .svg-icon-info path,
-.btn_watch:hover .svg-icon-info polygon,
-.btn_watch:hover .svg-icon-info rect {
-  fill: #000;
-}
-
-.btn_watch:hover .svg-icon-info circle {
-  stroke: #000;
 }
 
 .svg-icon-info-container {

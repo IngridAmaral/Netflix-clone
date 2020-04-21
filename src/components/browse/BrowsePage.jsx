@@ -116,11 +116,7 @@ class Browse extends React.Component {
   }
 
   handleItemExpand = (movie, sectionName) => {
-    if (!movie) {
-      this.setState({ activeId: movie, sectionName });
-    } else {
-      this.setState({ activeId: movie, sectionName });
-    }
+    this.setState({ activeId: movie, sectionName });
   }
 
   render() {

@@ -1,9 +1,63 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { addUser } from './Redux/actions/login';
 
 import './FormLogin.css';
 import FormInputLogin from './FormInputLogin';
+
+const signinInfos = [
+  {
+    id: 'userId',
+    placeholder: 'Email or phone number',
+    inputType: 'text',
+    errorMsg: 'Please enter a valid email or phone number.',
+  },
+  {
+    id: 'userSignInPassword',
+    placeholder: 'Password',
+    inputType: 'password',
+    errorMsg: 'Your password must contain between 4 and 60 characters.',
+  },
+];
+
+const signInKeys = ['userId', 'userSignInPassword'];
+
+const signupInfos = [
+  {
+    id: 'userName',
+    placeholder: 'Name',
+    inputType: 'text',
+    errorMsg: 'Please enter your name.',
+  },
+  {
+    id: 'userEmail',
+    placeholder: 'Email',
+    inputType: 'email',
+    errorMsg: 'Please enter a valid email.',
+  },
+  {
+    id: 'userPhone',
+    placeholder: 'Phone',
+    inputType: 'text',
+    errorMsg: 'Please enter a valid phone number.',
+  },
+  {
+    id: 'userPassword',
+    placeholder: 'Password',
+    inputType: 'password',
+    errorMsg: 'Your password must contain between 4 and 60 characters.',
+  },
+  {
+    id: 'userPasswordRepeat',
+    placeholder: 'Repeat Password',
+    inputType: 'password',
+    errorMsg: 'Please enter the same password as above.',
+  },
+];
+
+const signUpKeys = ['userName', 'userEmail', 'userPhone', 'userPassword', 'userPasswordRepeat'];
 
 class FormLogin extends React.Component {
   state = {
@@ -15,18 +69,20 @@ class FormLogin extends React.Component {
     isLoggedIn: false,
   };
 
-  componentDidMount = () => {
-    const users = {};
-    if (!localStorage.getItem('users')) {
-      window.localStorage.setItem('users', JSON.stringify(users));
-    }
-  };
+  // componentDidMount = () => {
+  //   const { dispatch } = this.props;
+
+  //   if (!localStorage.getItem('users')) {
+  //     dispatch(createLocalStorage('users'));
+  //   }
+
+  //   dispatch(getLocalStorage('users'));
+  // };
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { signup } = this.props;
+    const { signup, dispatch, users } = this.props;
     const { userSignIn } = this.state;
-    const users = JSON.parse(window.localStorage.getItem('users'));
 
     if (signup) {
       const { userSignUp } = this.state;
@@ -44,10 +100,8 @@ class FormLogin extends React.Component {
           };
         });
 
-        window.localStorage.setItem(
-          'users',
-          JSON.stringify({ ...users, ...newUser }),
-        );
+        dispatch(addUser(newUser));
+
         this.setState({
           userInput: '',
           lastInputId: '',
@@ -92,14 +146,6 @@ class FormLogin extends React.Component {
 
   handleInputEmpty = (sign) => {
     const { userSignIn, userSignUp } = this.state;
-    const signInKeys = ['userId', 'userSignInPassword'];
-    const signUpKeys = [
-      'userEmail',
-      'userPhone',
-      'userPassword',
-      'userPasswordRepeat',
-      'userName',
-    ];
 
     const mapWhichSign = sign === 'signIn' ? signInKeys : signUpKeys;
     const stateSign = sign === 'signIn' ? userSignIn : userSignUp;
@@ -116,7 +162,7 @@ class FormLogin extends React.Component {
     });
   };
 
-  handleSubmitSignIn = (e) => {
+  handleOnChange = (e) => {
     const { id } = e.target;
     const input = e.target.value;
 
@@ -124,10 +170,11 @@ class FormLogin extends React.Component {
       userInput: input,
       lastInputId: id,
     });
-    this.handleError(input, id);
+
+    this.validateInput(input, id);
   };
 
-  handleError = (input, id) => {
+  validateInput = (input, id) => {
     const { signup } = this.props;
     const { userSignUp } = this.state;
     let error = false;
@@ -187,55 +234,9 @@ class FormLogin extends React.Component {
     const { title, signup } = this.props;
     const { isLoggedIn } = this.state;
 
-    const signinInfos = [
-      {
-        id: 'userId',
-        placeholder: 'Email or phone number',
-        inputType: 'text',
-        errorMsg: 'Please enter a valid email or phone number.',
-      },
-      {
-        id: 'userSignInPassword',
-        placeholder: 'Password',
-        inputType: 'password',
-        errorMsg: 'Your password must contain between 4 and 60 characters.',
-      },
-    ];
-
-    const signupInfos = [
-      {
-        id: 'userName',
-        placeholder: 'Name',
-        inputType: 'text',
-        errorMsg: 'Please enter your name.',
-      },
-      {
-        id: 'userEmail',
-        placeholder: 'Email',
-        inputType: 'email',
-        errorMsg: 'Please enter a valid email.',
-      },
-      {
-        id: 'userPhone',
-        placeholder: 'Phone',
-        inputType: 'text',
-        errorMsg: 'Please enter a valid phone number.',
-      },
-      {
-        id: 'userPassword',
-        placeholder: 'Password',
-        inputType: 'password',
-        errorMsg: 'Your password must contain between 4 and 60 characters.',
-      },
-      {
-        id: 'userPasswordRepeat',
-        placeholder: 'Repeat Password',
-        inputType: 'password',
-        errorMsg: 'Please enter the same password as above.',
-      },
-    ];
-
     const renderInputsArr = signup ? signupInfos : signinInfos;
+
+    console.log(this.state.userInput);
     return (
       <form className="login_form">
         <div className="login_inputs">
@@ -263,7 +264,7 @@ class FormLogin extends React.Component {
                 inputType={inputType}
                 showError={showError}
                 errorMsg={errorMsg}
-                onChange={this.handleSubmitSignIn}
+                onChange={this.handleOnChange}
                 value={value}
               />
             );
@@ -315,4 +316,8 @@ FormLogin.defaultProps = {
   signup: false,
 };
 
-export default FormLogin;
+const mapStateToProps = (state) => ({
+  users: state.manageStorage,
+});
+
+export default connect(mapStateToProps)(FormLogin);

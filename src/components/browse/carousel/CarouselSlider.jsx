@@ -20,7 +20,13 @@ class CarouselSlider extends React.Component {
 
   render() {
     const {
-      movies, imageRootPath, title, activeId, handleItemExpand, sectionName, genres,
+      title,
+      imageRootPath,
+      activeId,
+      movies,
+      handleItemExpand,
+      sectionName,
+      genres,
     } = this.props;
     const { removeMargin } = this.state;
     const responsive = {

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import CarouselSlider from './carousel/CarouselSlider';
-import { getMovies, getMovie, getSeries } from '../../Api';
+import { getMovie, getSeries } from '../../Api';
 
 class Lists extends React.Component {
   state = {
@@ -34,6 +34,10 @@ class Lists extends React.Component {
         break;
       case 'Series':
         // console.log('here');
+        render = series;
+        sectionNames = ['Latest', 'Discover Series', 'Airing Today', 'On The Air', 'Popular', 'Top Rated'];
+        break;
+      case 'Most Recent':
         render = series;
         sectionNames = ['Latest', 'Discover Series', 'Airing Today', 'On The Air', 'Popular', 'Top Rated'];
         break;
