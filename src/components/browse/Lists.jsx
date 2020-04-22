@@ -23,7 +23,7 @@ class Lists extends React.Component {
     const {
       handleItemExpand, activeId, sectionName, genres, currentPage,
     } = this.props;
-    const { movies, series, lastPage } = this.state;
+    const { movies, series } = this.state;
     let render = [...movies, ...series];
     let sectionNames = ['Top rated', 'Now Playing', 'Discover', 'Popular', 'Latest', 'Discover Series', 'Airing Today', 'On The Air', 'Popular', 'Top Rated'];
 
@@ -33,7 +33,6 @@ class Lists extends React.Component {
         sectionNames = ['Top rated', 'Now Playing', 'Discover', 'Popular', 'Latest', 'Discover Series', 'Airing Today', 'On The Air', 'Popular', 'Top Rated'];
         break;
       case 'Series':
-        // console.log('here');
         render = series;
         sectionNames = ['Latest', 'Discover Series', 'Airing Today', 'On The Air', 'Popular', 'Top Rated'];
         break;
@@ -46,10 +45,9 @@ class Lists extends React.Component {
         sectionNames = ['Latest', 'Discover Series', 'Airing Today', 'On The Air', 'Popular', 'Top Rated'];
     }
 
-    console.log('render ', render, currentPage, lastPage !== currentPage);
-
     return render.map((list, idx) => (
       <CarouselSlider
+        key={`${currentPage}-${sectionNames[idx]}-list `}
         handleItemExpand={handleItemExpand}
         activeId={activeId}
         title={sectionNames[idx]}

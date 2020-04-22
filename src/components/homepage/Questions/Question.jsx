@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import './Question.css';
 
 const questions = [
@@ -50,7 +49,6 @@ const questions = [
     ],
   },
 ];
-
 
 class Question extends React.Component {
   state = {
@@ -106,15 +104,5 @@ class Question extends React.Component {
     );
   }
 }
-
-Question.propTypes = {
-  clicked: PropTypes.bool.isRequired,
-  number: PropTypes.number,
-};
-
-Question.defaultProps = {
-  number: null,
-};
-
 
 export default Question;

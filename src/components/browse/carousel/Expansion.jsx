@@ -83,6 +83,7 @@ class Expansion extends React.Component {
           <div className="expanded-bottom">
             {descriptionList.map((desc) => (
               <button
+                key={desc}
                 id={`exp-${desc.replace(/ /g, '')}`}
                 onClick={this.handleDescription}
                 type="button"

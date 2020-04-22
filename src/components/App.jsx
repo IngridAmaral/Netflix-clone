@@ -2,7 +2,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { createLocalStorage, addUser, getLocalStorage } from './login/Redux/actions/login';
+import { createLocalStorage, getLocalStorage } from './login/Redux/actions/login';
 
 import './App.css';
 
@@ -14,6 +14,7 @@ class App extends React.Component {
   componentDidMount = () => {
     const { dispatch } = this.props;
 
+    // AJEITAR ISSOAQUI
     if (!localStorage.getItem('users')) {
       dispatch(createLocalStorage('users'));
     }

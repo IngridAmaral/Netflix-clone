@@ -6,7 +6,7 @@ export function manageStorage(state = {}, action) {
 
   switch (action.type) {
     case CREATE_LOCAL_STORAGE:
-      window.localStorage.setItem('users', JSON.stringify(state.users));
+      window.localStorage.setItem('users', JSON.stringify({}));
       return state;
 
     case CREATE_USER:

@@ -10,11 +10,11 @@ import { ReactComponent as Info } from '../../assets/images/info.svg';
 
 
 const CoverContent = ({
-  movies, handleItemExpand, activeId, sectionName, genres, currentPage,
+  movies, handleItemExpand, activeId, sectionName, genres, currentPage, imageRootPath,
 }) => (
   <div className="cover_container">
     <div id="video-container">
-      <img src={`https://image.tmdb.org/t/p/original${movies[11].backdrop_path}`} alt="img" />
+      <img src={imageRootPath + movies[11].backdrop_path} alt="img" />
     </div>
     <div className="layer_informations">
       <div className="trailer_title">
@@ -62,15 +62,17 @@ CoverContent.propTypes = {
         PropTypes.arrayOf(PropTypes.number)],
     ),
   ).isRequired,
-  imageRootPath: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
+  imageRootPath: PropTypes.string,
+  title: PropTypes.string,
   handleItemExpand: PropTypes.func.isRequired,
   sectionName: PropTypes.string,
   currentPage: PropTypes.string.isRequired,
 };
 
 CoverContent.defaultProps = {
+  imageRootPath: 'https://image.tmdb.org/t/p/original',
   sectionName: '',
+  title: '',
 };
 
 export default CoverContent;
