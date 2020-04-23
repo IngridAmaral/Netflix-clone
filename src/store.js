@@ -1,7 +1,14 @@
-import { createStore, combineReducers } from 'redux';
-import openAswer from './components/homepage/Redux/reducers/homepage';
-import { manageStorage } from './components/login/Redux/reducers/login';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import promise from 'redux-promise-middleware';
+import { manageStorage } from './components/login/redux/reducers/login';
+import { moviesReducer } from './components/browse/redux/reducers/movies';
 
-const rootReducer = combineReducers({ openAswer, manageStorage });
 
-export const store = createStore(rootReducer);
+const rootReducers = combineReducers({
+  movies: moviesReducer,
+  manageStorage,
+});
+const middlewares = [thunk, promise];
+
+export const store = createStore(rootReducers, applyMiddleware(...middlewares));

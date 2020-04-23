@@ -1,7 +1,18 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import {
-  getMovies, findMovie, getGenres,
+  findMovie, getGenres,
 } from '../../Api';
+
+import { fetchMoviesAC } from './redux/actions/movies';
+
+import {
+  getMoviesPending,
+  getMovies,
+  getMoviesError,
+} from './redux/reducers/movies';
+
 
 import './BrowsePage.css';
 
@@ -11,7 +22,6 @@ import SearchResults from './SearchResults';
 
 class Browse extends React.Component {
   state = {
-    movies: null,
     genres: null,
     redirectPath: 'browse',
     currentPage: 'Start',
@@ -23,33 +33,19 @@ class Browse extends React.Component {
   };
 
   componentDidMount = () => {
-    const { movies, redirectPath } = this.state;
-
     window.addEventListener('scroll', this.handleHeaderScroll);
 
-    if (!movies) {
-      getMovies(redirectPath)
-        .then((response) => {
-          // handle success
-          this.setState({ movies: response.data.results });
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-        .then(() => {
-          // always executed
-        });
-      getGenres().then((response) => {
-        // handle success
-        this.setState({ genres: response.data.genres });
-      })
-        .catch((error) => {
-          console.log(error);
-        })
-        .then(() => {
-          // always executed
-        });
-    }
+    getGenres().then((response) => {
+      // handle success
+      this.setState({ genres: response.data.genres });
+    })
+      .catch((error) => {
+        console.log(error);
+      });
+
+
+    const { fetchMovies } = this.props;
+    fetchMovies();
   };
 
   handleHeaderScroll = () => {
@@ -69,21 +65,6 @@ class Browse extends React.Component {
     this.setState({
       redirectPath, currentPage: id, headerBackgound, activeId: null, sectionName: '',
     });
-    this.handleGetMovies(redirectPath);
-  }
-
-  handleGetMovies = (type) => {
-    getMovies(type)
-      .then((response) => {
-        // handle success
-        this.setState({ movies: response.data.results });
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .then(() => {
-        // always executed
-      });
   }
 
   handleSearchInput = (e) => {
@@ -123,7 +104,6 @@ class Browse extends React.Component {
     const {
       input,
       resultSearch,
-      movies,
       activeId,
       sectionName,
       expand,
@@ -131,10 +111,13 @@ class Browse extends React.Component {
       currentPage,
       headerBackgound,
     } = this.state;
+
+    const { movies } = this.props;
+    const allMovies = movies;
     return (
       <div className="browse_container">
         <div className="browse_cover_container">
-          {movies && (
+          {allMovies.length > 1 && (
             <div>
               { resultSearch
                 ? <SearchResults result={resultSearch} />
@@ -145,7 +128,7 @@ class Browse extends React.Component {
                     handleItemExpand={this.handleItemExpand}
                     sectionName={sectionName}
                     activeId={activeId}
-                    movies={movies}
+                    allMovies={allMovies}
                     currentPage={currentPage}
                   />
                 )}
@@ -166,4 +149,15 @@ class Browse extends React.Component {
   }
 }
 
-export default Browse;
+const mapStateToProps = (state) => ({
+  error: getMoviesError(state),
+  movies: getMovies(state),
+  pending: getMoviesPending(state),
+});
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  fetchMovies: fetchMoviesAC,
+}, dispatch);
+
+export default connect(mapStateToProps,
+  mapDispatchToProps)(Browse);

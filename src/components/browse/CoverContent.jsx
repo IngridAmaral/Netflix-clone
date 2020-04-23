@@ -3,24 +3,23 @@ import PropTypes from 'prop-types';
 
 import './CoverContent.css';
 
-import CarouselSlider from './carousel/CarouselSlider';
 import Lists from './Lists';
 import { ReactComponent as Play } from '../../assets/images/play.svg';
 import { ReactComponent as Info } from '../../assets/images/info.svg';
 
 
 const CoverContent = ({
-  movies, handleItemExpand, activeId, sectionName, genres, currentPage, imageRootPath,
+  handleItemExpand, allMovies, activeId, sectionName, genres, currentPage, imageRootPath,
 }) => (
   <div className="cover_container">
     <div id="video-container">
-      <img src={imageRootPath + movies[11].backdrop_path} alt="img" />
+      <img src={imageRootPath + allMovies[0][1][11].backdrop_path} alt="img" />
     </div>
     <div className="layer_informations">
       <div className="trailer_title">
-        <h1>{movies[11].title || movies[11].original_name}</h1>
+        <h1>{allMovies[0][1][11].title || allMovies[0][1][11].original_name}</h1>
         <h5>
-          {movies[11].overview.slice(0, 100)}
+          {allMovies[0][1][11].overview.slice(0, 100)}
           .
         </h5>
       </div>
@@ -35,7 +34,7 @@ const CoverContent = ({
         </button>
       </div>
     </div>
-    <CarouselSlider
+    {/* <CarouselSlider
       title="My List"
       imageRootPath="https://image.tmdb.org/t/p/original"
       activeId={activeId}
@@ -43,14 +42,14 @@ const CoverContent = ({
       handleItemExpand={handleItemExpand}
       sectionName={sectionName}
       genres={genres}
-    />
+    /> */}
     <Lists
       currentPage={currentPage}
       sectionName={sectionName}
       genres={genres}
       handleItemExpand={handleItemExpand}
       activeId={activeId}
-      movies={movies}
+      allMovies={allMovies}
     />
   </div>
 );

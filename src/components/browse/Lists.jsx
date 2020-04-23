@@ -21,7 +21,7 @@ class Lists extends React.Component {
 
   renderNewList = () => {
     const {
-      handleItemExpand, activeId, sectionName, genres, currentPage,
+      handleItemExpand, allMovies, activeId, sectionName, genres, currentPage,
     } = this.props;
     const { movies, series } = this.state;
     let render = [...movies, ...series];
@@ -29,8 +29,7 @@ class Lists extends React.Component {
 
     switch (currentPage) {
       case 'Start':
-        render = [...movies, ...series];
-        sectionNames = ['Top rated', 'Now Playing', 'Discover', 'Popular', 'Latest', 'Discover Series', 'Airing Today', 'On The Air', 'Popular', 'Top Rated'];
+        render = [...allMovies];
         break;
       case 'Series':
         render = series;
@@ -40,18 +39,22 @@ class Lists extends React.Component {
         render = series;
         sectionNames = ['Latest', 'Discover Series', 'Airing Today', 'On The Air', 'Popular', 'Top Rated'];
         break;
+      case 'Movies':
+        render = movies;
+        sectionNames = ['Upcoming', 'Trending', 'Now Playing', 'Popular'];
+        break;
       default:
         render = movies;
         sectionNames = ['Latest', 'Discover Series', 'Airing Today', 'On The Air', 'Popular', 'Top Rated'];
     }
 
-    return render.map((list, idx) => (
+    return render.map((section) => (
       <CarouselSlider
-        key={`${currentPage}-${sectionNames[idx]}-list `}
+        key={`${currentPage}-${section[0]}-list `}
         handleItemExpand={handleItemExpand}
         activeId={activeId}
-        title={sectionNames[idx]}
-        movies={list}
+        title={section[0]}
+        movies={section[1]}
         sectionName={sectionName}
         genres={genres}
         imageRootPath="https://image.tmdb.org/t/p/original"
@@ -61,14 +64,14 @@ class Lists extends React.Component {
 
   render() {
     const {
-      loading, movies,
+      loading,
     } = this.state;
 
     if (loading) {
       return null;
     }
     return (
-      movies && (this.renderNewList())
+      this.renderNewList()
     );
   }
 }

@@ -3,7 +3,20 @@ import axios from 'axios';
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 const ROOT_URL = 'https://api.themoviedb.org/3/';
-const api = axios.create({ baseURL: ROOT_URL });
+const makeAxiosInstance = () => {
+  const instance = axios.create({ baseURL: ROOT_URL });
+
+  instance.interceptors.request.use((config) => ({
+    ...config,
+    params: {
+      api_key: API_KEY,
+      ...config.params,
+    },
+  }));
+
+  return instance;
+};
+export const api = makeAxiosInstance();
 
 export const getMovies = async (current, num = '') => {
   let path;
@@ -29,7 +42,7 @@ export const getMovies = async (current, num = '') => {
 };
 
 export const getMovie = () => {
-  const current = ['trending/all/day', 'movie/now_playing', 'movie/popular'];
+  const current = ['movie/upcoming', 'trending/all/day', 'movie/now_playing', 'movie/popular'];
   const resp = current.map(
     async (path, idx) => api.get(
       `${path}?api_key=${API_KEY}&page=${idx + 1}`,
