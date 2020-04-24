@@ -13,6 +13,13 @@ import {
   getMoviesError,
 } from './redux/reducers/movies';
 
+import { fetchSeriesAC } from './redux/actions/series';
+
+import {
+  getSeriesPending,
+  getSeries,
+  getSeriesError,
+} from './redux/reducers/series';
 
 import './BrowsePage.css';
 
@@ -46,6 +53,8 @@ class Browse extends React.Component {
 
     const { fetchMovies } = this.props;
     fetchMovies();
+    const { fetchSeries } = this.props;
+    fetchSeries();
   };
 
   handleHeaderScroll = () => {
@@ -112,8 +121,10 @@ class Browse extends React.Component {
       headerBackgound,
     } = this.state;
 
-    const { movies } = this.props;
+    const { movies, series } = this.props;
     const allMovies = movies;
+    const allSeries = series;
+    console.log('movies:', movies, 'series:', series);
     return (
       <div className="browse_container">
         <div className="browse_cover_container">
@@ -129,6 +140,7 @@ class Browse extends React.Component {
                     sectionName={sectionName}
                     activeId={activeId}
                     allMovies={allMovies}
+                    allSeries={allSeries}
                     currentPage={currentPage}
                   />
                 )}
@@ -153,10 +165,14 @@ const mapStateToProps = (state) => ({
   error: getMoviesError(state),
   movies: getMovies(state),
   pending: getMoviesPending(state),
+  errorSeries: getSeriesError(state),
+  series: getSeries(state),
+  pendingSeries: getSeriesPending(state),
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   fetchMovies: fetchMoviesAC,
+  fetchSeries: fetchSeriesAC,
 }, dispatch);
 
 export default connect(mapStateToProps,

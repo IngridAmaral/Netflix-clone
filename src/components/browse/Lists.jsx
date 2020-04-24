@@ -2,51 +2,43 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import CarouselSlider from './carousel/CarouselSlider';
-import { getMovie, getSeries } from '../../Api';
 
 class Lists extends React.Component {
   state = {
-    movies: null,
-    series: null,
     loading: true,
   }
 
   componentDidMount = async () => {
-    const movies = await Promise.all(getMovie());
-    const series = await Promise.all(getSeries());
     this.setState({
-      loading: false, movies, series,
+      loading: false,
     });
   }
 
   renderNewList = () => {
     const {
-      handleItemExpand, allMovies, activeId, sectionName, genres, currentPage,
+      handleItemExpand, allMovies, allSeries, activeId, sectionName, genres, currentPage,
     } = this.props;
-    const { movies, series } = this.state;
-    let render = [...movies, ...series];
-    let sectionNames = ['Top rated', 'Now Playing', 'Discover', 'Popular', 'Latest', 'Discover Series', 'Airing Today', 'On The Air', 'Popular', 'Top Rated'];
+    let render = allMovies;
+
+    console.log(currentPage);
 
     switch (currentPage) {
       case 'Start':
-        render = [...allMovies];
+        render = [...allMovies, ...allSeries];
         break;
       case 'Series':
-        render = series;
-        sectionNames = ['Latest', 'Discover Series', 'Airing Today', 'On The Air', 'Popular', 'Top Rated'];
+        render = allSeries;
         break;
       case 'Most Recent':
-        render = series;
-        sectionNames = ['Latest', 'Discover Series', 'Airing Today', 'On The Air', 'Popular', 'Top Rated'];
+        render = allMovies;
         break;
       case 'Movies':
-        render = movies;
-        sectionNames = ['Upcoming', 'Trending', 'Now Playing', 'Popular'];
+        render = allMovies;
         break;
       default:
-        render = movies;
-        sectionNames = ['Latest', 'Discover Series', 'Airing Today', 'On The Air', 'Popular', 'Top Rated'];
+        render = allMovies;
     }
+    // console.log(allMovies);
 
     return render.map((section) => (
       <CarouselSlider
