@@ -16,29 +16,26 @@ class Lists extends React.Component {
 
   renderNewList = () => {
     const {
-      handleItemExpand, allMovies, allSeries, activeId, sectionName, genres, currentPage,
+      handleItemExpand, movies, series, activeId, sectionName, genres, currentPage,
     } = this.props;
-    let render = allMovies;
-
-    console.log(currentPage);
+    let render = movies;
 
     switch (currentPage) {
       case 'Start':
-        render = [...allMovies, ...allSeries];
+        render = [...movies, ...series];
         break;
       case 'Series':
-        render = allSeries;
+        render = series;
         break;
       case 'Most Recent':
-        render = allMovies;
+        render = movies;
         break;
       case 'Movies':
-        render = allMovies;
+        render = movies;
         break;
       default:
-        render = allMovies;
+        render = movies;
     }
-    // console.log(allMovies);
 
     return render.map((section) => (
       <CarouselSlider

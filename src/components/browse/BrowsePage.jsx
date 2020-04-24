@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
-  findMovie, getGenres,
+  findMovie,
 } from '../../Api';
 
 import { fetchMoviesAC } from './redux/actions/movies';
@@ -21,6 +21,14 @@ import {
   getSeriesError,
 } from './redux/reducers/series';
 
+import { fetchGenresAC } from './redux/actions/genres';
+
+import {
+  getGenresPending,
+  getGenres,
+  getGenresError,
+} from './redux/reducers/genres';
+
 import './BrowsePage.css';
 
 import HeaderBrowse from './HeaderBrowse';
@@ -29,7 +37,7 @@ import SearchResults from './SearchResults';
 
 class Browse extends React.Component {
   state = {
-    genres: null,
+    genresSt: null,
     redirectPath: 'browse',
     currentPage: 'Start',
     headerBackgound: '',
@@ -42,15 +50,8 @@ class Browse extends React.Component {
   componentDidMount = () => {
     window.addEventListener('scroll', this.handleHeaderScroll);
 
-    getGenres().then((response) => {
-      // handle success
-      this.setState({ genres: response.data.genres });
-    })
-      .catch((error) => {
-        console.log(error);
-      });
-
-
+    const { fetchGenres } = this.props;
+    fetchGenres();
     const { fetchMovies } = this.props;
     fetchMovies();
     const { fetchSeries } = this.props;
@@ -116,19 +117,15 @@ class Browse extends React.Component {
       activeId,
       sectionName,
       expand,
-      genres,
       currentPage,
       headerBackgound,
     } = this.state;
 
-    const { movies, series } = this.props;
-    const allMovies = movies;
-    const allSeries = series;
-    console.log('movies:', movies, 'series:', series);
+    const { movies, series, genres } = this.props;
     return (
       <div className="browse_container">
         <div className="browse_cover_container">
-          {allMovies.length > 1 && (
+          {movies.length > 1 && (
             <div>
               { resultSearch
                 ? <SearchResults result={resultSearch} />
@@ -139,8 +136,8 @@ class Browse extends React.Component {
                     handleItemExpand={this.handleItemExpand}
                     sectionName={sectionName}
                     activeId={activeId}
-                    allMovies={allMovies}
-                    allSeries={allSeries}
+                    movies={movies}
+                    series={series}
                     currentPage={currentPage}
                   />
                 )}
@@ -168,11 +165,16 @@ const mapStateToProps = (state) => ({
   errorSeries: getSeriesError(state),
   series: getSeries(state),
   pendingSeries: getSeriesPending(state),
+  errorGenres: getGenresError(state),
+  genres: getGenres(state),
+  pendingGenres: getGenresPending(state),
+
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   fetchMovies: fetchMoviesAC,
   fetchSeries: fetchSeriesAC,
+  fetchGenres: fetchGenresAC,
 }, dispatch);
 
 export default connect(mapStateToProps,

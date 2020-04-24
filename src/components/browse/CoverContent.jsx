@@ -7,25 +7,25 @@ import Lists from './Lists';
 import { ReactComponent as Play } from '../../assets/images/play.svg';
 import { ReactComponent as Info } from '../../assets/images/info.svg';
 
-const handleCover = (currentPage, allMovies, allSeries) => {
+const getCover = (currentPage, movies, series) => {
   switch (currentPage) {
     case 'Start':
-      return allMovies[0][1][11];
+      return movies[0][1][11];
     case 'Series':
-      return allSeries[2][1][11];
+      return series[2][1][11];
     case 'Most Recent':
-      return allMovies[1][1][11];
+      return movies[1][1][11];
     case 'Movies':
-      return allMovies[0][1][1];
+      return movies[0][1][1];
     default:
-      return allMovies[0][1][11];
+      return movies[0][1][11];
   }
 };
 
 const CoverContent = ({
-  handleItemExpand, allMovies, allSeries, activeId, sectionName, genres, currentPage, imageRootPath,
+  handleItemExpand, movies, series, activeId, sectionName, genres, currentPage, imageRootPath,
 }) => {
-  const cover = handleCover(currentPage, allMovies, allSeries);
+  const cover = getCover(currentPage, movies, series);
   return (
     <div className="cover_container">
       <div id="video-container">
@@ -56,8 +56,8 @@ const CoverContent = ({
         genres={genres}
         handleItemExpand={handleItemExpand}
         activeId={activeId}
-        allMovies={allMovies}
-        allSeries={allSeries}
+        movies={movies}
+        series={series}
       />
     </div>
   );
