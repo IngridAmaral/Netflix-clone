@@ -1,6 +1,7 @@
 export const CREATE_LOCAL_STORAGE = 'CREATE_LOCAL_STORAGE';
 export const CREATE_USER = 'CREATE_USER';
 export const GET_ITEM_LOCAL_STORAGE = 'GET_ITEM_LOCAL_STORAGE';
+export const SEARCH = 'SEARCH';
 
 
 export const LOG_IN = 'LOG_IN';

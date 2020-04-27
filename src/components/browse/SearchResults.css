@@ -1,24 +1,129 @@
-.results_container {
+.search { 
+    width: 100%;
     display: flex;
-    min-height: 100vh;
-    flex-wrap: wrap;
-    padding: 6vw 3.5vw;
+    justify-content: center;
     box-sizing: border-box;
+    padding-right: 2.5vw;
+}
+
+.results-container {
+    width: 95%;
+    min-height: 100vh;
+    display: flex;
+    /* background-color: aqua; */
+    flex-wrap: wrap;
+    align-items: center;
+    box-sizing: border-box;
+    position: relative;
+    padding: 8vw 1vw;
+    z-index: 0;
+    transition: all 0.5s ease-in-out;
+    justify-content: center;
 }
 
 .item-result {
     display: flex;
-    min-width: 15vw;
+    min-width: 24vw;
+    max-width: 26vw;
+    flex-direction: column;
     flex: 1;
-    margin: 1vw;
-    height: 10vw;
+    margin: 1.5vw;
+    min-height: 16vw;
+    background-color: transparent;
+    border: thistle 1px solid;
+    position: relative;
+    z-index: 0;
 }
 
-.item-result:hover {
+.hover-item-results:hover {
     transform: scale(1.5);
+    z-index: 20;
+    cursor: pointer;
 }
 
-.item-result:hover {
+/* .results-container.hover-container-results:hover .hover-item-results{
     transform: translateX(25%);
-}
- 
+} */
+
+
+/*   
+   .results-container.hover-container-results {
+  width: 100%;
+  } */
+
+  
+  /* .results-container.hover-container-results:hover .hover-item-results{
+    transform: translateX(-20%);
+  } */
+/*   
+  .item-result:hover ~ .hover-item-results {
+    transform: translateX(20%);
+  } */
+  /*
+  .hover-item:hover {
+    cursor: pointer;
+    transform: scale(1.8) !important;
+    z-index: 0;
+  }
+  
+  .item-result {
+    width: 100%;
+    min-height: 10vw;
+    display: flex;
+    align-items: center;
+    margin: 0.2rem;
+    transform-origin: scale(1) translateX(0);
+    flex: 0 0 19.7%;
+    transition: all 0.5s ease-in-out;
+    position: relative;
+  }
+  
+  .results-img {
+    width: 100%;
+    height: 100%;
+    background-color: #141414;
+  }
+  
+  .results__container:hover {
+    z-index: 2;
+  } */
+  
+  
+  /* @media (max-width: 1060px) {
+    .results-item {
+      min-height: 13.5vw;
+    }
+  
+    .item-more-infos-icon > svg {
+      width: 5vw;
+      max-height: 1.5vw;  
+    }
+  }
+  
+  @media (max-width: 800px) {
+    .results-item {
+      min-height: 18vw;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .results-item {
+      max-width: 10rem;
+    }
+  
+    .item-play,
+  .item-actions {
+   padding: 1w;
+  }
+  
+  .item-more-infos-icon > svg {
+  max-height: 4vw;
+  width: 15vw;
+  }
+  }
+  
+  @media (max-width: 450px) {
+    .results-item {
+      min-height: 24vw;
+    }
+  } */

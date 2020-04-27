@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import debounce from 'lodash.debounce';
 import {
   findMovie,
 } from '../../Api';
@@ -29,6 +30,14 @@ import {
   getGenresError,
 } from './redux/reducers/genres';
 
+import { fetchResultsAC } from './redux/actions/search';
+
+import {
+  getResultsPending,
+  getResults,
+  getResultsError,
+} from './redux/reducers/search';
+
 import './BrowsePage.css';
 
 import HeaderBrowse from './HeaderBrowse';
@@ -37,14 +46,13 @@ import SearchResults from './SearchResults';
 
 class Browse extends React.Component {
   state = {
-    genresSt: null,
     redirectPath: 'browse',
     currentPage: 'Start',
     headerBackgound: '',
     input: '',
     resultSearch: null,
     activeId: null,
-    sectionName: '',
+    activeKey: '',
   };
 
   componentDidMount = () => {
@@ -73,41 +81,62 @@ class Browse extends React.Component {
     const redirectPath = id === 'Start' ? 'browse' : id.toLowerCase().replace(' ', '');
     const headerBackgound = id === 'Start' ? '' : '#141414';
     this.setState({
-      redirectPath, currentPage: id, headerBackgound, activeId: null, sectionName: '',
+      redirectPath, currentPage: id, headerBackgound, activeId: null, activeKey: '',
     });
   }
 
   handleSearchInput = (e) => {
-    const target = e.target.value;
-    this.setState({ input: target });
+    const { value } = e.target;
+    this.setState({ input: value });
+    console.log('input', value.length, value);
 
-    if (target.length > 0) {
-      this.handleSearch(target);
+    if (value.length > 0) {
+      this.handleSearch(value);
     } else {
+      console.log('empty');
       this.handleSearch('789456123');
     }
   }
 
   handleSearch = (text) => {
     if (text === '789456123') {
+      console.log('empty reset');
       this.setState({ resultSearch: null, input: '' });
     } else {
-      findMovie(text)
-        .then((response) => {
-        // handle success
-          this.setState({ resultSearch: response.data.results, input: text });
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-        .then(() => {
-        // always executed
-        });
+      this.getSearchResult(text);
     }
   }
 
-  handleItemExpand = (movie, sectionName) => {
-    this.setState({ activeId: movie, sectionName });
+  getSearchResult = debounce((text) => {
+    const { fetchResults } = this.props;
+    fetchResults(text);
+
+    findMovie(text)
+      .then((response) => {
+        // handle success
+        console.log(response);
+        this.setState({ resultSearch: response.data.results });
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .then(() => {
+        // always executed
+      });
+  }, 1000)
+
+  handleItemExpand = (movie, activeKey) => {
+    this.setState({ activeId: movie, activeKey });
+  }
+
+  splitResults = () => {
+    const { results } = this.props;
+
+    const result = [];
+
+    results.forEach((x, y, z) => (!(y % 5) ? result.push(z.slice(y, y + 5)) : ''));
+
+    return result;
   }
 
   render() {
@@ -115,26 +144,38 @@ class Browse extends React.Component {
       input,
       resultSearch,
       activeId,
-      sectionName,
+      activeKey,
       expand,
       currentPage,
       headerBackgound,
     } = this.state;
 
-    const { movies, series, genres } = this.props;
+    const {
+      movies, series, genres, results,
+    } = this.props;
     return (
       <div className="browse_container">
         <div className="browse_cover_container">
           {movies.length > 1 && (
             <div>
               { resultSearch
-                ? <SearchResults result={resultSearch} />
+                ? (
+                  <SearchResults
+                    result={results}
+                    genres={genres}
+                    expand={expand}
+                    handleItemExpand={this.handleItemExpand}
+                    activeKey={activeKey}
+                    activeId={activeId}
+                    currentPage={currentPage}
+                  />
+                )
                 : (
                   <CoverContent
                     genres={genres}
                     expand={expand}
                     handleItemExpand={this.handleItemExpand}
-                    sectionName={sectionName}
+                    activeKey={activeKey}
                     activeId={activeId}
                     movies={movies}
                     series={series}
@@ -168,6 +209,9 @@ const mapStateToProps = (state) => ({
   errorGenres: getGenresError(state),
   genres: getGenres(state),
   pendingGenres: getGenresPending(state),
+  errorResults: getResultsError(state),
+  results: getResults(state),
+  pendingResults: getResultsPending(state),
 
 });
 
@@ -175,6 +219,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   fetchMovies: fetchMoviesAC,
   fetchSeries: fetchSeriesAC,
   fetchGenres: fetchGenresAC,
+  fetchResults: fetchResultsAC,
 }, dispatch);
 
 export default connect(mapStateToProps,

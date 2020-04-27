@@ -1,4 +1,4 @@
-.carousel-item:hover .item-informations {
+.carousel-item:hover .item-informations, .item-result:hover .item-informations {
   visibility: visible;
   opacity: 1;
 }

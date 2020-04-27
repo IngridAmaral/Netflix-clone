@@ -11,40 +11,39 @@ import BrowsePage from './browse/BrowsePage';
 import Home from './homepage/Home';
 
 class App extends React.Component {
-  componentDidMount = () => {
-    const { dispatch } = this.props;
+   componentDidMount = () => {
+     const { dispatch } = this.props;
 
-    // AJEITAR ISSOAQUI
-    if (!localStorage.getItem('users')) {
-      dispatch(createLocalStorage('users'));
-    }
+     // AJEITAR ISSOAQUI
+     if (!window.localStorage.getItem('users')) {
+       dispatch(createLocalStorage('users'));
+     } else {
+       dispatch(getLocalStorage('users'));
+     }
+   };
 
-    dispatch(getLocalStorage('users'));
-  };
+   render() {
+     return (
+       <Router>
+         <div className="app_container">
+           <Switch>
+             <Route path="/" exact component={Home} />
+             <Route path="/login" component={Login} />
+             <Route
+               path="/signup"
+               render={(props) => <Login {...props} signup />}
+             />
+             <Route path="/browse" component={BrowsePage} />
+             <Route path="/mostrecent" render={(props) => <BrowsePage {...props} page="getTrending" />} />
+             <Route path="/movies" render={(props) => <BrowsePage {...props} page="getAllMovies" />} />
+             <Route path="/series" render={(props) => <BrowsePage {...props} page="getSeries" />} />
+             <Route path="/mylist" render={(props) => <BrowsePage {...props} page="getMyList" />} />
 
-  render() {
-    return (
-      <Router>
-        <div className="app_container">
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/login" component={Login} />
-            <Route
-              path="/signup"
-              render={(props) => <Login {...props} signup />}
-            />
-            <Route path="/browse" component={BrowsePage} />
-            <Route path="/mostrecent" render={(props) => <BrowsePage {...props} page="getTrending" />} />
-            <Route path="/movies" render={(props) => <BrowsePage {...props} page="getAllMovies" />} />
-            <Route path="/series" render={(props) => <BrowsePage {...props} page="getSeries" />} />
-            <Route path="/mylist" render={(props) => <BrowsePage {...props} page="getMyList" />} />
-
-          </Switch>
-        </div>
-      </Router>
-    );
-  }
+           </Switch>
+         </div>
+       </Router>
+     );
+   }
 }
-
 
 export default connect()(App);

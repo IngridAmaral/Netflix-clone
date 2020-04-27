@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './LoginEnterCard.css';
 import { Link } from 'react-router-dom';
-import FormLogin from './FormLogin';
+import LoginForm from './LoginForm';
 
 class LoginEnterCard extends React.Component {
   state = {
@@ -23,7 +23,7 @@ class LoginEnterCard extends React.Component {
       <div className="login_enter_session">
         <h1>{title}</h1>
 
-        <FormLogin signup={signup} title={title} />
+        <LoginForm signup={signup} title={title} />
 
         <div className="login_facebook">
           <img

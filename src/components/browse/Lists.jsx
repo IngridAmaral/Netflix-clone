@@ -16,7 +16,7 @@ class Lists extends React.Component {
 
   renderNewList = () => {
     const {
-      handleItemExpand, movies, series, activeId, sectionName, genres, currentPage,
+      handleItemExpand, movies, series, activeId, activeKey, genres, currentPage,
     } = this.props;
     let render = movies;
 
@@ -44,7 +44,7 @@ class Lists extends React.Component {
         activeId={activeId}
         title={section[0]}
         movies={section[1]}
-        sectionName={sectionName}
+        activeKey={activeKey}
         genres={genres}
         imageRootPath="https://image.tmdb.org/t/p/original"
       />
@@ -67,11 +67,11 @@ class Lists extends React.Component {
 
 Lists.propTypes = {
   handleItemExpand: PropTypes.func.isRequired,
-  sectionName: PropTypes.string,
+  activeKey: PropTypes.string,
 };
 
 Lists.defaultProps = {
-  sectionName: '',
+  activeKey: '',
 };
 
 export default Lists;

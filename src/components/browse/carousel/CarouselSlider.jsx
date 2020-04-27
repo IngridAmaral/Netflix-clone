@@ -25,7 +25,7 @@ class CarouselSlider extends React.Component {
       activeId,
       movies,
       handleItemExpand,
-      sectionName,
+      activeKey,
       genres,
     } = this.props;
     const { removeMargin } = this.state;
@@ -55,7 +55,9 @@ class CarouselSlider extends React.Component {
         slidesToSlide: 1,
       },
     };
-
+    const checkRow = movies.some((movie) => {
+      if (movie.id + title.toLowerCase().replace(/ /g, '') === activeKey) { return true; }
+    });
     return (
       <div className="carousel__container">
         <p style={{ marginLeft: '9vw', transition: 'all 0.8s ease' }}>
@@ -80,10 +82,10 @@ class CarouselSlider extends React.Component {
           keyBoardControl={false}
           customTransition="all .5s ease-in-out"
           transitionDuration={500}
-          containerClass={`carousel-container ${activeId && title === sectionName ? 'block-container' : 'hover-container'}`}
+          containerClass={`carousel-container ${activeId && checkRow ? 'block-container' : 'hover-container'}`}
           removeArrowOnDeviceType={['mobile']}
           deviceType={this.props.deviceType}
-          itemClass={`carousel-item ${activeId && title === sectionName ? 'block-item' : 'hover-item'}`}
+          itemClass={`carousel-item ${activeId && checkRow ? 'block-item' : 'hover-item'}`}
         >
           {movies.map((movie) => (
             <Item
@@ -93,19 +95,24 @@ class CarouselSlider extends React.Component {
               activeId={activeId}
               handleItemExpand={handleItemExpand}
               title={title}
-              sectionName={sectionName}
+              activeKey={activeKey}
             />
           ))}
         </Carousel>
-        <Expansion
-          activeId={activeId}
-          image={activeId ? imageRootPath + activeId.backdrop_path : ''}
-          movie={movies}
-          genres={genres}
-          handleItemExpand={handleItemExpand}
-          sectionName={sectionName}
-          title={title}
-        />
+        {
+          activeId && (
+          <Expansion
+            activeId={activeId}
+            image={activeId ? imageRootPath + activeId.backdrop_path : ''}
+            movie={movies}
+            genres={genres}
+            handleItemExpand={handleItemExpand}
+            activeKey={activeKey}
+            title={title}
+          />
+          )
+        }
+
       </div>
     );
   }
@@ -150,11 +157,11 @@ CarouselSlider.propTypes = {
   imageRootPath: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   handleItemExpand: PropTypes.func.isRequired,
-  sectionName: PropTypes.string,
+  activeKey: PropTypes.string,
 };
 
 CarouselSlider.defaultProps = {
-  sectionName: '',
+  activeKey: '',
 };
 
 export default CarouselSlider;

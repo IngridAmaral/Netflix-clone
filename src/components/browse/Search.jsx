@@ -8,7 +8,13 @@ class Search extends React.Component {
   };
 
   handleClickOutside = () => {
-    this.setState({ openSearch: false });
+    const { handleSearch } = this.props;
+    const { input } = this.props;
+
+    if (input.length === 0) {
+      this.setState({ openSearch: false });
+      handleSearch('789456123');
+    }
   };
 
   handleClick = () => {

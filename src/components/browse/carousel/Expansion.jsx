@@ -7,6 +7,8 @@ import { ReactComponent as ThumbUp } from '../../../assets/images/thumbUp.svg';
 import { ReactComponent as ThumbDown } from '../../../assets/images/thumbDown.svg';
 import { ReactComponent as Play } from '../../../assets/images/play.svg';
 
+const descriptionList = ['overview', 'more like this', 'details'];
+
 
 class Expansion extends React.Component {
     state = {
@@ -35,11 +37,11 @@ class Expansion extends React.Component {
     renderOpenExpansion = () => {
       const { activeId } = this.props;
       const { currentDescription } = this.state;
-      const descriptionList = ['overview', 'more like this', 'details'];
       const activeTitle = activeId ? activeId.title || activeId.original_name : ' ';
       const activeDate = activeId ? activeId.release_date !== undefined ? activeId.release_date.slice(0, 4) : activeId.first_air_date.slice(0, 4) : ' ';
       const activeOverview = activeId ? activeId.overview.slice(0, 150) : ' ';
       const activeGenre = activeId ? activeId.genre_ids : ' ';
+
 
       return (
         <div className="expanded-layer">
@@ -100,11 +102,13 @@ class Expansion extends React.Component {
 
     render() {
       const {
-        sectionName, title, image,
+        activeKey, title, image, activeId,
       } = this.props;
+      const key = activeId.id + title.toLowerCase().replace(/ /g, '');
+
       return (
         <div
-          className={`expanded-informations ${sectionName === title ? 'open' : 'close'}`}
+          className={`expanded-informations ${activeKey === key ? 'open' : 'close'}`}
           style={{
             backgroundSize: '65% 100%',
             backgroundPosition: 'right',
@@ -122,13 +126,13 @@ class Expansion extends React.Component {
 
 Expansion.propTypes = {
   handleItemExpand: PropTypes.func.isRequired,
-  sectionName: PropTypes.string,
+  activeKey: PropTypes.string,
   title: PropTypes.string,
   image: PropTypes.string,
 };
 
 Expansion.defaultProps = {
-  sectionName: '',
+  activeKey: '',
   title: '',
   image: '',
 };

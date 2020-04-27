@@ -1,17 +1,27 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
+import { object } from 'prop-types';
 import Trial from './Trial';
 import Content from './Content/Content';
 import Questions from './Questions/Questions';
 import Footer from './Footer/Footer';
 
-const Home = () => (
-  <div className="app_container">
-    <Trial />
-    <Content />
-    <Questions />
-    <Footer />
-  </div>
-);
+const Home = () => {
+  const isActive = window.localStorage.getItem('activeUser');
+  if (isActive !== null) {
+    return <Redirect to="/browse" />;
+  }
 
-export default Home;
+  return (
+    <div className="app_container">
+      <Trial />
+      <Content />
+      <Questions />
+      <Footer />
+    </div>
+  );
+};
+
+export default connect()(Home);

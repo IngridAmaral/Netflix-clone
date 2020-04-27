@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './FormInputLogin.css';
+import './LoginFormInput.css';
 
-const FormInputLogin = ({
+const LoginFormInput = ({
   id, placeholder, inputType, errorMsg, value, showError, onChange,
 }) => {
   const labelStyle = { padding: '.3rem 0 0 .9rem', fontSize: '.9rem' };
@@ -29,7 +29,7 @@ const FormInputLogin = ({
   );
 };
 
-FormInputLogin.propTypes = {
+LoginFormInput.propTypes = {
   id: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
   inputType: PropTypes.string.isRequired,
@@ -39,8 +39,8 @@ FormInputLogin.propTypes = {
   showError: PropTypes.bool,
 };
 
-FormInputLogin.defaultProps = {
+LoginFormInput.defaultProps = {
   showError: false,
 };
 
-export default FormInputLogin;
+export default LoginFormInput;

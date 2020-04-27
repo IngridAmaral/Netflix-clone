@@ -1,7 +1,7 @@
 import React from 'react';
-import './FooterLogin.css';
+import './LoginFooter.css';
 
-const FooterLogin = () => (
+const LoginFooter = () => (
   <div className="footerLogin_container">
     <p>Questions? Call 0800-724-0697</p>
     <div className="links">
@@ -18,4 +18,4 @@ const FooterLogin = () => (
   </div>
 );
 
-export default FooterLogin;
+export default LoginFooter;

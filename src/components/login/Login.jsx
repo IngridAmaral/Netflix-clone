@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './Login.css';
 
 import LoginEnterCard from './LoginEnterCard';
-import FooterLogin from './FooterLogin';
+import LoginFooter from './LoginFooter';
 
 const Login = ({ signup }) => (
   <div className="login_container">
@@ -16,7 +16,7 @@ const Login = ({ signup }) => (
         />
       </div>
       <LoginEnterCard signup={signup} />
-      <FooterLogin />
+      <LoginFooter />
     </div>
   </div>
 );

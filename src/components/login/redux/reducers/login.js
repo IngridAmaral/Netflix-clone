@@ -18,7 +18,6 @@ export function manageStorage(state = {}, action) {
 
     case GET_ITEM_LOCAL_STORAGE:
       return { ...state, ...users };
-
     default:
       return state;
   }

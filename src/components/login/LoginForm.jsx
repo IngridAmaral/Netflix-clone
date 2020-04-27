@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addUser } from './redux/actions/login';
 
-import './FormLogin.css';
-import FormInputLogin from './FormInputLogin';
+import './LoginForm.css';
+import LoginFormInput from './LoginFormInput';
 
 const signinInfos = [
   {
@@ -59,27 +59,16 @@ const signupInfos = [
 
 const signUpKeys = ['userName', 'userEmail', 'userPhone', 'userPassword', 'userPasswordRepeat'];
 
-class FormLogin extends React.Component {
+class LoginForm extends React.Component {
   state = {
     userInput: '',
     lastInputId: '',
     rememberMe: false,
     userSignUp: {},
     userSignIn: {},
-    isLoggedIn: false,
   };
 
-  // componentDidMount = () => {
-  //   const { dispatch } = this.props;
-
-  //   if (!localStorage.getItem('users')) {
-  //     dispatch(createLocalStorage('users'));
-  //   }
-
-  //   dispatch(getLocalStorage('users'));
-  // };
-
-  handleSubmit = (e) => {
+  handleSubmit = (e, history) => {
     e.preventDefault();
     const { signup, dispatch, users } = this.props;
     const { userSignIn } = this.state;
@@ -121,10 +110,10 @@ class FormLogin extends React.Component {
           const signInPassword = userSignIn.userSignInPassword.userSignInPassword;
 
           if (signInPassword === usersPassword) {
-            this.setState({ isLoggedIn: true });
-          } else {
-            this.handleIncorrectTypeInput('userSignInPassword');
+            window.localStorage.setItem('activeUser', JSON.stringify(users[userSignIn.userId.userId]));
+            history.push('/browse');
           }
+          this.handleIncorrectTypeInput('userSignInPassword');
         } else {
           this.handleIncorrectTypeInput('userId');
           this.handleIncorrectTypeInput('userSignInPassword');
@@ -232,11 +221,7 @@ class FormLogin extends React.Component {
 
   render() {
     const { title, signup } = this.props;
-    const { isLoggedIn } = this.state;
-
     const renderInputsArr = signup ? signupInfos : signinInfos;
-
-    console.log(this.state.userInput);
     return (
       <form className="login_form">
         <div className="login_inputs">
@@ -257,7 +242,7 @@ class FormLogin extends React.Component {
               value = userSignIn[id][id];
             }
             return (
-              <FormInputLogin
+              <LoginFormInput
                 key={id}
                 id={id}
                 placeholder={placeholder}
@@ -272,13 +257,13 @@ class FormLogin extends React.Component {
         </div>
 
         <div className="login_submit">
-          {isLoggedIn ? (
-            <Redirect to="/browse" />
-          ) : (
-            <button onClick={this.handleSubmit} type="submit">
+          <Route render={({ history }) => (
+            <button onClick={(e) => this.handleSubmit(e, history)} type="submit">
               {title}
             </button>
           )}
+          />
+
           <div className="login_check_help">
             {!signup && (
               <div>
@@ -307,12 +292,13 @@ class FormLogin extends React.Component {
   }
 }
 
-FormLogin.propTypes = {
+LoginForm.propTypes = {
   signup: PropTypes.bool,
   title: PropTypes.string.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
-FormLogin.defaultProps = {
+LoginForm.defaultProps = {
   signup: false,
 };
 
@@ -320,4 +306,4 @@ const mapStateToProps = (state) => ({
   users: state.manageStorage,
 });
 
-export default connect(mapStateToProps)(FormLogin);
+export default connect(mapStateToProps)(LoginForm);

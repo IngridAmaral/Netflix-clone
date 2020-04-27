@@ -23,7 +23,7 @@ const getCover = (currentPage, movies, series) => {
 };
 
 const CoverContent = ({
-  handleItemExpand, movies, series, activeId, sectionName, genres, currentPage, imageRootPath,
+  handleItemExpand, movies, series, activeId, activeKey, genres, currentPage, imageRootPath,
 }) => {
   const cover = getCover(currentPage, movies, series);
   return (
@@ -52,7 +52,7 @@ const CoverContent = ({
       </div>
       <Lists
         currentPage={currentPage}
-        sectionName={sectionName}
+        activeKey={activeKey}
         genres={genres}
         handleItemExpand={handleItemExpand}
         activeId={activeId}
@@ -66,16 +66,14 @@ const CoverContent = ({
 
 CoverContent.propTypes = {
   imageRootPath: PropTypes.string,
-  title: PropTypes.string,
   handleItemExpand: PropTypes.func.isRequired,
-  sectionName: PropTypes.string,
+  activeKey: PropTypes.string,
   currentPage: PropTypes.string.isRequired,
 };
 
 CoverContent.defaultProps = {
   imageRootPath: 'https://image.tmdb.org/t/p/original',
-  sectionName: '',
-  title: '',
+  activeKey: '',
 };
 
 export default CoverContent;

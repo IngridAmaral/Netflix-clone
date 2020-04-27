@@ -20,9 +20,10 @@ class Item extends React.Component {
     render() {
       const { mute } = this.state;
       const {
-        movie, handleItemExpand, activeId, title, sectionName, image,
+        movie, handleItemExpand, activeId, title, activeKey, image,
       } = this.props;
 
+      const key = movie.id + title.toLowerCase().replace(/ /g, '');
       const itemStyle = {
         position: 'relative',
         zIndex: '0',
@@ -32,20 +33,19 @@ class Item extends React.Component {
         backgroundImage: `url(${
           image
         })`,
-        outline: `${activeId && title === sectionName ? 'none' : ''}`,
-        opacity: `${activeId && title === sectionName && activeId.id !== movie.id ? '85%' : '100%'}`,
+        outline: `${activeId && key === activeKey ? 'none' : ''}`,
+        opacity: `${activeId && key === activeKey && activeId.id !== movie.id ? '85%' : '100%'}`,
         border: `${activeId && activeId.id === movie.id ? '.3vw solid white' : ''}`,
       };
-
       const relevantCutDecimal = movie.popularity.toString().split('.');
       const relevant = Number(relevantCutDecimal[0]) > 100 ? 9 + (Math.random() * (9 - 0) + 0).toFixed(0) : relevantCutDecimal[0];
       return (
         <div
-          key={movie.id}
+          key={key}
           className="carousel-img"
           style={itemStyle}
         >
-          { activeId && title === sectionName
+          { activeId && key === activeKey
             ? null
             : (
               <div className="item-informations">
@@ -67,14 +67,14 @@ class Item extends React.Component {
                   </div>
                 </div>
 
-                <div className="item-more-infos-icon" onClick={() => handleItemExpand(movie, title)}>
+                <div className="item-more-infos-icon" onClick={() => handleItemExpand(movie, key)}>
                   <ChevronDown />
                 </div>
               </div>
             )}
           {
-              activeId && title === sectionName && activeId.id !== movie.id && (
-              <div className="chevron-down-active" onClick={() => handleItemExpand(movie, title)}>
+              activeId && key === activeKey && activeId.id !== movie.id && (
+              <div className="chevron-down-active" onClick={() => handleItemExpand(movie, key)}>
                 <ChevronDown />
               </div>
               )
@@ -94,12 +94,12 @@ class Item extends React.Component {
 Item.propTypes = {
   handleItemExpand: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
-  sectionName: PropTypes.string,
+  activeKey: PropTypes.string,
   image: PropTypes.string.isRequired,
 };
 
 Item.defaultProps = {
-  sectionName: '',
+  activeKey: '',
 };
 
 export default Item;
