@@ -27,6 +27,9 @@ class CarouselSlider extends React.Component {
       handleItemExpand,
       activeKey,
       genres,
+      isResultPage,
+      isInfinite,
+      section,
     } = this.props;
     const { removeMargin } = this.state;
     const responsive = {
@@ -55,13 +58,17 @@ class CarouselSlider extends React.Component {
         slidesToSlide: 1,
       },
     };
-    const checkRow = movies.some((movie) => {
-      if (movie.id + title.toLowerCase().replace(/ /g, '') === activeKey) { return true; }
+    const checkRow = movies.some((mov) => {
+      if (mov.id + title.toLowerCase().replace(/ /g, '') === activeKey) { return true; }
     });
+
+    // console.log(movies);
+    const isSearch = isResultPage ? '' : title;
+    const shouldRenderBtns = activeId || isResultPage ? '' : <ButtonGroup removeMargin={removeMargin} />;
     return (
       <div className="carousel__container">
         <p style={{ marginLeft: '9vw', transition: 'all 0.8s ease' }}>
-          {title}
+          {isSearch}
         </p>
         <Carousel
           swipeable
@@ -70,11 +77,12 @@ class CarouselSlider extends React.Component {
           // partialVisible={true}
           // minimumTouchDrag={10}
           customButtonGroup={
-            activeId ? '' : <ButtonGroup removeMargin={removeMargin} />
+            shouldRenderBtns
           }
+          centerMode
           // showDots={true}
           responsive={responsive}
-          infinite
+          infinite={isInfinite}
           autoPlay={false}
           beforeChange={() => {
             this.setState({ removeMargin: true });
@@ -82,7 +90,7 @@ class CarouselSlider extends React.Component {
           keyBoardControl={false}
           customTransition="all .5s ease-in-out"
           transitionDuration={500}
-          containerClass={`carousel-container ${activeId && checkRow ? 'block-container' : 'hover-container'}`}
+          containerClass={`carousel-container ${(activeId && checkRow) || isResultPage ? 'block-container' : 'hover-container'}`}
           removeArrowOnDeviceType={['mobile']}
           deviceType={this.props.deviceType}
           itemClass={`carousel-item ${activeId && checkRow ? 'block-item' : 'hover-item'}`}
@@ -96,6 +104,8 @@ class CarouselSlider extends React.Component {
               handleItemExpand={handleItemExpand}
               title={title}
               activeKey={activeKey}
+              isResultPage={isResultPage}
+              section={section}
             />
           ))}
         </Carousel>
@@ -104,7 +114,6 @@ class CarouselSlider extends React.Component {
           <Expansion
             activeId={activeId}
             image={activeId ? imageRootPath + activeId.backdrop_path : ''}
-            movie={movies}
             genres={genres}
             handleItemExpand={handleItemExpand}
             activeKey={activeKey}
@@ -150,7 +159,7 @@ ButtonGroup.defaultProps = {
 };
 
 CarouselSlider.propTypes = {
-  movies: PropTypes.arrayOf(
+  movie: PropTypes.arrayOf(
     PropTypes.oneOfType([PropTypes.number, PropTypes.string,
       PropTypes.arrayOf(PropTypes.number)]),
   ).isRequired,

@@ -2,9 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import debounce from 'lodash.debounce';
-import {
-  findMovie,
-} from '../../Api';
 
 import { fetchMoviesAC } from './redux/actions/movies';
 
@@ -50,20 +47,40 @@ class Browse extends React.Component {
     currentPage: 'Start',
     headerBackgound: '',
     input: '',
-    resultSearch: null,
     activeId: null,
     activeKey: '',
+    resultChunks: [],
   };
 
-  componentDidMount = () => {
+  componentDidMount() {
     window.addEventListener('scroll', this.handleHeaderScroll);
-
+    window.addEventListener('resize', this.howManySlidesInARow);
     const { fetchGenres } = this.props;
     fetchGenres();
     const { fetchMovies } = this.props;
     fetchMovies();
     const { fetchSeries } = this.props;
     fetchSeries();
+  }
+
+  componentDidUpdate(prevProps) {
+    const { results } = this.props;
+
+    if (results !== prevProps.results) {
+      this.howManySlidesInARow();
+    }
+  }
+
+  handleHeaderPageChange = (id) => {
+    const redirectPath = id === 'Start' ? 'browse' : id.toLowerCase().replace(' ', '');
+    const headerBackgound = id === 'Start' ? '' : '#141414';
+    this.setState({
+      redirectPath,
+      currentPage: id,
+      headerBackgound,
+      activeId: null,
+      activeKey: '',
+    });
   };
 
   handleHeaderScroll = () => {
@@ -77,77 +94,81 @@ class Browse extends React.Component {
     this.setState({ headerBackgound: state });
   };
 
-  handleHeaderPageChange = (id) => {
-    const redirectPath = id === 'Start' ? 'browse' : id.toLowerCase().replace(' ', '');
-    const headerBackgound = id === 'Start' ? '' : '#141414';
-    this.setState({
-      redirectPath, currentPage: id, headerBackgound, activeId: null, activeKey: '',
-    });
-  }
-
+  // SEARCH
   handleSearchInput = (e) => {
     const { value } = e.target;
     this.setState({ input: value });
-    console.log('input', value.length, value);
 
     if (value.length > 0) {
       this.handleSearch(value);
+      this.howManySlidesInARow();
     } else {
-      console.log('empty');
       this.handleSearch('789456123');
     }
-  }
+  };
 
   handleSearch = (text) => {
     if (text === '789456123') {
-      console.log('empty reset');
-      this.setState({ resultSearch: null, input: '' });
+      this.setState({ input: '' });
     } else {
+      this.howManySlidesInARow();
       this.getSearchResult(text);
     }
-  }
+  };
 
   getSearchResult = debounce((text) => {
     const { fetchResults } = this.props;
     fetchResults(text);
+  }, 1000);
 
-    findMovie(text)
-      .then((response) => {
-        // handle success
-        console.log(response);
-        this.setState({ resultSearch: response.data.results });
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .then(() => {
-        // always executed
-      });
-  }, 1000)
-
-  handleItemExpand = (movie, activeKey) => {
-    this.setState({ activeId: movie, activeKey });
-  }
-
-  splitResults = () => {
+  howManySlidesInARow = () => {
     const { results } = this.props;
+    const screenWidth = window.innerWidth;
 
-    const result = [];
+    let slice;
 
-    results.forEach((x, y, z) => (!(y % 5) ? result.push(z.slice(y, y + 5)) : ''));
+    switch (true) {
+      case screenWidth > 3000:
+        slice = 6;
+        break;
+      case screenWidth > 1060:
+        slice = 5;
+        break;
+      case screenWidth > 800:
+        slice = 4;
+        break;
+      case screenWidth > 500:
+        slice = 3;
+        break;
+      case screenWidth > 360:
+        slice = 2;
+        break;
+      default:
+        slice = 5;
+    }
 
-    return result;
-  }
+    if (results.length > 0) {
+      const resultChunks = [];
+      results.forEach((x, y, z) => (!(y % slice) ? resultChunks.push(z.slice(y, y + slice)) : ''));
+      this.setState({ resultChunks });
+    }
+  };
+
+  // EXPANDED
+  handleItemExpand = (movie, activeKey, section) => {
+    this.setState({ activeId: movie, activeKey, section });
+  };
 
   render() {
     const {
       input,
-      resultSearch,
       activeId,
       activeKey,
       expand,
       currentPage,
       headerBackgound,
+      section,
+      resultChunks,
     } = this.state;
 
     const {
@@ -156,32 +177,34 @@ class Browse extends React.Component {
     return (
       <div className="browse_container">
         <div className="browse_cover_container">
-          {movies.length > 1 && (
+          {movies.length > 0 && (
             <div>
-              { resultSearch
-                ? (
-                  <SearchResults
-                    result={results}
-                    genres={genres}
-                    expand={expand}
-                    handleItemExpand={this.handleItemExpand}
-                    activeKey={activeKey}
-                    activeId={activeId}
-                    currentPage={currentPage}
-                  />
-                )
-                : (
-                  <CoverContent
-                    genres={genres}
-                    expand={expand}
-                    handleItemExpand={this.handleItemExpand}
-                    activeKey={activeKey}
-                    activeId={activeId}
-                    movies={movies}
-                    series={series}
-                    currentPage={currentPage}
-                  />
-                )}
+              {input.length > 0 && resultChunks.length > 0 ? (
+                <SearchResults
+                  result={results}
+                  genres={genres}
+                  expand={expand}
+                  handleItemExpand={this.handleItemExpand}
+                  activeKey={activeKey}
+                  activeId={activeId}
+                  section={section}
+                  results={results}
+                  howManySlidesInARow={this.howManySlidesInARow}
+                  resultChunks={resultChunks}
+                  currentPage={currentPage}
+                />
+              ) : (
+                <CoverContent
+                  genres={genres}
+                  section={section}
+                  handleItemExpand={this.handleItemExpand}
+                  activeKey={activeKey}
+                  activeId={activeId}
+                  movies={movies}
+                  series={series}
+                  currentPage={currentPage}
+                />
+              )}
               <HeaderBrowse
                 onClick={this.handleHeaderPageChange}
                 handleSearch={this.handleSearch}
@@ -212,15 +235,16 @@ const mapStateToProps = (state) => ({
   errorResults: getResultsError(state),
   results: getResults(state),
   pendingResults: getResultsPending(state),
-
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-  fetchMovies: fetchMoviesAC,
-  fetchSeries: fetchSeriesAC,
-  fetchGenres: fetchGenresAC,
-  fetchResults: fetchResultsAC,
-}, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators(
+  {
+    fetchMovies: fetchMoviesAC,
+    fetchSeries: fetchSeriesAC,
+    fetchGenres: fetchGenresAC,
+    fetchResults: fetchResultsAC,
+  },
+  dispatch,
+);
 
-export default connect(mapStateToProps,
-  mapDispatchToProps)(Browse);
+export default connect(mapStateToProps, mapDispatchToProps)(Browse);

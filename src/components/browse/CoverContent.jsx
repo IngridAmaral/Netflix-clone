@@ -23,7 +23,7 @@ const getCover = (currentPage, movies, series) => {
 };
 
 const CoverContent = ({
-  handleItemExpand, movies, series, activeId, activeKey, genres, currentPage, imageRootPath,
+  handleItemExpand, movies, series, activeId, activeKey, genres, currentPage, imageRootPath, section,
 }) => {
   const cover = getCover(currentPage, movies, series);
   return (
@@ -58,6 +58,7 @@ const CoverContent = ({
         activeId={activeId}
         movies={movies}
         series={series}
+        section={section}
       />
     </div>
   );

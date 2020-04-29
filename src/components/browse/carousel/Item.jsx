@@ -20,10 +20,11 @@ class Item extends React.Component {
     render() {
       const { mute } = this.state;
       const {
-        movie, handleItemExpand, activeId, title, activeKey, image,
+        movie, handleItemExpand, activeId, title, activeKey, image, section,
       } = this.props;
 
       const key = movie.id + title.toLowerCase().replace(/ /g, '');
+      const isTheSelectedItem = activeId && key === activeKey;
       const itemStyle = {
         position: 'relative',
         zIndex: '0',
@@ -33,8 +34,8 @@ class Item extends React.Component {
         backgroundImage: `url(${
           image
         })`,
-        outline: `${activeId && key === activeKey ? 'none' : ''}`,
-        opacity: `${activeId && key === activeKey && activeId.id !== movie.id ? '85%' : '100%'}`,
+        outline: `${isTheSelectedItem ? 'none' : ''}`,
+        opacity: `${activeId && key !== activeKey && section === title ? '85%' : '100%'}`,
         border: `${activeId && activeId.id === movie.id ? '.3vw solid white' : ''}`,
       };
       const relevantCutDecimal = movie.popularity.toString().split('.');
@@ -45,7 +46,7 @@ class Item extends React.Component {
           className="carousel-img"
           style={itemStyle}
         >
-          { activeId && key === activeKey
+          { title === section
             ? null
             : (
               <div className="item-informations">
@@ -67,19 +68,19 @@ class Item extends React.Component {
                   </div>
                 </div>
 
-                <div className="item-more-infos-icon" onClick={() => handleItemExpand(movie, key)}>
+                <div className="item-more-infos-icon" onClick={() => handleItemExpand(movie, key, title)}>
                   <ChevronDown />
                 </div>
               </div>
             )}
           {
-              activeId && key === activeKey && activeId.id !== movie.id && (
-              <div className="chevron-down-active" onClick={() => handleItemExpand(movie, key)}>
+              activeId && key !== activeKey && section === title && (
+              <div className="chevron-down-active" onClick={() => handleItemExpand(movie, key, title)}>
                 <ChevronDown />
               </div>
               )
             }
-          { activeId && activeId.id === movie.id
+          { isTheSelectedItem
             ? (
               <div className="caret-item-open">
                 <i className="fas fa-caret-down" />

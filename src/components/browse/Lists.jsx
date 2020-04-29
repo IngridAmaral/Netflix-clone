@@ -16,7 +16,7 @@ class Lists extends React.Component {
 
   renderNewList = () => {
     const {
-      handleItemExpand, movies, series, activeId, activeKey, genres, currentPage,
+      handleItemExpand, movies, series, activeId, activeKey, genres, currentPage, section,
     } = this.props;
     let render = movies;
 
@@ -37,14 +37,17 @@ class Lists extends React.Component {
         render = movies;
     }
 
-    return render.map((section) => (
+    return render.map((movie) => (
       <CarouselSlider
-        key={`${currentPage}-${section[0]}-list `}
+        key={`${currentPage}-${movie[0]}-list `}
         handleItemExpand={handleItemExpand}
         activeId={activeId}
-        title={section[0]}
-        movies={section[1]}
+        title={movie[0]}
+        movies={movie[1]}
         activeKey={activeKey}
+        isResultPage={false}
+        section={section}
+        isInfinite
         genres={genres}
         imageRootPath="https://image.tmdb.org/t/p/original"
       />

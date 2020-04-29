@@ -18,6 +18,8 @@
 .carousel-container {
   width: 100%;
   transition: all 0.5s ease-in-out;
+  display: flex;
+  justify-content: center;
 }
 
 .carousel-container.hover-container {
@@ -50,18 +52,19 @@ width: 100%;
   position: relative;
 }
 
-.carousel-img {
-  width: 100%;
-  height: 100%;
-  background-color: #141414;
-}
-
 .react-multi-carousel-list {
+  display: flex;
+  justify-content: center;
   overflow: unset !important;
 }
 
 .carousel__container:hover {
   z-index: 2;
+}
+
+.react-multi-carousel-track { 
+  display: flex;
+  justify-content: center;
 }
 
 .carousel-button-group {
