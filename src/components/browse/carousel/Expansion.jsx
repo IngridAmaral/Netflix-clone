@@ -1,11 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import './Expansion.css';
 
 import { ReactComponent as ThumbUp } from '../../../assets/images/thumbUp.svg';
 import { ReactComponent as ThumbDown } from '../../../assets/images/thumbDown.svg';
 import { ReactComponent as Play } from '../../../assets/images/play.svg';
+import {
+  getGenresPending,
+  getGenres,
+  getGenresError,
+} from '../redux/reducers/genres';
 
 const descriptionList = ['overview', 'more like this', 'details'];
 
@@ -137,4 +143,10 @@ Expansion.defaultProps = {
   image: '',
 };
 
-export default Expansion;
+const mapStateToProps = (state) => ({
+  errorGenres: getGenresError(state),
+  genres: getGenres(state),
+  pendingGenres: getGenresPending(state),
+});
+
+export default connect(mapStateToProps)(Expansion);

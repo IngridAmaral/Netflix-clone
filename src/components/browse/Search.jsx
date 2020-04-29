@@ -19,6 +19,7 @@ class Search extends React.Component {
 
   handleClick = () => {
     this.setState((state) => ({ openSearch: !state.openSearch }));
+    return this.myInp.focus();
   };
 
   handleClose = () => {
@@ -53,6 +54,7 @@ class Search extends React.Component {
               : { width: '0', opacity: '0' }
           }
           type="text"
+          ref={(ip) => this.myInp = ip}
           value={input}
           onChange={handleInput}
           placeholder="Titles, actors, genre"

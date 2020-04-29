@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './DropdownMenu.css';
 
-const DropdownMenu = ({ items }) => (
+const DropdownMenu = ({ renderItems, currentPage, onClick }) => (
   <div className="dropdown">
     <button type="button" className="dropbtn">
       To browse
@@ -10,21 +10,19 @@ const DropdownMenu = ({ items }) => (
     </button>
     <span className="caret-up" />
     <div className="dropdown-content">
-      {items.map((id) => (
-        <button
-          type="button"
-          key={id}
-          className="dropdown-item"
-        >
-          {id}
-        </button>
-      ))}
+      {renderItems(currentPage, onClick)}
     </div>
   </div>
 );
 
 DropdownMenu.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.string).isRequired,
+  currentPage: PropTypes.string,
+  renderItems: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
+};
+
+DropdownMenu.defaultProps = {
+  currentPage: 'Start',
 };
 
 export default DropdownMenu;

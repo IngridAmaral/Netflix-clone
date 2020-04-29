@@ -11,29 +11,21 @@ import {
   getMoviesError,
 } from './redux/reducers/movies';
 
-import { fetchSeriesAC } from './redux/actions/series';
 
 import {
   getSeriesPending,
   getSeries,
   getSeriesError,
 } from './redux/reducers/series';
-
-import { fetchGenresAC } from './redux/actions/genres';
-
-import {
-  getGenresPending,
-  getGenres,
-  getGenresError,
-} from './redux/reducers/genres';
-
-import { fetchResultsAC } from './redux/actions/search';
-
 import {
   getResultsPending,
   getResults,
   getResultsError,
 } from './redux/reducers/search';
+
+import { fetchSeriesAC } from './redux/actions/series';
+import { fetchGenresAC } from './redux/actions/genres';
+import { fetchResultsAC } from './redux/actions/search';
 
 import './BrowsePage.css';
 
@@ -53,13 +45,14 @@ class Browse extends React.Component {
   };
 
   componentDidMount() {
+    const { input } = this.state;
     window.addEventListener('scroll', this.handleHeaderScroll);
-    window.addEventListener('resize', this.howManySlidesInARow);
-    const { fetchGenres } = this.props;
+    if (input.length > 0) {
+      window.addEventListener('resize', this.howManySlidesInARow);
+    }
+    const { fetchGenres, fetchMovies, fetchSeries } = this.props;
     fetchGenres();
-    const { fetchMovies } = this.props;
     fetchMovies();
-    const { fetchSeries } = this.props;
     fetchSeries();
   }
 
@@ -164,16 +157,14 @@ class Browse extends React.Component {
       input,
       activeId,
       activeKey,
-      expand,
       currentPage,
       headerBackgound,
       section,
       resultChunks,
     } = this.state;
 
-    const {
-      movies, series, genres, results,
-    } = this.props;
+    const { movies, series, results } = this.props;
+
     return (
       <div className="browse_container">
         <div className="browse_cover_container">
@@ -181,21 +172,14 @@ class Browse extends React.Component {
             <div>
               {input.length > 0 && resultChunks.length > 0 ? (
                 <SearchResults
-                  result={results}
-                  genres={genres}
-                  expand={expand}
                   handleItemExpand={this.handleItemExpand}
                   activeKey={activeKey}
                   activeId={activeId}
                   section={section}
-                  results={results}
-                  howManySlidesInARow={this.howManySlidesInARow}
                   resultChunks={resultChunks}
-                  currentPage={currentPage}
                 />
               ) : (
                 <CoverContent
-                  genres={genres}
                   section={section}
                   handleItemExpand={this.handleItemExpand}
                   activeKey={activeKey}
@@ -229,9 +213,6 @@ const mapStateToProps = (state) => ({
   errorSeries: getSeriesError(state),
   series: getSeries(state),
   pendingSeries: getSeriesPending(state),
-  errorGenres: getGenresError(state),
-  genres: getGenres(state),
-  pendingGenres: getGenresPending(state),
   errorResults: getResultsError(state),
   results: getResults(state),
   pendingResults: getResultsPending(state),

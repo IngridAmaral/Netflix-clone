@@ -25,7 +25,7 @@
 }
 
 .header-left {
-  width: 60%;
+  width: 50%;
 }
 
 .header-rigth {
@@ -46,18 +46,17 @@
   box-sizing: border-box;
   justify-content: space-between;
   height: 100%;
-  max-width: 100vw;
+  width: 100%;
 }
 
 .header-left > img {
-  max-width: 16%;
-  min-width: 4.2rem;
+  width: 7vw;
   height: auto;
 }
 
 .menu-items {
-  padding-left: 2.2%;
-  width: 45%;
+  padding-left: 2vw;
+  width: 100%;
   display: flex;
   justify-content: space-between;
 }

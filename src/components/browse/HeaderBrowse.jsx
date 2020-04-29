@@ -26,56 +26,53 @@ const user = {
 
 const menu = ['Start', 'Series', 'Movies', 'Most Recent', 'My list'];
 
-class HeaderBrowse extends React.Component {
-  render() {
-    const {
-      onClick, handleSearch, handleInput, input, currentPage, background,
-    } = this.props;
+const renderItems = (currentPage, onClick) => menu.map((id) => (
+  <Link key={id} to={id === 'Start' ? 'browse' : id.toLowerCase().replace(' ', '')}>
+    <button
+      type="button"
+      className="menu-item"
+      onClick={() => onClick(id)}
+      style={currentPage === id ? styleCurrent : styleHover}
+    >
+      {id}
+    </button>
+  </Link>
+));
 
-    return (
-      <div
-        className="header-container"
-        style={{
-          transition: 'background-color 800ms',
-          background: `${background}`,
-        }}
-      >
-        <div className="header-content">
-          <div className="header-left">
-            <img src={netflixLogo} alt="logo" />
-            <DropdownMenu items={menu} />
-            <div className="menu-items">
-              {menu.map((id) => (
-                <Link key={id} to={id === 'Start' ? 'browse' : id.toLowerCase().replace(' ', '')}>
-                  <button
-                    type="button"
-                    className="menu-item"
-                    onClick={() => onClick(id)}
-                    style={currentPage === id ? styleCurrent : styleHover}
-                  >
-                    {id}
-                  </button>
-                </Link>
-              ))}
-            </div>
-          </div>
-          <div className="header-rigth">
-            <Search input={input} handleSearch={handleSearch} handleInput={handleInput} />
-            <div className="header-rigth-items">
-              <span>CHILD</span>
-              <Gift />
-              <Bell />
-              <div className="header-avatar">
-                <img src={user.avatar} alt="user avatar" />
-                <span className="caret" />
-              </div>
-            </div>
+const HeaderBrowse = ({
+  onClick, handleSearch, handleInput, input, currentPage, background,
+}) => (
+  <div
+    className="header-container"
+    style={{
+      transition: 'background-color 800ms',
+      background: `${background}`,
+    }}
+  >
+    <div className="header-content">
+      <div className="header-left">
+        <img src={netflixLogo} alt="logo" />
+        <DropdownMenu renderItems={renderItems} currentPage={currentPage} onClick={onClick} />
+        <div className="menu-items">
+          {renderItems(currentPage, onClick)}
+        </div>
+      </div>
+      <div className="header-rigth">
+        <Search input={input} handleSearch={handleSearch} handleInput={handleInput} />
+        <div className="header-rigth-items">
+          <span>CHILD</span>
+          <Gift />
+          <Bell />
+          <div className="header-avatar">
+            <img src={user.avatar} alt="user avatar" />
+            <span className="caret" />
           </div>
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  </div>
+);
+
 
 HeaderBrowse.propTypes = {
   handleSearch: PropTypes.func.isRequired,

@@ -16,7 +16,7 @@ class Lists extends React.Component {
 
   renderNewList = () => {
     const {
-      handleItemExpand, movies, series, activeId, activeKey, genres, currentPage, section,
+      handleItemExpand, movies, series, activeId, activeKey, currentPage, section,
     } = this.props;
     let render = movies;
 
@@ -48,7 +48,6 @@ class Lists extends React.Component {
         isResultPage={false}
         section={section}
         isInfinite
-        genres={genres}
         imageRootPath="https://image.tmdb.org/t/p/original"
       />
     ));

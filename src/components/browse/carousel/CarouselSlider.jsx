@@ -26,7 +26,6 @@ class CarouselSlider extends React.Component {
       movies,
       handleItemExpand,
       activeKey,
-      genres,
       isResultPage,
       isInfinite,
       section,
@@ -58,11 +57,11 @@ class CarouselSlider extends React.Component {
         slidesToSlide: 1,
       },
     };
+
     const checkRow = movies.some((mov) => {
       if (mov.id + title.toLowerCase().replace(/ /g, '') === activeKey) { return true; }
     });
 
-    // console.log(movies);
     const isSearch = isResultPage ? '' : title;
     const shouldRenderBtns = activeId || isResultPage ? '' : <ButtonGroup removeMargin={removeMargin} />;
     return (
@@ -74,13 +73,10 @@ class CarouselSlider extends React.Component {
           swipeable
           draggable
           arrows={false}
-          // partialVisible={true}
-          // minimumTouchDrag={10}
           customButtonGroup={
             shouldRenderBtns
           }
           centerMode
-          // showDots={true}
           responsive={responsive}
           infinite={isInfinite}
           autoPlay={false}
@@ -114,7 +110,6 @@ class CarouselSlider extends React.Component {
           <Expansion
             activeId={activeId}
             image={activeId ? imageRootPath + activeId.backdrop_path : ''}
-            genres={genres}
             handleItemExpand={handleItemExpand}
             activeKey={activeKey}
             title={title}

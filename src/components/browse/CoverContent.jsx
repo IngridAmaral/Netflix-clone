@@ -23,7 +23,7 @@ const getCover = (currentPage, movies, series) => {
 };
 
 const CoverContent = ({
-  handleItemExpand, movies, series, activeId, activeKey, genres, currentPage, imageRootPath, section,
+  handleItemExpand, movies, series, activeId, activeKey, currentPage, imageRootPath, section,
 }) => {
   const cover = getCover(currentPage, movies, series);
   return (
@@ -40,11 +40,11 @@ const CoverContent = ({
           </h5>
         </div>
         <div className="btns_clip">
-          <button type="button" className="btn_watch">
+          <button type="button" className="btn_cover">
             <Play />
             <p>Watch</p>
           </button>
-          <button type="button" className="btn_watch">
+          <button type="button" className="btn_cover">
             <Info />
             <p>Informations</p>
           </button>
@@ -53,7 +53,6 @@ const CoverContent = ({
       <Lists
         currentPage={currentPage}
         activeKey={activeKey}
-        genres={genres}
         handleItemExpand={handleItemExpand}
         activeId={activeId}
         movies={movies}

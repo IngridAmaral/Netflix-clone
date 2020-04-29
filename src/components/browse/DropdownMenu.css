@@ -44,6 +44,7 @@
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
   visibility: hidden;
+  height: 0;
   position: absolute;
   background: rgba(0, 0, 0, 0.5);
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
@@ -59,6 +60,10 @@
   transition: all 1s ease-in-out;
 }
 
+.dropdown-content > * {
+  text-decoration: none;
+}
+
 /* Links inside the dropdown */
 .dropdown-content button {
   font-size: 0.8rem;
@@ -71,7 +76,7 @@
 
 /* Change color of dropdown links on hover */
 .dropdown-content button:hover {
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.8);
 }
 
 /* Show the dropdown menu on hover */
@@ -79,6 +84,11 @@
 .dropdown:hover .caret-up {
   visibility: visible;
   opacity: 1;
+  height: auto;
+}
+
+.dropbtn:hover {
+  cursor: pointer;
 }
 
 @media (max-width: 840px) {
