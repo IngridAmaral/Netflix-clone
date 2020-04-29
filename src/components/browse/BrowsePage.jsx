@@ -2,27 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import debounce from 'lodash.debounce';
+import PropTypes from 'prop-types';
 
+import { getMoviesPending, getMovies, getMoviesError } from './redux/reducers/movies';
+import { getSeriesPending, getSeries, getSeriesError } from './redux/reducers/series';
+import { getResultsPending, getResults, getResultsError } from './redux/reducers/search';
 import { fetchMoviesAC } from './redux/actions/movies';
-
-import {
-  getMoviesPending,
-  getMovies,
-  getMoviesError,
-} from './redux/reducers/movies';
-
-
-import {
-  getSeriesPending,
-  getSeries,
-  getSeriesError,
-} from './redux/reducers/series';
-import {
-  getResultsPending,
-  getResults,
-  getResultsError,
-} from './redux/reducers/search';
-
 import { fetchSeriesAC } from './redux/actions/series';
 import { fetchGenresAC } from './redux/actions/genres';
 import { fetchResultsAC } from './redux/actions/search';
@@ -35,7 +20,6 @@ import SearchResults from './SearchResults';
 
 class Browse extends React.Component {
   state = {
-    redirectPath: 'browse',
     currentPage: 'Start',
     headerBackgound: '',
     input: '',
@@ -65,10 +49,9 @@ class Browse extends React.Component {
   }
 
   handleHeaderPageChange = (id) => {
-    const redirectPath = id === 'Start' ? 'browse' : id.toLowerCase().replace(' ', '');
+    // const redirectPath = id === 'Start' ? 'browse' : id.toLowerCase().replace(' ', '');
     const headerBackgound = id === 'Start' ? '' : '#141414';
     this.setState({
-      redirectPath,
       currentPage: id,
       headerBackgound,
       activeId: null,
@@ -163,7 +146,7 @@ class Browse extends React.Component {
       resultChunks,
     } = this.state;
 
-    const { movies, series, results } = this.props;
+    const { movies, series } = this.props;
 
     return (
       <div className="browse_container">
@@ -217,6 +200,17 @@ const mapStateToProps = (state) => ({
   results: getResults(state),
   pendingResults: getResultsPending(state),
 });
+
+Browse.propTypes = {
+  results: PropTypes.arrayOf().isRequired,
+  movies: PropTypes.arrayOf().isRequired,
+  series: PropTypes.arrayOf().isRequired,
+  fetchGenres: PropTypes.func.isRequired,
+  fetchMovies: PropTypes.func.isRequired,
+  fetchSeries: PropTypes.func.isRequired,
+  fetchResults: PropTypes.func.isRequired,
+
+};
 
 const mapDispatchToProps = (dispatch) => bindActionCreators(
   {

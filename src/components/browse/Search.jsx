@@ -1,5 +1,6 @@
 import React from 'react';
 import onClickOutside from 'react-onclickoutside';
+import PropTypes from 'prop-types';
 import './Search.css';
 
 class Search extends React.Component {
@@ -8,8 +9,7 @@ class Search extends React.Component {
   };
 
   handleClickOutside = () => {
-    const { handleSearch } = this.props;
-    const { input } = this.props;
+    const { handleSearch, input } = this.props;
 
     if (input.length === 0) {
       this.setState({ openSearch: false });
@@ -71,5 +71,16 @@ class Search extends React.Component {
     );
   }
 }
+
+Search.propTypes = {
+  handleInput: PropTypes.func.isRequired,
+  handleSearch: PropTypes.func.isRequired,
+  input: PropTypes.string,
+};
+
+Search.defaultProps = {
+  input: '',
+};
+
 
 export default onClickOutside(Search);

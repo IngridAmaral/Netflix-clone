@@ -135,6 +135,8 @@ Expansion.propTypes = {
   activeKey: PropTypes.string,
   title: PropTypes.string,
   image: PropTypes.string,
+  activeId: PropTypes.arrayOf().isRequired,
+  genres: PropTypes.arrayOf().isRequired,
 };
 
 Expansion.defaultProps = {

@@ -154,14 +154,15 @@ ButtonGroup.defaultProps = {
 };
 
 CarouselSlider.propTypes = {
-  movie: PropTypes.arrayOf(
-    PropTypes.oneOfType([PropTypes.number, PropTypes.string,
-      PropTypes.arrayOf(PropTypes.number)]),
-  ).isRequired,
+  movies: PropTypes.arrayOf().isRequired,
   imageRootPath: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   handleItemExpand: PropTypes.func.isRequired,
   activeKey: PropTypes.string,
+  activeId: PropTypes.arrayOf().isRequired,
+  isResultPage: PropTypes.bool.isRequired,
+  isInfinite: PropTypes.bool.isRequired,
+  section: PropTypes.string.isRequired,
 };
 
 CarouselSlider.defaultProps = {

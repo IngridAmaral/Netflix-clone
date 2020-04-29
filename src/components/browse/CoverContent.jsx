@@ -63,17 +63,22 @@ const CoverContent = ({
   );
 };
 
-
 CoverContent.propTypes = {
   imageRootPath: PropTypes.string,
   handleItemExpand: PropTypes.func.isRequired,
   activeKey: PropTypes.string,
   currentPage: PropTypes.string.isRequired,
+  activeId: PropTypes.arrayOf(),
+  section: PropTypes.string,
+  movies: PropTypes.arrayOf().isRequired,
+  series: PropTypes.arrayOf().isRequired,
 };
 
 CoverContent.defaultProps = {
-  imageRootPath: 'https://image.tmdb.org/t/p/original',
   activeKey: '',
+  activeId: [],
+  section: 'upcoming',
+  imageRootPath: 'https://image.tmdb.org/t/p/original',
 };
 
 export default CoverContent;

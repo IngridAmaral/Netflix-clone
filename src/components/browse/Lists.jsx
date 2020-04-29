@@ -70,10 +70,17 @@ class Lists extends React.Component {
 Lists.propTypes = {
   handleItemExpand: PropTypes.func.isRequired,
   activeKey: PropTypes.string,
+  activeId: PropTypes.arrayOf(),
+  section: PropTypes.string,
+  currentPage: PropTypes.string.isRequired,
+  movies: PropTypes.arrayOf().isRequired,
+  series: PropTypes.arrayOf().isRequired,
 };
 
 Lists.defaultProps = {
   activeKey: '',
+  activeId: [],
+  section: 'upcoming',
 };
 
 export default Lists;

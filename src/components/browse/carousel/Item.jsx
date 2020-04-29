@@ -39,7 +39,9 @@ class Item extends React.Component {
         border: `${activeId && activeId.id === movie.id ? '.3vw solid white' : ''}`,
       };
       const relevantCutDecimal = movie.popularity.toString().split('.');
-      const relevant = Number(relevantCutDecimal[0]) > 100 ? 9 + (Math.random() * (9 - 0) + 0).toFixed(0) : relevantCutDecimal[0];
+      const relevant = Number(relevantCutDecimal[0]) > 100
+        ? 9 + (Math.random() * (9 - 0) + 0).toFixed(0)
+        : relevantCutDecimal[0];
       return (
         <div
           key={key}
@@ -97,6 +99,9 @@ Item.propTypes = {
   title: PropTypes.string.isRequired,
   activeKey: PropTypes.string,
   image: PropTypes.string.isRequired,
+  movie: PropTypes.arrayOf().isRequired,
+  activeId: PropTypes.arrayOf().isRequired,
+  section: PropTypes.string.isRequired,
 };
 
 Item.defaultProps = {

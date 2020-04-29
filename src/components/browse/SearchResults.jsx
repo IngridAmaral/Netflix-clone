@@ -26,17 +26,20 @@ const SearchResults = ({
       />
     ))}
   </div>
-
 );
 
 SearchResults.propTypes = {
-  currentPage: PropTypes.string,
-  renderItems: PropTypes.func.isRequired,
-  onClick: PropTypes.func.isRequired,
+  handleItemExpand: PropTypes.func.isRequired,
+  activeKey: PropTypes.string,
+  activeId: PropTypes.arrayOf(),
+  section: PropTypes.string,
+  resultChunks: PropTypes.arrayOf().isRequired,
 };
 
 SearchResults.defaultProps = {
-  currentPage: 'Start',
+  activeKey: '',
+  activeId: [],
+  section: 'upcoming',
 };
 
 export default SearchResults;

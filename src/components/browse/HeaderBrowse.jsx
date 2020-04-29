@@ -79,10 +79,13 @@ HeaderBrowse.propTypes = {
   handleInput: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired,
   input: PropTypes.string,
+  currentPage: PropTypes.string.isRequired,
+  background: PropTypes.string,
 };
 
 HeaderBrowse.defaultProps = {
   input: '',
+  background: '',
 };
 
 export default HeaderBrowse;
