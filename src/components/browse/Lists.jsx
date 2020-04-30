@@ -39,16 +39,15 @@ class Lists extends React.Component {
 
     return render.map((movie) => (
       <CarouselSlider
-        key={`${currentPage}-${movie[0]}-list `}
+        key={`${currentPage}-${movie.title}-list `}
         handleItemExpand={handleItemExpand}
         activeId={activeId}
-        title={movie[0]}
-        movies={movie[1]}
+        title={movie.title}
+        movies={movie.movies}
         activeKey={activeKey}
         isResultPage={false}
         section={section}
         isInfinite
-        imageRootPath="https://image.tmdb.org/t/p/original"
       />
     ));
   }

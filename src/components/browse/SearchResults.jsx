@@ -23,7 +23,6 @@ const SearchResults = ({
           isResultPage
           section={section}
           isInfinite={false}
-          imageRootPath="https://image.tmdb.org/t/p/original"
         />
       ))}
     </div>

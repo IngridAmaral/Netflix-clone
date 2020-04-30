@@ -7,6 +7,8 @@ import 'react-multi-carousel/lib/styles.css';
 import Carousel from 'react-multi-carousel';
 import Item from './Item';
 import Expansion from './Expansion';
+import { IMAGE_ROOT_PATH } from '../../../assets/imageRootPath';
+
 
 class CarouselSlider extends React.Component {
   state = {
@@ -21,7 +23,6 @@ class CarouselSlider extends React.Component {
   render() {
     const {
       title,
-      imageRootPath,
       activeId,
       movies,
       handleItemExpand,
@@ -95,7 +96,7 @@ class CarouselSlider extends React.Component {
             <Item
               key={movie.id}
               movie={movie}
-              image={imageRootPath + movie.poster_path}
+              image={IMAGE_ROOT_PATH + movie.poster_path}
               activeId={activeId}
               handleItemExpand={handleItemExpand}
               title={title}
@@ -109,7 +110,7 @@ class CarouselSlider extends React.Component {
           activeId && (
           <Expansion
             activeId={activeId}
-            image={activeId ? imageRootPath + activeId.backdrop_path : ''}
+            image={activeId ? IMAGE_ROOT_PATH + activeId.backdrop_path : ''}
             handleItemExpand={handleItemExpand}
             activeKey={activeKey}
             title={title}
@@ -154,7 +155,6 @@ ButtonGroup.defaultProps = {
 
 CarouselSlider.propTypes = {
   movies: PropTypes.arrayOf({}).isRequired,
-  imageRootPath: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   handleItemExpand: PropTypes.func.isRequired,
   activeKey: PropTypes.string,

@@ -7,19 +7,12 @@ import './Expansion.css';
 import { ReactComponent as ThumbUp } from '../../../assets/images/thumbUp.svg';
 import { ReactComponent as ThumbDown } from '../../../assets/images/thumbDown.svg';
 import { ReactComponent as Play } from '../../../assets/images/play.svg';
-import {
-  getGenresPending,
-  getGenres,
-  getGenresError,
-} from '../redux/reducers/genres';
+import { getGenresPending, getGenres, getGenresError } from '../redux/reducers/genres';
 
 const descriptionList = ['overview', 'more like this', 'details'];
 
-
 class Expansion extends React.Component {
-    state = {
-      currentDescription: 'exp-overview',
-    }
+    state = { currentDescription: 'exp-overview' }
 
     handleClose = () => {
       const { handleItemExpand } = this.props;
@@ -43,11 +36,10 @@ class Expansion extends React.Component {
     renderOpenExpansion = () => {
       const { activeId } = this.props;
       const { currentDescription } = this.state;
-      const activeTitle = activeId ? activeId.title || activeId.original_name : ' ';
-      const activeDate = activeId ? activeId.release_date !== undefined ? activeId.release_date.slice(0, 4) : activeId.first_air_date.slice(0, 4) : ' ';
-      const activeOverview = activeId ? activeId.overview.slice(0, 150) : ' ';
-      const activeGenre = activeId ? activeId.genre_ids : ' ';
-
+      const activeTitle = activeId.title || activeId.original_name;
+      const activeDate = activeId.release_date !== undefined ? activeId.release_date.slice(0, 4) : activeId.first_air_date.slice(0, 4);
+      const activeOverview = activeId.overview.slice(0, 150);
+      const activeGenre = activeId.genre_ids;
 
       return (
         <div className="expanded-layer">

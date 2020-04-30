@@ -6,30 +6,31 @@ import './CoverContent.css';
 import Lists from './Lists';
 import { ReactComponent as Play } from '../../assets/images/play.svg';
 import { ReactComponent as Info } from '../../assets/images/info.svg';
+import { IMAGE_ROOT_PATH } from '../../assets/imageRootPath';
 
 const getCover = (currentPage, movies, series) => {
   switch (currentPage) {
     case 'Start':
-      return movies[0][1][11];
+      return movies[1].movies[1];
     case 'Series':
-      return series[2][1][11];
+      return series[0].movies[2];
     case 'Most Recent':
-      return movies[1][1][11];
+      return movies[0].movies[1];
     case 'Movies':
-      return movies[0][1][1];
+      return movies[3].movies[6];
     default:
-      return movies[0][1][11];
+      return movies[2].movies[6];
   }
 };
 
 const CoverContent = ({
-  handleItemExpand, movies, series, activeId, activeKey, currentPage, imageRootPath, section,
+  handleItemExpand, movies, series, activeId, activeKey, currentPage, section,
 }) => {
   const cover = getCover(currentPage, movies, series);
   return (
     <div className="cover_container">
       <div id="video-container">
-        <img src={imageRootPath + cover.backdrop_path} alt="img" />
+        <img src={IMAGE_ROOT_PATH + cover.backdrop_path} alt="img" />
       </div>
       <div className="layer_informations">
         <div className="trailer_title">
@@ -64,7 +65,6 @@ const CoverContent = ({
 };
 
 CoverContent.propTypes = {
-  imageRootPath: PropTypes.string,
   handleItemExpand: PropTypes.func.isRequired,
   activeKey: PropTypes.string,
   currentPage: PropTypes.string.isRequired,
@@ -78,7 +78,6 @@ CoverContent.defaultProps = {
   activeKey: '',
   activeId: [],
   section: 'upcoming',
-  imageRootPath: 'https://image.tmdb.org/t/p/original',
 };
 
 export default CoverContent;
