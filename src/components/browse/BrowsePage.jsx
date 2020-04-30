@@ -1,9 +1,11 @@
+/* eslint-disable react/sort-comp */
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, batch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import debounce from 'lodash.debounce';
 import throttle from 'lodash.throttle';
 import PropTypes from 'prop-types';
+
 
 import { getMoviesPending, getMovies, getMoviesError } from './redux/reducers/movies';
 import { getSeriesPending, getSeries, getSeriesError } from './redux/reducers/series';
@@ -35,9 +37,11 @@ class Browse extends React.Component {
     window.addEventListener('resize', this.howManySlidesInARow);
 
     const { fetchGenres, fetchMovies, fetchSeries } = this.props;
-    fetchGenres();
-    fetchMovies();
-    fetchSeries();
+    batch(() => {
+      fetchGenres();
+      fetchMovies();
+      fetchSeries();
+    });
   }
 
   componentDidUpdate(prevProps) {
@@ -48,19 +52,17 @@ class Browse extends React.Component {
     }
   }
 
-  componentWillUnmount = throttle(() => {
+  componentWillUnmount() {
     window.removeEventListener('resize', this.howManySlidesInARow);
-  }, 800)
+  }
 
   // SEARCH
-  // eslint-disable-next-line react/sort-comp
   handleSearchInput = (e) => {
     const { value } = e.target;
     this.setState({ input: value });
 
     if (value.length > 0) {
       this.handleSearch(value);
-      this.howManySlidesInARow();
     } else {
       this.handleSearch('789456123');
     }
