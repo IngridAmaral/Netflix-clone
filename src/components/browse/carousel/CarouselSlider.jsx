@@ -76,8 +76,8 @@ class CarouselSlider extends React.Component {
           customButtonGroup={
             shouldRenderBtns
           }
-          centerMode
           responsive={responsive}
+          // eslint-disable-next-line react/jsx-boolean-value
           infinite={isInfinite}
           autoPlay={false}
           beforeChange={() => {
@@ -116,7 +116,6 @@ class CarouselSlider extends React.Component {
           />
           )
         }
-
       </div>
     );
   }
@@ -154,19 +153,21 @@ ButtonGroup.defaultProps = {
 };
 
 CarouselSlider.propTypes = {
-  movies: PropTypes.arrayOf().isRequired,
+  movies: PropTypes.arrayOf({}).isRequired,
   imageRootPath: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   handleItemExpand: PropTypes.func.isRequired,
   activeKey: PropTypes.string,
-  activeId: PropTypes.arrayOf().isRequired,
+  activeId: PropTypes.arrayOf(String),
   isResultPage: PropTypes.bool.isRequired,
-  isInfinite: PropTypes.bool.isRequired,
+  isInfinite: PropTypes.bool,
   section: PropTypes.string.isRequired,
 };
 
 CarouselSlider.defaultProps = {
   activeKey: '',
+  isInfinite: true,
+  activeId: [],
 };
 
 export default CarouselSlider;

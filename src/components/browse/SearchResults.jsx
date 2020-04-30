@@ -11,20 +11,22 @@ const SearchResults = ({
   resultChunks,
 }) => (
   <div className="search">
-    {resultChunks.map((movieChunk, idx) => (
-      <CarouselSlider
-        key={`results${idx}row`}
-        handleItemExpand={handleItemExpand}
-        activeId={activeId}
-        title={`results${idx}row`}
-        movies={movieChunk}
-        activeKey={activeKey}
-        isResultPage
-        section={section}
-        isInfinite={false}
-        imageRootPath="https://image.tmdb.org/t/p/original"
-      />
-    ))}
+    <div className="search-centered">
+      {resultChunks.map((movieChunk, idx) => (
+        <CarouselSlider
+          key={`results${idx}row`}
+          handleItemExpand={handleItemExpand}
+          activeId={activeId}
+          title={`results${idx}row`}
+          movies={movieChunk}
+          activeKey={activeKey}
+          isResultPage
+          section={section}
+          isInfinite={false}
+          imageRootPath="https://image.tmdb.org/t/p/original"
+        />
+      ))}
+    </div>
   </div>
 );
 

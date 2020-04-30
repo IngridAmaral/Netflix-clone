@@ -66,7 +66,6 @@ class Search extends React.Component {
             </button>
           )
           : null}
-
       </div>
     );
   }
@@ -81,6 +80,5 @@ Search.propTypes = {
 Search.defaultProps = {
   input: '',
 };
-
 
 export default onClickOutside(Search);

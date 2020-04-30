@@ -42,6 +42,7 @@ class Item extends React.Component {
       const relevant = Number(relevantCutDecimal[0]) > 100
         ? 9 + (Math.random() * (9 - 0) + 0).toFixed(0)
         : relevantCutDecimal[0];
+
       return (
         <div
           key={key}
@@ -99,12 +100,13 @@ Item.propTypes = {
   title: PropTypes.string.isRequired,
   activeKey: PropTypes.string,
   image: PropTypes.string.isRequired,
-  movie: PropTypes.arrayOf().isRequired,
-  activeId: PropTypes.arrayOf().isRequired,
+  movie: PropTypes.objectOf().isRequired,
+  activeId: PropTypes.objectOf(),
   section: PropTypes.string.isRequired,
 };
 
 Item.defaultProps = {
+  activeId: {},
   activeKey: '',
 };
 

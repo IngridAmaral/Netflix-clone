@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import debounce from 'lodash.debounce';
+import throttle from 'lodash.throttle';
 import PropTypes from 'prop-types';
 
 import { getMoviesPending, getMovies, getMoviesError } from './redux/reducers/movies';
@@ -29,11 +30,10 @@ class Browse extends React.Component {
   };
 
   componentDidMount() {
-    const { input } = this.state;
     window.addEventListener('scroll', this.handleHeaderScroll);
-    if (input.length > 0) {
-      window.addEventListener('resize', this.howManySlidesInARow);
-    }
+    this.howManySlidesInARow();
+    window.addEventListener('resize', this.howManySlidesInARow);
+
     const { fetchGenres, fetchMovies, fetchSeries } = this.props;
     fetchGenres();
     fetchMovies();
@@ -48,29 +48,12 @@ class Browse extends React.Component {
     }
   }
 
-  handleHeaderPageChange = (id) => {
-    // const redirectPath = id === 'Start' ? 'browse' : id.toLowerCase().replace(' ', '');
-    const headerBackgound = id === 'Start' ? '' : '#141414';
-    this.setState({
-      currentPage: id,
-      headerBackgound,
-      activeId: null,
-      activeKey: '',
-    });
-  };
-
-  handleHeaderScroll = () => {
-    const { currentPage } = this.state;
-    let state;
-    if (window.pageYOffset > 1 || currentPage !== 'Start') {
-      state = '#141414';
-    } else {
-      state = '';
-    }
-    this.setState({ headerBackgound: state });
-  };
+  componentWillUnmount = throttle(() => {
+    window.removeEventListener('resize', this.howManySlidesInARow);
+  }, 800)
 
   // SEARCH
+  // eslint-disable-next-line react/sort-comp
   handleSearchInput = (e) => {
     const { value } = e.target;
     this.setState({ input: value });
@@ -97,10 +80,9 @@ class Browse extends React.Component {
     fetchResults(text);
   }, 1000);
 
-  howManySlidesInARow = () => {
+  howManySlidesInARow = throttle(() => {
     const { results } = this.props;
     const screenWidth = window.innerWidth;
-
     let slice;
 
     switch (true) {
@@ -124,15 +106,43 @@ class Browse extends React.Component {
     }
 
     if (results.length > 0) {
-      const resultChunks = [];
-      results.forEach((x, y, z) => (!(y % slice) ? resultChunks.push(z.slice(y, y + slice)) : ''));
-      this.setState({ resultChunks });
+      this.calculateChunks(slice);
     }
-  };
+  }, 800)
+
+  calculateChunks = (slice) => {
+    const { results } = this.props;
+    const resultChunks = [];
+    results.forEach((x, y, z) => (!(y % slice) ? resultChunks.push(z.slice(y, y + slice)) : ''));
+    this.setState({ resultChunks });
+  }
 
   // EXPANDED
   handleItemExpand = (movie, activeKey, section) => {
     this.setState({ activeId: movie, activeKey, section });
+  };
+
+  // HEADER
+  handleHeaderPageChange = (id) => {
+    // const redirectPath = id === 'Start' ? 'browse' : id.toLowerCase().replace(' ', '');
+    const headerBackgound = id === 'Start' ? '' : '#141414';
+    this.setState({
+      currentPage: id,
+      headerBackgound,
+      activeId: null,
+      activeKey: '',
+    });
+  };
+
+  handleHeaderScroll = () => {
+    const { currentPage } = this.state;
+    let state;
+    if (window.pageYOffset > 1 || currentPage !== 'Start') {
+      state = '#141414';
+    } else {
+      state = '';
+    }
+    this.setState({ headerBackgound: state });
   };
 
   render() {

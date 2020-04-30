@@ -18,13 +18,13 @@
 .carousel-container {
   width: 100%;
   transition: all 0.5s ease-in-out;
-  display: flex;
-  justify-content: center;
-}
-
+  /* display: flex;
+  justify-content: center; */
+} 
+ 
 .carousel-container.hover-container {
-width: 100%;
-}
+  width: 100%;
+} 
 
 .carousel-container.hover-container .hover-item{
   transform: translateX(-40%);
@@ -50,11 +50,9 @@ width: 100%;
   flex: 0 0 19.7%;
   transition: all 0.5s ease-in-out;
   position: relative;
-}
+} 
 
 .react-multi-carousel-list {
-  display: flex;
-  justify-content: center;
   overflow: unset !important;
 }
 
@@ -62,12 +60,7 @@ width: 100%;
   z-index: 2;
 }
 
-.react-multi-carousel-track { 
-  display: flex;
-  justify-content: center;
-}
-
-.carousel-button-group {
+ .carousel-button-group {
   visibility: hidden;
   width: 100%;
   justify-content: space-between;
@@ -78,7 +71,6 @@ width: 100%;
   align-items: center;
   transition: all 0.8s ease-in-out;
 }
-
 .carousel-container:hover .carousel-button-group {
   visibility: visible;
 }
@@ -89,7 +81,7 @@ width: 100%;
   outline: none;
   position: relative;
   width: 5vw;
-  height: 15vw;
+  min-height: 10vw;
   display: flex;
   justify-content: center;
   background: rgb(20, 20, 20);
@@ -171,4 +163,4 @@ width: 15vw;
   .carousel-item {
     min-height: 24vw;
   }
-}
+} 

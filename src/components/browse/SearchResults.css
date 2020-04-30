@@ -3,10 +3,15 @@
     height: auto;
     display: flex;
     justify-content: center;
+    align-items: center;
     box-sizing: border-box;
     padding-right: 2.5vw;
     padding-left: 0vw;
     overflow: visible;
     flex-direction: column;
     margin-top: 12vw;
+}
+
+.search-centered { 
+    width: 80%;
 }
