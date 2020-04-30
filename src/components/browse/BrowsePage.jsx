@@ -6,7 +6,6 @@ import debounce from 'lodash.debounce';
 import throttle from 'lodash.throttle';
 import PropTypes from 'prop-types';
 
-
 import { getMoviesPending, getMovies, getMoviesError } from './redux/reducers/movies';
 import { getSeriesPending, getSeries, getSeriesError } from './redux/reducers/series';
 import { getResultsPending, getResults, getResultsError } from './redux/reducers/search';

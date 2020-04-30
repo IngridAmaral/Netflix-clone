@@ -1,0 +1,66 @@
+.carousel-container:hover .carousel-button-group {
+  visibility: visible;
+}
+
+.carousel-button-group {
+  visibility: hidden;
+  width: 100%;
+  justify-content: space-between;
+  display: flex;
+  background: none;
+  pointer-events: none;
+  height: 100%;
+  align-items: center;
+  transition: all 0.8s ease-in-out;
+}
+
+.carousel-button-group > button {
+  pointer-events: all;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  width: 5vw;
+  min-height: 15vw;
+  display: flex;
+  justify-content: center;
+  background: rgb(20, 20, 20);
+  background: radial-gradient(
+    circle,
+    rgba(20, 20, 20, 0.539720856741573) 0%,
+    rgba(20, 20, 20, 0.2503950140449438) 25%,
+    rgba(20, 20, 20, 0) 100%
+  );
+  border: none;
+  align-items: center;
+}
+
+.svg-icon-arrow-left,
+.svg-icon-arrow-right {
+  position: relative;
+}
+
+.svg-icon-arrow-left,
+.svg-icon-arrow-right {
+  width: 3rem;
+  height: 3rem;
+}
+
+.carousel-button-group > button:hover .svg-icon-arrow-right,
+.carousel-button-group > button:hover .svg-icon-arrow-left {
+  transform: scale(1.4);
+}
+
+.svg-icon-arrow-left path,
+.svg-icon-arrow-left polygon,
+.svg-icon-arrow-left rect,
+.svg-icon-arrow-right path,
+.svg-icon-arrow-right polygon,
+.svg-icon-arrow-right rect {
+  fill: #fff;
+}
+
+.svg-icon-arrow-left circle,
+.svg-icon-arrow-right circle {
+  stroke: #fff;
+  stroke-width: 2;
+}

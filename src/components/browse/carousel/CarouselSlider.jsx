@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Carousel from 'react-multi-carousel';
+
 
 import './Carousel.css';
 import 'react-multi-carousel/lib/styles.css';
 
-import Carousel from 'react-multi-carousel';
 import Item from './Item';
 import Expansion from './Expansion';
 import { IMAGE_ROOT_PATH } from '../../../assets/imageRootPath';
+import ButtonGroup from './ButtonGroup';
 
 
 class CarouselSlider extends React.Component {
@@ -121,37 +123,6 @@ class CarouselSlider extends React.Component {
     );
   }
 }
-
-const ButtonGroup = ({
-  next, previous,
-}) => (
-  <div className="carousel-button-group" style={{ position: 'absolute' }}>
-    <button
-      type="button"
-      className="btn-left"
-      onClick={() => previous()}
-    >
-      <svg className="svg-icon-arrow-left" viewBox="0 0 20 20">
-        <path d="M8.388,10.049l4.76-4.873c0.303-0.31,0.297-0.804-0.012-1.105c-0.309-0.304-0.803-0.293-1.105,0.012L6.726,9.516c-0.303,0.31-0.296,0.805,0.012,1.105l5.433,5.307c0.152,0.148,0.35,0.223,0.547,0.223c0.203,0,0.406-0.08,0.559-0.236c0.303-0.309,0.295-0.803-0.012-1.104L8.388,10.049z" />
-      </svg>
-    </button>
-    <button type="button" className="btn-rigth" onClick={() => next()}>
-      <svg className="svg-icon-arrow-rigth" viewBox="0 0 20 20">
-        <path d="M11.611,10.049l-4.76-4.873c-0.303-0.31-0.297-0.804,0.012-1.105c0.309-0.304,0.803-0.293,1.105,0.012l5.306,5.433c0.304,0.31,0.296,0.805-0.012,1.105L7.83,15.928c-0.152,0.148-0.35,0.223-0.547,0.223c-0.203,0-0.406-0.08-0.559-0.236c-0.303-0.309-0.295-0.803,0.012-1.104L11.611,10.049z" />
-      </svg>
-    </button>
-  </div>
-);
-
-ButtonGroup.propTypes = {
-  next: PropTypes.func,
-  previous: PropTypes.func,
-};
-
-ButtonGroup.defaultProps = {
-  next: PropTypes.string,
-  previous: PropTypes.string,
-};
 
 CarouselSlider.propTypes = {
   movies: PropTypes.arrayOf({}).isRequired,

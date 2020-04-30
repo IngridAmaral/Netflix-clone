@@ -25,6 +25,7 @@ class Item extends React.Component {
 
       const key = movie.id + title.toLowerCase().replace(/ /g, '');
       const isTheSelectedItem = activeId && key === activeKey;
+
       const itemStyle = {
         position: 'relative',
         zIndex: '0',
@@ -38,10 +39,10 @@ class Item extends React.Component {
         opacity: `${activeId && key !== activeKey && section === title ? '85%' : '100%'}`,
         border: `${activeId && activeId.id === movie.id ? '.3vw solid white' : ''}`,
       };
-      const relevantCutDecimal = movie.popularity.toString().split('.');
-      const relevant = Number(relevantCutDecimal[0]) > 100
+      const popularityCutDecimal = movie.popularity.toString().split('.');
+      const popularity = Number(popularityCutDecimal[0]) > 100
         ? 9 + (Math.random() * (9 - 0) + 0).toFixed(0)
-        : relevantCutDecimal[0];
+        : popularityCutDecimal[0];
 
       return (
         <div
@@ -49,33 +50,30 @@ class Item extends React.Component {
           className="carousel-img"
           style={itemStyle}
         >
-          { title === section
-            ? null
-            : (
-              <div className="item-informations">
-                <div className="item-card-interaction">
-                  <div className="item-play">
-                    <PlayRing />
-                    <span className="item-title">{movie.title || movie.name}</span>
-                    <span className="item-relevant">
-                      {relevant}
-                      % relevant
-                    </span>
-                  </div>
-                  <div className="item-actions">
-                    <div onClick={this.handleAudio} className="audio-icon">
-                      {mute ? <AudioOff /> : <AudioOn />}
-                    </div>
-                    <ThumbUp />
-                    <ThumbDown />
-                  </div>
-                </div>
-
-                <div className="item-more-infos-icon" onClick={() => handleItemExpand(movie, key, title)}>
-                  <ChevronDown />
-                </div>
+          { title !== section && (
+          <div className="item-informations">
+            <div className="item-card-interaction">
+              <div className="item-play">
+                <PlayRing />
+                <span className="item-title">{movie.title || movie.name}</span>
+                <span className="item-popularity">
+                  {popularity}
+                  % popularity
+                </span>
               </div>
-            )}
+              <div className="item-actions">
+                <div onClick={this.handleAudio} className="audio-icon">
+                  {mute ? <AudioOff /> : <AudioOn />}
+                </div>
+                <ThumbUp />
+                <ThumbDown />
+              </div>
+            </div>
+            <div className="item-more-infos-icon" onClick={() => handleItemExpand(movie, key, title)}>
+              <ChevronDown />
+            </div>
+          </div>
+          )}
           {
               activeId && key !== activeKey && section === title && (
               <div className="chevron-down-active" onClick={() => handleItemExpand(movie, key, title)}>
@@ -83,13 +81,11 @@ class Item extends React.Component {
               </div>
               )
             }
-          { isTheSelectedItem
-            ? (
-              <div className="caret-item-open">
-                <i className="fas fa-caret-down" />
-              </div>
-            )
-            : null}
+          { isTheSelectedItem && (
+          <div className="caret-item-open">
+            <i className="fas fa-caret-down" />
+          </div>
+          )}
         </div>
       );
     }
