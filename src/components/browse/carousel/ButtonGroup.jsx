@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import './ButtonGroup.css';
+
 import { ReactComponent as ArrowRight } from '../../../assets/images/arrowRight.svg';
 import { ReactComponent as ArrowLeft } from '../../../assets/images/arrowLeft.svg';
 
