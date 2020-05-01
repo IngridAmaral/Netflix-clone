@@ -10,6 +10,7 @@ export function manageStorage(state = {}, action) {
       return state;
 
     case CREATE_USER:
+      console.log(action.payload.newUser);
       window.localStorage.setItem(
         'users',
         JSON.stringify({ ...users, ...action.payload.newUser }),

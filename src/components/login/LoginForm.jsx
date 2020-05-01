@@ -15,15 +15,12 @@ const signinInfos = [
     errorMsg: 'Please enter a valid email or phone number.',
   },
   {
-    id: 'userSignInPassword',
+    id: 'formPassword',
     placeholder: 'Password',
     inputType: 'password',
     errorMsg: 'Your password must contain between 4 and 60 characters.',
   },
 ];
-
-const signInKeys = ['userId', 'userSignInPassword'];
-
 const signupInfos = [
   {
     id: 'userName',
@@ -56,95 +53,97 @@ const signupInfos = [
     errorMsg: 'Please enter the same password as above.',
   },
 ];
-
-const signUpKeys = ['userName', 'userEmail', 'userPhone', 'userPassword', 'userPasswordRepeat'];
+const regexEmail = /^([a-zA-Z0-9_\-.]+)@([a-zA-Z0-9_\-.]+)\.([a-zA-Z]{2,5})$/;
+const regexCel = /^[2-9]\d{2}\d{3}\d{4}$/;
+const regexName = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/;
+const regexPassword = /^.{4,60}$/;
 
 class LoginForm extends React.Component {
   state = {
-    userInput: '',
-    lastInputId: '',
     rememberMe: false,
-    userSignUp: {},
-    userSignIn: {},
+    form: {},
   };
 
-  handleSubmit = (e, history) => {
+  handleSubmitSignUp = (e, history) => {
+    const { dispatch } = this.props;
+    const { form } = this.state;
     e.preventDefault();
-    const { signup, dispatch, users } = this.props;
-    const { userSignIn } = this.state;
 
-    if (signup) {
-      const { userSignUp } = this.state;
-      const newUserKeys = Object.keys(userSignUp);
+    const newUserKeys = Object.keys(form);
 
-      if (newUserKeys.length === 5) {
-        let newUser = {};
-        newUserKeys.forEach((id) => {
-          const userId = userSignUp.userEmail.userEmail;
-          newUser = {
-            [userId]: {
-              ...newUser[userId],
-              [id]: userSignUp[id][id],
-            },
-          };
-        });
+    if (newUserKeys.length === signupInfos.length) {
+      let newUser = {};
+      newUserKeys.forEach((id) => {
+        const userId = form.userEmail.value;
+        newUser = {
+          [userId]: {
+            ...newUser[userId],
+            [id]: form[id].value,
+          },
+        };
+      });
 
-        dispatch(addUser(newUser));
+      dispatch(addUser(newUser));
 
-        this.setState({
-          userInput: '',
-          lastInputId: '',
-          rememberMe: false,
-          userSignUp: {},
-          userSignIn: {},
-        });
+      this.setState({
+        rememberMe: false,
+        form: {},
+      });
+
+      history.push('/login');
+    } else {
+      this.handleEmptyInput('signUp');
+    }
+  }
+
+  handleSubmitSignIn = (e, history) => {
+    const { users } = this.props;
+    const { form } = this.state;
+    e.preventDefault();
+
+    const formKeys = Object.keys(form);
+
+    if (formKeys.length === signinInfos.length) {
+      if (users[form.userId.value]) {
+        const usersPassword = users[form.userId.value].userPassword;
+        const signInPassword = form.formPassword.value;
+
+        if (signInPassword === usersPassword) {
+          window.localStorage.setItem(
+            'activeUser',
+            JSON.stringify(users[form.userId.userId]),
+          );
+          history.push('/browse');
+        }
+        this.handleIncorrectTypeInput('formPassword');
       } else {
-        this.handleInputEmpty('signUp');
+        this.handleIncorrectTypeInput('userId');
+        this.handleIncorrectTypeInput('formPassword');
       }
     } else {
-      const userSignInKeys = Object.keys(userSignIn);
-
-      if (userSignInKeys.length === 2) {
-        if (users[userSignIn.userId.userId]) {
-          const usersPassword = users[userSignIn.userId.userId].userPassword;
-          const signInPassword = userSignIn.userSignInPassword.userSignInPassword;
-
-          if (signInPassword === usersPassword) {
-            window.localStorage.setItem('activeUser', JSON.stringify(users[userSignIn.userId.userId]));
-            history.push('/browse');
-          }
-          this.handleIncorrectTypeInput('userSignInPassword');
-        } else {
-          this.handleIncorrectTypeInput('userId');
-          this.handleIncorrectTypeInput('userSignInPassword');
-        }
-      } else {
-        this.handleInputEmpty('signIn');
-      }
+      this.handleEmptyInput('signIn');
     }
-  };
+  }
 
   handleIncorrectTypeInput = (id) => {
     this.setState((state) => ({
-      userSignIn: {
-        ...state.userSignIn,
-        [id]: { [id]: '', showError: true },
+      form: {
+        ...state.form,
+        [id]: { value: '', showError: true },
       },
     }));
   };
 
-  handleInputEmpty = (sign) => {
-    const { userSignIn, userSignUp } = this.state;
+  handleEmptyInput = (page) => {
+    const { form } = this.state;
 
-    const mapWhichSign = sign === 'signIn' ? signInKeys : signUpKeys;
-    const stateSign = sign === 'signIn' ? userSignIn : userSignUp;
-    const signString = sign === 'signIn' ? 'userSignIn' : 'userSignUp';
-    mapWhichSign.forEach((id) => {
-      if (!stateSign[id]) {
+    const infos = page === 'signIn' ? signinInfos : signupInfos;
+    infos.forEach((obj) => {
+      if (!form[obj.id]) {
         this.setState((state) => ({
-          [signString]: {
-            ...state[signString],
-            [id]: { [id]: '', showError: true },
+          form: {
+            ...state.form,
+            [obj.id]: { value: '', showError: true },
           },
         }));
       }
@@ -155,135 +154,147 @@ class LoginForm extends React.Component {
     const { id } = e.target;
     const input = e.target.value;
 
-    this.setState({
-      userInput: input,
-      lastInputId: id,
-    });
-
-    this.validateInput(input, id);
+    this.inputRegexValidation(input, id);
   };
 
-  validateInput = (input, id) => {
-    const { signup } = this.props;
-    const { userSignUp } = this.state;
-    let error = false;
+  inputRegexValidation = (input, id) => {
     let regex = null;
-    let regex2 = null;
 
     switch (id) {
       case 'userId':
-        regex = /^([a-zA-Z0-9_\-.]+)@([a-zA-Z0-9_\-.]+)\.([a-zA-Z]{2,5})$/;
-        regex2 = /^[2-9]\d{2}\d{3}\d{4}$/;
+        regex = { email: regexEmail, cel: regexCel };
         break;
       case 'userEmail':
-        regex = /^([a-zA-Z0-9_\-.]+)@([a-zA-Z0-9_\-.]+)\.([a-zA-Z]{2,5})$/;
+        regex = regexEmail;
         break;
       case 'userPhone':
-        regex = /^[2-9]\d{2}\d{3}\d{4}$/;
+        regex = regexCel;
         break;
       case 'userName':
-        regex = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/;
+        regex = regexName;
         break;
-      case 'userSignInPassword':
+      case 'formPassword':
       case 'userPassword':
       case 'userPasswordRepeat':
-        regex = /^.{4,60}$/;
+        regex = regexPassword;
         break;
       default:
         regex = null;
-        regex2 = null;
     }
 
-    if (regex) {
-      if (id === 'userId' && !regex.test(input) && !regex2.test(input)) {
-        error = true;
-      } else if (!regex.test(input)) {
-        error = true;
-      } else if (
-        id === 'userPasswordRepeat'
-        && userSignUp.userPassword.userPassword !== input
-      ) {
-        error = true;
-      } else {
-        error = false;
-      }
-    }
-
-    const signString = signup ? 'userSignUp' : 'userSignIn';
-
-    this.setState((state) => ({
-      [signString]: {
-        ...state[signString],
-        [id]: { [id]: input, showError: error },
-      },
-    }));
+    this.inputRegexError(regex, id, input);
   };
 
+  inputRegexError = (regex, id, input) => {
+    const { form } = this.state;
+    let error = false;
+
+    const userIdError = id === 'userId' && !regex.email.test(input) && !regex.cel.test(input);
+    const userPasswordNotEqual = id === 'userPasswordRepeat' && form.userPassword.value !== input;
+    const inputError = id !== 'userId' && !regex.test(input);
+
+    if (userIdError || userPasswordNotEqual || inputError) {
+      error = true;
+    } else {
+      error = false;
+    }
+
+    this.setState((state) => ({
+      form: {
+        ...state.form,
+        [id]: { value: input, showError: error },
+      },
+    }));
+  }
+
+  renderSubmitBtn = () => {
+    const { signup, title } = this.props;
+    return (
+      <Route
+        render={({ history }) => (
+          <button
+            onClick={
+              (e) => (!signup
+                ? this.handleSubmitSignIn(e, history)
+                : this.handleSubmitSignUp(e, history)
+              )
+            }
+            type="submit"
+          >
+            {title}
+          </button>
+        )}
+      />
+    );
+  }
+
+  handleRememberMe = () => {
+    this.setState((state) => ({
+      rememberMe: !state.rememberMe,
+    }));
+  }
+
+  renderSignInBottom = () => (
+    <div>
+      <label
+        className="login_checkbox_container"
+        htmlFor="rememberMe"
+      >
+        <input
+          onClick={this.handleRememberMe}
+          id="rememberMe"
+          className="checkbox"
+          type="checkbox"
+        />
+        <span className="checkmark" />
+      </label>
+      <p>Remeber me</p>
+    </div>
+  )
+
+  renderInputs = () => {
+    const { signup } = this.props;
+    const { form } = this.state;
+
+    const inputsInfos = signup ? signupInfos : signinInfos;
+
+    return inputsInfos.map(({
+      id, placeholder, inputType, errorMsg,
+    }) => {
+      let value = '';
+      let showError = false;
+      if (form[id]) {
+        showError = form[id].showError;
+        value = form[id].value;
+      }
+
+      return (
+        <LoginFormInput
+          key={id}
+          id={id}
+          placeholder={placeholder}
+          inputType={inputType}
+          showError={showError}
+          errorMsg={errorMsg}
+          onChange={this.handleOnChange}
+          value={value}
+        />
+      );
+    });
+  }
+
   render() {
-    const { title, signup } = this.props;
-    const renderInputsArr = signup ? signupInfos : signinInfos;
+    const { signup } = this.props;
     return (
       <form className="login_form">
         <div className="login_inputs">
-          {renderInputsArr.map((input) => {
-            const {
-              id, placeholder, inputType, errorMsg,
-            } = input;
-            const { userSignIn, userSignUp } = this.state;
-            let value = '';
-            let showError = false;
-            if (userSignUp[id]) {
-              showError = userSignUp[id].showError;
-              value = userSignUp[id][id];
-            }
-
-            if (userSignIn[id]) {
-              showError = userSignIn[id].showError;
-              value = userSignIn[id][id];
-            }
-            return (
-              <LoginFormInput
-                key={id}
-                id={id}
-                placeholder={placeholder}
-                inputType={inputType}
-                showError={showError}
-                errorMsg={errorMsg}
-                onChange={this.handleOnChange}
-                value={value}
-              />
-            );
-          })}
+          {this.renderInputs()}
         </div>
 
         <div className="login_submit">
-          <Route render={({ history }) => (
-            <button onClick={(e) => this.handleSubmit(e, history)} type="submit">
-              {title}
-            </button>
-          )}
-          />
-
+          {this.renderSubmitBtn()}
           <div className="login_check_help">
-            {!signup && (
-              <div>
-                <label
-                  className="login_checkbox_container"
-                  htmlFor="rememberMe"
-                >
-                  <input
-                    onClick={() => this.setState((state) => ({
-                      rememberMe: !state.rememberMe,
-                    }))}
-                    id="rememberMe"
-                    className="checkbox"
-                    type="checkbox"
-                  />
-                  <span className="checkmark" />
-                </label>
-                <p>Remeber me</p>
-              </div>
-            )}
+            {!signup && this.renderSignInBottom()}
             <p>Need Help?</p>
           </div>
         </div>

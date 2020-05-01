@@ -14,6 +14,16 @@ class LoginEnterCard extends React.Component {
     this.setState((state) => ({ showInfo: !state.showInfo }));
   };
 
+  renderSignIn = () => (
+    <div className="login_signup">
+      New to Netflix?
+      <Link to="/signup" style={{ textDecoration: 'none' }}>
+        <p> Sign up now </p>
+      </Link>
+      .
+    </div>
+  )
+
   render() {
     const { signup } = this.props;
     const { showInfo } = this.state;
@@ -33,17 +43,7 @@ class LoginEnterCard extends React.Component {
           <p>Login with Facebook</p>
         </div>
 
-        {signup === true ? (
-          ''
-        ) : (
-          <div className="login_signup">
-            New to Netflix?
-            <Link to="/signup" style={{ textDecoration: 'none' }}>
-              <p> Sign up now </p>
-            </Link>
-            .
-          </div>
-        )}
+        {signup !== true && this.renderSignIn()}
 
         <div className="login_infos_google">
           <div>
