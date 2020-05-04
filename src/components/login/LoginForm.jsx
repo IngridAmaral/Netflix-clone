@@ -154,7 +154,14 @@ class LoginForm extends React.Component {
     const { id } = e.target;
     const input = e.target.value;
 
-    this.inputRegexValidation(input, id);
+    const error = this.inputRegexValidation(input, id);
+
+    this.setState((state) => ({
+      form: {
+        ...state.form,
+        [id]: { value: input, showError: error },
+      },
+    }));
   };
 
   inputRegexValidation = (input, id) => {
@@ -182,10 +189,6 @@ class LoginForm extends React.Component {
         regex = null;
     }
 
-    this.inputRegexError(regex, id, input);
-  };
-
-  inputRegexError = (regex, id, input) => {
     const { form } = this.state;
     let error = false;
 
@@ -199,13 +202,13 @@ class LoginForm extends React.Component {
       error = false;
     }
 
-    this.setState((state) => ({
-      form: {
-        ...state.form,
-        [id]: { value: input, showError: error },
-      },
-    }));
-  }
+    return error;
+  };
+
+  // inputRegexError = (regex, id, input) => {
+
+
+  // }
 
   renderSubmitBtn = () => {
     const { signup, title } = this.props;
