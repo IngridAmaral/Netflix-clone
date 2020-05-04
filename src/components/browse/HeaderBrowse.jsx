@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import './HeaderBrowse.css';
 
-import { netflixLogo } from '../netflixLogo';
+import { netflixLogo } from '../../netflixLogo';
 import Search from './Search';
 import DropdownMenu from './DropdownMenu';
 import { ReactComponent as Gift } from '../../assets/images/gift.svg';

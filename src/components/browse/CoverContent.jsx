@@ -6,7 +6,7 @@ import './CoverContent.css';
 import Lists from './Lists';
 import { ReactComponent as Play } from '../../assets/images/play.svg';
 import { ReactComponent as Info } from '../../assets/images/info.svg';
-import { IMAGE_ROOT_PATH } from '../../assets/imageRootPath';
+import { IMAGE_ROOT_PATH } from '../../imageRootPath';
 
 const getCover = (currentPage, movies, series) => {
   switch (currentPage) {

@@ -102,7 +102,7 @@ class LoginForm extends React.Component {
 
       history.push('/login');
     } else {
-      this.handleEmptyInput('signUp');
+      this.handleEmptyInput();
     }
   }
 
@@ -131,7 +131,7 @@ class LoginForm extends React.Component {
         this.handleIncorrectTypeInput(LOGIN_PASSWORD);
       }
     } else {
-      this.handleEmptyInput('signIn');
+      this.handleEmptyInput();
     }
   }
 
@@ -144,10 +144,10 @@ class LoginForm extends React.Component {
     }));
   };
 
-  handleEmptyInput = (page) => {
+  handleEmptyInput = () => {
     const { form } = this.state;
 
-    const infos = page === 'signIn' ? signinInfos : signupInfos;
+    const infos = !this.isSignUpPage() ? signinInfos : signupInfos;
     infos.forEach((obj) => {
       if (!form[obj.id]) {
         this.setState((state) => ({
@@ -216,13 +216,13 @@ class LoginForm extends React.Component {
   };
 
   renderSubmitBtn = () => {
-    const { signup, title } = this.props;
+    const { title } = this.props;
     return (
       <Route
         render={({ history }) => (
           <button
             onClick={
-              (e) => (!signup
+              (e) => (!this.isSignUpPage()
                 ? this.handleSubmitSignIn(e, history)
                 : this.handleSubmitSignUp(e, history)
               )
@@ -261,10 +261,9 @@ class LoginForm extends React.Component {
   )
 
   renderInputs = () => {
-    const { signup } = this.props;
     const { form } = this.state;
 
-    const inputsInfos = signup ? signupInfos : signinInfos;
+    const inputsInfos = this.isSignUpPage() ? signupInfos : signinInfos;
 
     return inputsInfos.map(({
       id, placeholder, inputType, errorMsg,
@@ -291,8 +290,12 @@ class LoginForm extends React.Component {
     });
   }
 
-  render() {
+  isSignUpPage = () => { // login or sign up
     const { signup } = this.props;
+    return !!signup;
+  }
+
+  render() {
     return (
       <form className="login_form">
         <div className="login_inputs">
@@ -302,7 +305,7 @@ class LoginForm extends React.Component {
         <div className="login_submit">
           {this.renderSubmitBtn()}
           <div className="login_check_help">
-            {!signup && this.renderSignInBottom()}
+            {!this.isSignUpPage() && this.renderSignInBottom()}
             <p>Need Help?</p>
           </div>
         </div>

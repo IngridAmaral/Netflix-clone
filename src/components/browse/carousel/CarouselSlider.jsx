@@ -7,7 +7,7 @@ import 'react-multi-carousel/lib/styles.css';
 
 import Item from './Item';
 import Expansion from './Expansion';
-import { IMAGE_ROOT_PATH } from '../../../assets/imageRootPath';
+import { IMAGE_ROOT_PATH } from '../../../imageRootPath';
 import ButtonGroup from './ButtonGroup';
 
 
