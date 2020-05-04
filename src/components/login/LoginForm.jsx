@@ -7,15 +7,22 @@ import { addUser } from './redux/actions/login';
 import './LoginForm.css';
 import LoginFormInput from './LoginFormInput';
 
+const LOGIN_ID = 'loginId';
+const LOGIN_PASSWORD = 'loginPassword';
+const USER_NAME = 'userName';
+const USER_EMAIL = 'userEmail';
+const USER_PHONE = 'userPhone';
+const USER_PASSWORD = 'userPassword';
+const USER_PASSWORD_REPEAT = 'userPasswordRepeat';
 const signinInfos = [
   {
-    id: 'userId',
+    id: LOGIN_ID,
     placeholder: 'Email or phone number',
     inputType: 'text',
     errorMsg: 'Please enter a valid email or phone number.',
   },
   {
-    id: 'formPassword',
+    id: LOGIN_PASSWORD,
     placeholder: 'Password',
     inputType: 'password',
     errorMsg: 'Your password must contain between 4 and 60 characters.',
@@ -23,31 +30,31 @@ const signinInfos = [
 ];
 const signupInfos = [
   {
-    id: 'userName',
+    id: USER_NAME,
     placeholder: 'Name',
     inputType: 'text',
     errorMsg: 'Please enter your name.',
   },
   {
-    id: 'userEmail',
+    id: USER_EMAIL,
     placeholder: 'Email',
     inputType: 'email',
     errorMsg: 'Please enter a valid email.',
   },
   {
-    id: 'userPhone',
+    id: USER_PHONE,
     placeholder: 'Phone',
     inputType: 'text',
     errorMsg: 'Please enter a valid phone number.',
   },
   {
-    id: 'userPassword',
+    id: USER_PASSWORD,
     placeholder: 'Password',
     inputType: 'password',
     errorMsg: 'Your password must contain between 4 and 60 characters.',
   },
   {
-    id: 'userPasswordRepeat',
+    id: USER_PASSWORD_REPEAT,
     placeholder: 'Repeat Password',
     inputType: 'password',
     errorMsg: 'Please enter the same password as above.',
@@ -75,10 +82,13 @@ class LoginForm extends React.Component {
       let newUser = {};
       newUserKeys.forEach((id) => {
         const userId = form.userEmail.value;
+        const encodedPassword = (id === USER_PASSWORD_REPEAT || id === USER_PASSWORD)
+          ? window.btoa(form[id].value)
+          : false;
         newUser = {
           [userId]: {
             ...newUser[userId],
-            [id]: form[id].value,
+            [id]: !encodedPassword ? form[id].value : encodedPassword,
           },
         };
       });
@@ -104,21 +114,21 @@ class LoginForm extends React.Component {
     const formKeys = Object.keys(form);
 
     if (formKeys.length === signinInfos.length) {
-      if (users[form.userId.value]) {
-        const usersPassword = users[form.userId.value].userPassword;
-        const signInPassword = form.formPassword.value;
+      if (users[form.loginId.value]) {
+        const usersPassword = window.atob(users[form.loginId.value].userPassword);
+        const signInPassword = form.loginPassword.value;
 
         if (signInPassword === usersPassword) {
           window.localStorage.setItem(
             'activeUser',
-            JSON.stringify(users[form.userId.userId]),
+            JSON.stringify(users[form.loginId.value]),
           );
           history.push('/browse');
         }
-        this.handleIncorrectTypeInput('formPassword');
+        this.handleIncorrectTypeInput(LOGIN_PASSWORD);
       } else {
-        this.handleIncorrectTypeInput('userId');
-        this.handleIncorrectTypeInput('formPassword');
+        this.handleIncorrectTypeInput(LOGIN_ID);
+        this.handleIncorrectTypeInput(LOGIN_PASSWORD);
       }
     } else {
       this.handleEmptyInput('signIn');
@@ -168,21 +178,21 @@ class LoginForm extends React.Component {
     let regex = null;
 
     switch (id) {
-      case 'userId':
+      case LOGIN_ID:
         regex = { email: regexEmail, cel: regexCel };
         break;
-      case 'userEmail':
+      case USER_EMAIL:
         regex = regexEmail;
         break;
-      case 'userPhone':
+      case USER_PHONE:
         regex = regexCel;
         break;
-      case 'userName':
+      case USER_NAME:
         regex = regexName;
         break;
-      case 'formPassword':
-      case 'userPassword':
-      case 'userPasswordRepeat':
+      case LOGIN_PASSWORD:
+      case USER_PASSWORD:
+      case USER_PASSWORD_REPEAT:
         regex = regexPassword;
         break;
       default:
@@ -192,9 +202,9 @@ class LoginForm extends React.Component {
     const { form } = this.state;
     let error = false;
 
-    const userIdError = id === 'userId' && !regex.email.test(input) && !regex.cel.test(input);
-    const userPasswordNotEqual = id === 'userPasswordRepeat' && form.userPassword.value !== input;
-    const inputError = id !== 'userId' && !regex.test(input);
+    const userIdError = id === LOGIN_ID && !regex.email.test(input) && !regex.cel.test(input);
+    const userPasswordNotEqual = id === USER_PASSWORD_REPEAT && form.userPassword.value !== input;
+    const inputError = id !== LOGIN_ID && !regex.test(input);
 
     if (userIdError || userPasswordNotEqual || inputError) {
       error = true;
@@ -204,11 +214,6 @@ class LoginForm extends React.Component {
 
     return error;
   };
-
-  // inputRegexError = (regex, id, input) => {
-
-
-  // }
 
   renderSubmitBtn = () => {
     const { signup, title } = this.props;
