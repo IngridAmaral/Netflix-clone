@@ -20,9 +20,12 @@ import HeaderBrowse from './HeaderBrowse';
 import CoverContent from './CoverContent';
 import SearchResults from './SearchResults';
 
+const START = 'Start';
+const HEADER_BG_COLOR = '#141414';
+
 class Browse extends React.Component {
   state = {
-    currentPage: 'Start',
+    currentPage: START,
     headerBackgound: '',
     input: '',
     activeId: null,
@@ -31,7 +34,7 @@ class Browse extends React.Component {
   };
 
   componentDidMount() {
-    window.addEventListener('scroll', this.handleHeaderScroll);
+    window.addEventListener('scroll', this.handleScroll);
     this.howManySlidesInARow();
     window.addEventListener('resize', this.howManySlidesInARow);
 
@@ -125,8 +128,8 @@ class Browse extends React.Component {
 
   // HEADER
   handleHeaderPageChange = (id) => {
-    // const redirectPath = id === 'Start' ? 'browse' : id.toLowerCase().replace(' ', '');
-    const headerBackgound = id === 'Start' ? '' : '#141414';
+    // const redirectPath = id === START ? 'browse' : id.toLowerCase().replace(' ', '');
+    const headerBackgound = id === START ? '' : HEADER_BG_COLOR;
     this.setState({
       currentPage: id,
       headerBackgound,
@@ -135,15 +138,15 @@ class Browse extends React.Component {
     });
   };
 
-  handleHeaderScroll = () => {
+  handleScroll = () => {
     const { currentPage } = this.state;
-    let state;
-    if (window.pageYOffset > 1 || currentPage !== 'Start') {
-      state = '#141414';
+    let color;
+    if (window.pageYOffset > 1 || currentPage !== START) {
+      color = HEADER_BG_COLOR;
     } else {
-      state = '';
+      color = '';
     }
-    this.setState({ headerBackgound: state });
+    this.setState({ headerBackgound: color });
   };
 
   render() {

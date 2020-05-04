@@ -10,6 +10,32 @@ import Expansion from './Expansion';
 import { IMAGE_ROOT_PATH } from '../../../imageRootPath';
 import ButtonGroup from './ButtonGroup';
 
+const responsive = {
+  superLargeDesktop: {
+    breakpoint: { max: 4000, min: 3000 },
+    items: 8,
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1060 },
+    items: 5.5,
+    slidesToSlide: 4,
+  },
+  tablet: {
+    breakpoint: { max: 1060, min: 800 },
+    items: 4,
+    slidesToSlide: 3,
+  },
+  smallerDevice: {
+    breakpoint: { max: 800, min: 500 },
+    items: 3,
+    slidesToSlide: 2,
+  },
+  mobile: {
+    breakpoint: { max: 500, min: 0 },
+    items: 2,
+    slidesToSlide: 1,
+  },
+};
 
 class CarouselSlider extends React.Component {
   state = {
@@ -33,33 +59,6 @@ class CarouselSlider extends React.Component {
       section,
     } = this.props;
     const { removeMargin } = this.state;
-    const responsive = {
-      superLargeDesktop: {
-        breakpoint: { max: 4000, min: 3000 },
-        items: 8,
-      },
-      desktop: {
-        breakpoint: { max: 3000, min: 1060 },
-        items: 5.5,
-        slidesToSlide: 4,
-      },
-      tablet: {
-        breakpoint: { max: 1060, min: 800 },
-        items: 4,
-        slidesToSlide: 3,
-      },
-      smallerDevice: {
-        breakpoint: { max: 800, min: 500 },
-        items: 3,
-        slidesToSlide: 2,
-      },
-      mobile: {
-        breakpoint: { max: 500, min: 0 },
-        items: 2,
-        slidesToSlide: 1,
-      },
-    };
-
     const checkRow = movies.some((mov) => {
       if (mov.id + title.toLowerCase().replace(/ /g, '') === activeKey) { return true; }
     });
