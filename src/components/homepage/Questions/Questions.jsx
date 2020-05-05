@@ -1,7 +1,7 @@
 import React from 'react';
 import './Questions.css';
 import Question from './Question';
-import Form from '../Trial/Form';
+import Form from '../Trial/TrialForm';
 
 
 const Questions = () => (

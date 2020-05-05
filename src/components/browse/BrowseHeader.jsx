@@ -2,13 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import './HeaderBrowse.css';
+import './BrowseHeader.css';
 
 import { netflixLogo } from '../../netflixLogo';
 import Search from './Search';
 import DropdownMenu from './DropdownMenu';
 import { ReactComponent as Gift } from '../../assets/images/gift.svg';
 import { ReactComponent as Bell } from '../../assets/images/bell.svg';
+
 
 const styleHover = {
   cursor: 'pointer',
@@ -39,7 +40,7 @@ const renderItems = (currentPage, onClick) => menu.map((id) => (
   </Link>
 ));
 
-const HeaderBrowse = ({
+const BrowseHeader = ({
   onClick, handleSearch, handleInput, input, currentPage, background,
 }) => (
   <div
@@ -74,7 +75,7 @@ const HeaderBrowse = ({
 );
 
 
-HeaderBrowse.propTypes = {
+BrowseHeader.propTypes = {
   handleSearch: PropTypes.func.isRequired,
   handleInput: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired,
@@ -83,9 +84,9 @@ HeaderBrowse.propTypes = {
   background: PropTypes.string,
 };
 
-HeaderBrowse.defaultProps = {
+BrowseHeader.defaultProps = {
   input: '',
   background: '',
 };
 
-export default HeaderBrowse;
+export default BrowseHeader;

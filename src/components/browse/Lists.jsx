@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import CarouselSlider from './carousel/CarouselSlider';
+import CarouselSlider from './carousel/Carousel';
 
 class Lists extends React.Component {
   state = {
@@ -69,11 +69,11 @@ class Lists extends React.Component {
 Lists.propTypes = {
   handleItemExpand: PropTypes.func.isRequired,
   activeKey: PropTypes.string,
-  activeId: PropTypes.arrayOf(),
+  activeId: PropTypes.arrayOf(PropTypes.object),
   section: PropTypes.string,
   currentPage: PropTypes.string.isRequired,
-  movies: PropTypes.arrayOf().isRequired,
-  series: PropTypes.arrayOf().isRequired,
+  movies: PropTypes.arrayOf(PropTypes.object).isRequired,
+  series: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 Lists.defaultProps = {

@@ -1,4 +1,5 @@
-.carousel-item:hover .item-informations, .item-result:hover .item-informations {
+.carousel-item:hover .item-informations,
+.item-result:hover .item-informations {
   visibility: visible;
   opacity: 1;
 }
@@ -18,10 +19,15 @@
   width: 100%;
   height: 100%;
   background-color: #141414;
+  position: relative;
+  z-index: 0;
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
 }
 
 .carousel-img:hover {
-  outline: #141414 .1vw solid;
+  outline: #141414 0.1vw solid;
 }
 
 .caret-item-open {
@@ -47,7 +53,11 @@
   width: 100%;
   height: 100%;
   transition: all 0.8s ease-in-out;
-  background: linear-gradient(77deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 80%)
+  background: linear-gradient(
+    77deg,
+    rgba(0, 0, 0, 0.6) 0%,
+    rgba(0, 0, 0, 0) 80%
+  );
 }
 
 .item-card-interaction {
@@ -57,7 +67,7 @@
 }
 
 .item-more-infos-icon {
-  padding: .2vw;
+  padding: 0.2vw;
   min-height: 15%;
   display: flex;
   justify-content: center;
@@ -70,7 +80,7 @@
 
 #play-with-ring {
   width: 2vw;
-  padding-bottom: .2vw;
+  padding-bottom: 0.2vw;
 }
 
 .item-card-interaction:hover .item-play polygon {
@@ -80,24 +90,26 @@
 .audio-icon {
   display: flex;
   justify-content: center;
-  align-items:center;
+  align-items: center;
 }
 
-.item-actions > svg, .audio-icon > svg {
-  margin-top: .3vw;
+.item-actions > svg,
+.audio-icon > svg {
+  margin-top: 0.3vw;
   border-radius: 50%;
-  padding: .2vw;
+  padding: 0.2vw;
   background-color: rgba(0, 0, 0, 0.68);
-  width: .55vw;
-  height: .55vw;
-  border: .1vw solid grey;
+  width: 0.55vw;
+  height: 0.55vw;
+  border: 0.1vw solid grey;
 }
 
 .item-actions > svg > path {
   fill: #fff;
 }
 
-.item-actions > svg:hover, .audio-icon > svg:hover {
+.item-actions > svg:hover,
+.audio-icon > svg:hover {
   border-color: #fff;
   transform: scale(1.1);
 }
@@ -124,7 +136,7 @@
 }
 
 .item-relevant {
-  font-size: .7vw;
+  font-size: 0.7vw;
   color: rgba(69, 142, 26, 1);
   font-weight: bold;
 }
@@ -141,7 +153,7 @@
 
 .chevron-down-active {
   display: flex;
-  padding: .5vw;
+  padding: 0.5vw;
   align-items: flex-end;
   justify-content: center;
   height: 100%;
@@ -153,7 +165,7 @@
 #chevron-down {
   visibility: hidden;
   opacity: 0;
-  transition: all .5s ease;
+  transition: all 0.5s ease;
 }
 
 .chevron-down-active > #chevron-down {

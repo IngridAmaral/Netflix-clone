@@ -6,6 +6,7 @@
   position: relative;
   margin-bottom: 2vw;
   z-index: 0;
+  background-color: #141414;
 }
 
 .carousel__container > p {

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './Item.css';
+import './CarouselItem.css';
 
 import { ReactComponent as PlayRing } from '../../../assets/images/playWithRing.svg';
 import { ReactComponent as ChevronDown } from '../../../assets/images/chevronDown.svg';
@@ -10,7 +10,7 @@ import { ReactComponent as ThumbUp } from '../../../assets/images/thumbUp.svg';
 import { ReactComponent as AudioOff } from '../../../assets/images/audioOff.svg';
 import { ReactComponent as AudioOn } from '../../../assets/images/audioOn.svg';
 
-class Item extends React.Component {
+class CarouselItem extends React.Component {
     state = { mute: false }
 
     handleAudio = () => {
@@ -25,13 +25,7 @@ class Item extends React.Component {
 
       const key = movie.id + title.toLowerCase().replace(/ /g, '');
       const isTheSelectedItem = activeId && key === activeKey;
-
       const itemStyle = {
-        position: 'relative',
-        zIndex: '0',
-        backgroundSize: 'cover',
-        backgroundPosition: 'top',
-        backgroundRepeat: 'no-repeat',
         backgroundImage: `url(${
           image
         })`,
@@ -91,19 +85,25 @@ class Item extends React.Component {
     }
 }
 
-Item.propTypes = {
+CarouselItem.propTypes = {
   handleItemExpand: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   activeKey: PropTypes.string,
   image: PropTypes.string.isRequired,
-  movie: PropTypes.objectOf().isRequired,
-  activeId: PropTypes.objectOf(),
+  movie:
+    PropTypes.oneOfType(
+      PropTypes.string,
+      PropTypes.array,
+      PropTypes.number,
+    ),
+  activeId: PropTypes.objectOf(PropTypes.object),
   section: PropTypes.string.isRequired,
 };
 
-Item.defaultProps = {
+CarouselItem.defaultProps = {
   activeId: {},
   activeKey: '',
+  movie: {},
 };
 
-export default Item;
+export default CarouselItem;

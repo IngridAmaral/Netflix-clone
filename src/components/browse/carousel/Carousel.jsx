@@ -5,7 +5,7 @@ import Carousel from 'react-multi-carousel';
 import './Carousel.css';
 import 'react-multi-carousel/lib/styles.css';
 
-import Item from './Item';
+import CarouselItem from './CarouselItem';
 import Expansion from './Expansion';
 import { IMAGE_ROOT_PATH } from '../../../imageRootPath';
 import ButtonGroup from './ButtonGroup';
@@ -38,13 +38,9 @@ const responsive = {
 };
 
 class CarouselSlider extends React.Component {
-  state = {
-    removeMargin: false,
-    mute: false,
-  };
-
-  handleClick = () => {
-    this.setState((state) => ({ mute: !state.mute }));
+  checkIsResultPage = () => {
+    const { isResultPage } = this.props;
+    return !!isResultPage;
   }
 
   render() {
@@ -54,17 +50,16 @@ class CarouselSlider extends React.Component {
       movies,
       handleItemExpand,
       activeKey,
-      isResultPage,
       isInfinite,
       section,
     } = this.props;
-    const { removeMargin } = this.state;
     const checkRow = movies.some((mov) => {
       if (mov.id + title.toLowerCase().replace(/ /g, '') === activeKey) { return true; }
+      return null;
     });
 
-    const isSearch = isResultPage ? '' : title;
-    const shouldRenderBtns = activeId || isResultPage ? '' : <ButtonGroup removeMargin={removeMargin} />;
+    const isSearch = this.checkIsResultPage() ? '' : title;
+    const shouldRenderBtns = activeId || this.checkIsResultPage() ? '' : <ButtonGroup />;
     return (
       <div className="carousel__container">
         <p style={{ marginLeft: '9vw', transition: 'all 0.8s ease' }}>
@@ -74,26 +69,21 @@ class CarouselSlider extends React.Component {
           swipeable
           draggable
           arrows={false}
-          customButtonGroup={
-            shouldRenderBtns
-          }
+          customButtonGroup={shouldRenderBtns}
           responsive={responsive}
           // eslint-disable-next-line react/jsx-boolean-value
           infinite={isInfinite}
           autoPlay={false}
-          beforeChange={() => {
-            this.setState({ removeMargin: true });
-          }}
           keyBoardControl={false}
           customTransition="all .5s ease-in-out"
           transitionDuration={500}
-          containerClass={`carousel-container ${(activeId && checkRow) || isResultPage ? 'block-container' : 'hover-container'}`}
+          containerClass={`carousel-container ${(activeId && checkRow) || this.checkIsResultPage() ? 'block-container' : 'hover-container'}`}
           removeArrowOnDeviceType={['mobile']}
           deviceType={this.props.deviceType}
           itemClass={`carousel-item ${activeId && checkRow ? 'block-item' : 'hover-item'}`}
         >
           {movies.map((movie) => (
-            <Item
+            <CarouselItem
               key={movie.id}
               movie={movie}
               image={IMAGE_ROOT_PATH + movie.poster_path}
@@ -101,7 +91,7 @@ class CarouselSlider extends React.Component {
               handleItemExpand={handleItemExpand}
               title={title}
               activeKey={activeKey}
-              isResultPage={isResultPage}
+              isResultPage={this.checkIsResultPage()}
               section={section}
             />
           ))}
@@ -123,7 +113,7 @@ class CarouselSlider extends React.Component {
 }
 
 CarouselSlider.propTypes = {
-  movies: PropTypes.arrayOf({}).isRequired,
+  movies: PropTypes.arrayOf(PropTypes.object).isRequired,
   title: PropTypes.string.isRequired,
   handleItemExpand: PropTypes.func.isRequired,
   activeKey: PropTypes.string,

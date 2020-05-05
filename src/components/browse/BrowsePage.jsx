@@ -16,7 +16,7 @@ import { fetchResultsAC } from './redux/actions/search';
 
 import './BrowsePage.css';
 
-import HeaderBrowse from './HeaderBrowse';
+import BrowseHeader from './BrowseHeader';
 import CoverContent from './CoverContent';
 import SearchResults from './SearchResults';
 
@@ -161,7 +161,6 @@ class Browse extends React.Component {
     } = this.state;
 
     const { movies, series } = this.props;
-
     return (
       <div className="browse_container">
         <div className="browse_cover_container">
@@ -186,7 +185,7 @@ class Browse extends React.Component {
                   currentPage={currentPage}
                 />
               )}
-              <HeaderBrowse
+              <BrowseHeader
                 onClick={this.handleHeaderPageChange}
                 handleSearch={this.handleSearch}
                 handleInput={this.handleSearchInput}
@@ -216,14 +215,17 @@ const mapStateToProps = (state) => ({
 });
 
 Browse.propTypes = {
-  results: PropTypes.arrayOf().isRequired,
-  movies: PropTypes.arrayOf().isRequired,
-  series: PropTypes.arrayOf().isRequired,
+  results: PropTypes.arrayOf(PropTypes.object),
+  movies: PropTypes.arrayOf(PropTypes.object).isRequired,
+  series: PropTypes.arrayOf(PropTypes.object).isRequired,
   fetchGenres: PropTypes.func.isRequired,
   fetchMovies: PropTypes.func.isRequired,
   fetchSeries: PropTypes.func.isRequired,
   fetchResults: PropTypes.func.isRequired,
+};
 
+Browse.defaultProps = {
+  results: [],
 };
 
 const mapDispatchToProps = (dispatch) => bindActionCreators(

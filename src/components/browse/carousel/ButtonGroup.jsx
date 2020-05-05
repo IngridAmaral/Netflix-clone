@@ -1,3 +1,4 @@
+
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -13,11 +14,11 @@ const ButtonGroup = ({
     <button
       type="button"
       className="btn-left"
-      onClick={() => previous()}
+      onClick={previous}
     >
       <ArrowLeft />
     </button>
-    <button type="button" className="btn-right" onClick={() => next()}>
+    <button type="button" className="btn-right" onClick={next}>
       <ArrowRight />
     </button>
   </div>

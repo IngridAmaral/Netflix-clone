@@ -37,7 +37,9 @@ class Expansion extends React.Component {
       const { activeId } = this.props;
       const { currentDescription } = this.state;
       const activeTitle = activeId.title || activeId.original_name;
-      const activeDate = activeId.release_date !== undefined ? activeId.release_date.slice(0, 4) : activeId.first_air_date.slice(0, 4);
+      const activeDate = activeId.release_date !== undefined
+        ? activeId.release_date.slice(0, 4)
+        : activeId.first_air_date.slice(0, 4);
       const activeOverview = activeId.overview.slice(0, 150);
       const activeGenre = activeId.genre_ids;
 

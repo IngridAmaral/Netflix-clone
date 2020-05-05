@@ -1,8 +1,8 @@
 import React from 'react';
-import './Header.css';
+import './TrialHeader.css';
 import { Link } from 'react-router-dom';
 
-const Header = () => (
+const TrialHeader = () => (
   <div className="trial_header_container">
     <img
       className="trial_header_logo"
@@ -17,4 +17,4 @@ const Header = () => (
   </div>
 );
 
-export default Header;
+export default TrialHeader;

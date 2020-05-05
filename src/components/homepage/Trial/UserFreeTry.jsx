@@ -2,8 +2,8 @@ import React from 'react';
 
 import './UserFreeTry.css';
 
-import Infos from './Infos';
-import Form from './Form';
+import Infos from './TrialInfos';
+import Form from './TrialForm';
 
 const UserFreeTry = () => (
   <div className="userfreetry_container">

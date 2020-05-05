@@ -3,6 +3,7 @@
   flex-direction: column;
   box-sizing: border-box;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .browse_cover_container {

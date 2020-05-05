@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './SearchResults.css';
-import CarouselSlider from './carousel/CarouselSlider';
+import CarouselSlider from './carousel/Carousel';
 
 const SearchResults = ({
   handleItemExpand,
@@ -34,7 +34,7 @@ SearchResults.propTypes = {
   activeKey: PropTypes.string,
   activeId: PropTypes.arrayOf(),
   section: PropTypes.string,
-  resultChunks: PropTypes.arrayOf().isRequired,
+  resultChunks: PropTypes.arrayOf(PropTypes.array).isRequired,
 };
 
 SearchResults.defaultProps = {

@@ -9,7 +9,8 @@
     padding-left: 0vw;
     overflow: visible;
     flex-direction: column;
-    margin-top: 12vw;
+    padding-top: 12vw;
+    background-color: #141414;
 }
 
 .search-centered { 

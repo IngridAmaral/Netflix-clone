@@ -70,8 +70,8 @@ CoverContent.propTypes = {
   currentPage: PropTypes.string.isRequired,
   activeId: PropTypes.arrayOf(),
   section: PropTypes.string,
-  movies: PropTypes.arrayOf().isRequired,
-  series: PropTypes.arrayOf().isRequired,
+  movies: PropTypes.arrayOf(PropTypes.object).isRequired,
+  series: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 CoverContent.defaultProps = {
