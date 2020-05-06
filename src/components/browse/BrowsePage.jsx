@@ -161,6 +161,7 @@ class Browse extends React.Component {
     } = this.state;
 
     const { movies, series } = this.props;
+    console.log(movies);
     return (
       <div className="browse_container">
         <div className="browse_cover_container">

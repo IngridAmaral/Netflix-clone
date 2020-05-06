@@ -131,11 +131,11 @@
 
 .item-title {
   font-weight: bold;
-  font-size: 1vw;
+  font-size: .9vw;
   width: 100%;
 }
 
-.item-relevant {
+.item-popularity {
   font-size: 0.7vw;
   color: rgba(69, 142, 26, 1);
   font-weight: bold;
