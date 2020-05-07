@@ -18,6 +18,7 @@ const LoginFormInput = ({
         {placeholder}
       </label>
       <input
+        autoComplete='off'
         onChange={onChange}
         value={value}
         id={id}
