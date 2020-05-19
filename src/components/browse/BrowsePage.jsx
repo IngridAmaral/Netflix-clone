@@ -117,10 +117,13 @@ class Browse extends React.Component {
 
   calculateChunks = (slice) => {
     const { results } = this.props;
-    const resultChunks = [];
-    results.forEach((x, y, z) => (!(y % slice) ? resultChunks.push(z.slice(y, y + slice)) : ''));
-    this.setState({ resultChunks });
-  }
+    const { resultChunks } = this.state;
+    const result = [];
+    if (resultChunks.length === 0 || resultChunks[0].length !== slice) {
+      results.forEach((x, y, z) => (!(y % slice) ? result.push(z.slice(y, y + slice)) : ''));
+      this.setState({ resultChunks: result });
+    }; 
+  };
 
   // EXPANDED
   handleItemExpand = (movie, activeKey, section) => {
