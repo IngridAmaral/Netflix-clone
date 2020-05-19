@@ -14,7 +14,6 @@ class App extends React.Component {
    componentDidMount = () => {
      const { dispatch } = this.props;
 
-     // AJEITAR ISSOAQUI
      if (!window.localStorage.getItem('users')) {
        dispatch(createLocalStorage('users'));
      } else {
@@ -38,7 +37,6 @@ class App extends React.Component {
              <Route path="/movies" render={(props) => <BrowsePage {...props} page="getAllMovies" />} />
              <Route path="/series" render={(props) => <BrowsePage {...props} page="getSeries" />} />
              <Route path="/mylist" render={(props) => <BrowsePage {...props} page="getMyList" />} />
-
            </Switch>
          </div>
        </Router>

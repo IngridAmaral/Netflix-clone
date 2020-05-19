@@ -140,14 +140,15 @@ class Browse extends React.Component {
   };
 
   handleScroll = () => {
-    const { currentPage } = this.state;
+    const { currentPage, headerBackgound } = this.state;
     let color;
-    if (window.pageYOffset > 1 || currentPage !== START) {
+    if ((window.pageYOffset > 1 && headerBackgound !== HEADER_BG_COLOR) || currentPage !== START) {
       color = HEADER_BG_COLOR;
-    } else {
+      this.setState({ headerBackgound: color });
+    } else if (window.pageYOffset === 0) {
       color = '';
+      this.setState({ headerBackgound: color });
     }
-    this.setState({ headerBackgound: color });
   };
 
   render() {
@@ -162,8 +163,8 @@ class Browse extends React.Component {
     } = this.state;
 
     const { movies, series } = this.props;
-    console.log(movies);
 
+    console.log('browsePage re-render')
     const isActive = window.localStorage.getItem('activeUser');
     if (isActive === null) {
       return <Redirect to="/login" />;
