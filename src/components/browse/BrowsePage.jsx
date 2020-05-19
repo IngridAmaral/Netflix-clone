@@ -167,7 +167,7 @@ class Browse extends React.Component {
 
     const { movies, series } = this.props;
 
-    console.log('browsePage re-render')
+    console.log('browsePage render', this.state)
     const isActive = window.localStorage.getItem('activeUser');
     if (isActive === null) {
       return <Redirect to="/login" />;
