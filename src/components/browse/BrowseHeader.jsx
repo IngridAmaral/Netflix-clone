@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import './BrowseHeader.css';
 
-import { netflixLogo } from '../../netflixLogo';
+import { NETFLIX_LOGO } from '../../constants';
 import Search from './Search';
 import DropdownMenu from './DropdownMenu';
 import { ReactComponent as Gift } from '../../assets/images/gift.svg';
@@ -52,7 +52,7 @@ const BrowseHeader = ({
   >
     <div className="header-content">
       <div className="header-left">
-        <img src={netflixLogo} alt="logo" />
+        <img src={NETFLIX_LOGO} alt="logo" />
         <DropdownMenu renderItems={renderItems} currentPage={currentPage} onClick={onClick} />
         <div className="menu-items">
           {renderItems(currentPage, onClick)}

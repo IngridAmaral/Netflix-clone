@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import debounce from 'lodash.debounce';
 import throttle from 'lodash.throttle';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 
 import { getMoviesPending, getMovies, getMoviesError } from './redux/reducers/movies';
 import { getSeriesPending, getSeries, getSeriesError } from './redux/reducers/series';
@@ -162,6 +163,12 @@ class Browse extends React.Component {
 
     const { movies, series } = this.props;
     console.log(movies);
+
+    const isActive = window.localStorage.getItem('activeUser');
+    if (isActive === null) {
+      return <Redirect to="/login" />;
+    }
+
     return (
       <div className="browse_container">
         <div className="browse_cover_container">

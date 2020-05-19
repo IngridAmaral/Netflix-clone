@@ -1,12 +1,13 @@
 import React from 'react';
 import './TrialHeader.css';
 import { Link } from 'react-router-dom';
+import { NETFLIX_LOGO } from './../../../constants';
 
 const TrialHeader = () => (
   <div className="trial_header_container">
     <img
       className="trial_header_logo"
-      src="https://upload.wikimedia.org/wikipedia/commons/0/0f/Logo_Netflix.png"
+      src={NETFLIX_LOGO}
       alt="Netflix Logo"
     />
     <Link to="/login">

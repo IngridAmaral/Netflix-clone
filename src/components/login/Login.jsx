@@ -5,13 +5,14 @@ import './Login.css';
 
 import LoginEnterCard from './LoginEnterCard';
 import LoginFooter from './LoginFooter';
+import { NETFLIX_LOGO } from './../../constants';
 
 const Login = ({ signup }) => (
   <div className="login_container">
     <div className="login_container_layer">
       <div className="login_header_logo">
         <img
-          src="https://upload.wikimedia.org/wikipedia/commons/0/0f/Logo_Netflix.png"
+          src={NETFLIX_LOGO}
           alt="Netflix Logo"
         />
       </div>

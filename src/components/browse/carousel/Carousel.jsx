@@ -7,7 +7,7 @@ import 'react-multi-carousel/lib/styles.css';
 
 import CarouselItem from './CarouselItem';
 import Expansion from './Expansion';
-import { IMAGE_ROOT_PATH } from '../../../imageRootPath';
+import { IMAGE_ROOT_PATH } from '../../../constants';
 import ButtonGroup from './ButtonGroup';
 
 const responsive = {

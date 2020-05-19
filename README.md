@@ -29,6 +29,14 @@ npm install axios
 npm install react-router-dom
 ```
 
+```
+npm install react-multi-carousel
+```
+
+```
+npm install react-onclickoutside
+```
+
 ### `npm start`
 
 Runs the app in the development mode.<br />
