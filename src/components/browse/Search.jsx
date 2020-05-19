@@ -13,7 +13,7 @@ class Search extends React.Component {
 
     if (input.length === 0) {
       this.setState({ openSearch: false });
-      handleSearch('789456123');
+      handleSearch();
     }
   };
 
@@ -25,7 +25,7 @@ class Search extends React.Component {
   handleClose = () => {
     const { handleSearch } = this.props;
     this.setState({ openSearch: false });
-    handleSearch('789456123');
+    handleSearch();
   }
 
   render() {

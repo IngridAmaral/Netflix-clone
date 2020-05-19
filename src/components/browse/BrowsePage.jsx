@@ -67,12 +67,12 @@ class Browse extends React.Component {
     if (value.length > 0) {
       this.handleSearch(value);
     } else {
-      this.handleSearch('789456123');
+      this.handleSearch();
     }
   };
 
   handleSearch = (text) => {
-    if (text === '789456123') {
+    if (text === undefined) {
       this.setState({ input: '' });
     } else {
       this.howManySlidesInARow();

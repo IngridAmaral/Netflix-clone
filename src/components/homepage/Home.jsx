@@ -1,7 +1,5 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-
 import Trial from './Trial';
 import Content from './Content/Content';
 import Questions from './Questions/Questions';
@@ -23,4 +21,4 @@ const Home = () => {
   );
 };
 
-export default connect()(Home);
+export default Home;
