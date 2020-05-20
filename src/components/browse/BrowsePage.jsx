@@ -122,7 +122,7 @@ class Browse extends React.Component {
     if (resultChunks.length === 0 || resultChunks[0].length !== slice) {
       results.forEach((x, y, z) => (!(y % slice) ? result.push(z.slice(y, y + slice)) : ''));
       this.setState({ resultChunks: result });
-    }; 
+    }
   };
 
   // EXPANDED
@@ -153,7 +153,7 @@ class Browse extends React.Component {
       this.setState({ headerBackgound: color });
     }
   };
-
+  
   render() {
     const {
       input,
@@ -167,7 +167,7 @@ class Browse extends React.Component {
 
     const { movies, series } = this.props;
 
-    console.log('browsePage render', this.state)
+    console.log('browsePage render', this.state);
     const isActive = window.localStorage.getItem('activeUser');
     if (isActive === null) {
       return <Redirect to="/login" />;
@@ -176,38 +176,40 @@ class Browse extends React.Component {
     return (
       <div className="browse_container">
         <div className="browse_cover_container">
-          {movies.length > 0 && (
-            <div>
-              {input.length > 0 && resultChunks.length > 0 ? (
-                <SearchResults
-                  handleItemExpand={this.handleItemExpand}
-                  activeKey={activeKey}
-                  activeId={activeId}
-                  section={section}
-                  resultChunks={resultChunks}
-                />
-              ) : (
-                <CoverContent
-                  section={section}
-                  handleItemExpand={this.handleItemExpand}
-                  activeKey={activeKey}
-                  activeId={activeId}
-                  movies={movies}
-                  series={series}
+          {movies.length > 0
+            ? (
+              <div>
+                {input.length > 0 && resultChunks.length > 0 ? (
+                  <SearchResults
+                    handleItemExpand={this.handleItemExpand}
+                    activeKey={activeKey}
+                    activeId={activeId}
+                    section={section}
+                    resultChunks={resultChunks}
+                  />
+                ) : (
+                  <CoverContent
+                    section={section}
+                    handleItemExpand={this.handleItemExpand}
+                    activeKey={activeKey}
+                    activeId={activeId}
+                    movies={movies}
+                    series={series}
+                    currentPage={currentPage}
+                  />
+                )}
+                <BrowseHeader
+                  onClick={this.handleHeaderPageChange}
+                  handleSearch={this.handleSearch}
+                  handleInput={this.handleSearchInput}
+                  input={input}
                   currentPage={currentPage}
+                  background={headerBackgound}
                 />
-              )}
-              <BrowseHeader
-                onClick={this.handleHeaderPageChange}
-                handleSearch={this.handleSearch}
-                handleInput={this.handleSearchInput}
-                input={input}
-                currentPage={currentPage}
-                background={headerBackgound}
-              />
-              {' '}
-            </div>
-          )}
+                {' '}
+              </div>
+            )
+            : (<div  style={{backgroundColor:'#141414', display:'flex', justifyContent:'center', alignItems:'center', height:'100vh'}}>{''}<i class="fas fa-spinner fa-5x fa-spin"></i></div>)}
         </div>
       </div>
     );
