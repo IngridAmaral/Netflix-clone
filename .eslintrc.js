@@ -22,5 +22,9 @@ module.exports = {
     'react',
   ],
   rules: {
+    "linebreak-style": 'off',
+    "react/jsx-props-no-spreading": 'off',
+    "react/sort-comp": 'off',
+    "import/prefer-default-export": 'off'
   },
 };

@@ -1,12 +1,9 @@
-/* eslint-disable react/sort-comp */
 import React from 'react';
 import { connect, batch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import debounce from 'lodash.debounce';
 import throttle from 'lodash.throttle';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
-
 import { getMoviesPending, getMovies, getMoviesError } from './redux/reducers/movies';
 import { getSeriesPending, getSeries, getSeriesError } from './redux/reducers/series';
 import { getResultsPending, getResults, getResultsError } from './redux/reducers/search';
@@ -166,12 +163,6 @@ class Browse extends React.Component {
     } = this.state;
 
     const { movies, series } = this.props;
-
-    console.log('browsePage render', this.state);
-    const isActive = window.localStorage.getItem('activeUser');
-    if (isActive === null) {
-      return <Redirect to="/login" />;
-    }
 
     return (
       <div className="browse_container">

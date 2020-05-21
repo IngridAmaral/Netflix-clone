@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import { CREATE_LOCAL_STORAGE, CREATE_USER, GET_ITEM_LOCAL_STORAGE } from '../actionTypes';
 
 export function manageStorage(state = {}, action) {
@@ -10,7 +9,6 @@ export function manageStorage(state = {}, action) {
       return state;
 
     case CREATE_USER:
-      console.log(action.payload.newUser);
       window.localStorage.setItem(
         'users',
         JSON.stringify({ ...users, ...action.payload.newUser }),

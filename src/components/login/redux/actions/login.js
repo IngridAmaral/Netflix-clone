@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import { CREATE_LOCAL_STORAGE, CREATE_USER, GET_ITEM_LOCAL_STORAGE } from '../actionTypes';
 
 export const createLocalStorage = (key) => ({
