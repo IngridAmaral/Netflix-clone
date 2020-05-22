@@ -18,17 +18,17 @@ const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1060 },
     items: 5.5,
-    slidesToSlide: 4,
+    slidesToSlide: 3,
   },
   tablet: {
     breakpoint: { max: 1060, min: 800 },
     items: 4,
-    slidesToSlide: 3,
+    slidesToSlide: 2,
   },
   smallerDevice: {
     breakpoint: { max: 800, min: 500 },
     items: 3,
-    slidesToSlide: 2,
+    slidesToSlide: 1,
   },
   mobile: {
     breakpoint: { max: 500, min: 0 },
