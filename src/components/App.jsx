@@ -36,6 +36,7 @@ class App extends React.Component {
             <PrivateRoute path="/movies" render={(props) => <BrowsePage {...props} page="getAllMovies" />} />
             <PrivateRoute path="/series" render={(props) => <BrowsePage {...props} page="getSeries" />} />
             <PrivateRoute path="/mylist" render={(props) => <BrowsePage {...props} page="getMyList" />} />
+            <Route path="*" />
           </Switch>
         </div>
       </Router>
