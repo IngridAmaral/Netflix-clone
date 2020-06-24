@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { HashRouter, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createLocalStorage, getLocalStorage } from './login/redux/actions/login';
 import PrivateRoute from './login/PrivateRoute';
@@ -22,7 +22,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <Router>
+      <HashRouter>
         <div className="app_container">
           <Switch>
             <Route path="/" exact component={Home} />
@@ -39,7 +39,7 @@ class App extends React.Component {
             <Route path="*" />
           </Switch>
         </div>
-      </Router>
+      </HashRouter>
     );
   }
 }
