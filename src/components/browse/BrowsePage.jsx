@@ -1,40 +1,52 @@
-import React from 'react';
-import { connect, batch } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import debounce from 'lodash.debounce';
-import throttle from 'lodash.throttle';
-import PropTypes from 'prop-types';
-import { getMoviesPending, getMovies, getMoviesError } from './redux/reducers/movies';
-import { getSeriesPending, getSeries, getSeriesError } from './redux/reducers/series';
-import { getResultsPending, getResults, getResultsError } from './redux/reducers/search';
-import { fetchMoviesAC } from './redux/actions/movies';
-import { fetchSeriesAC } from './redux/actions/series';
-import { fetchGenresAC } from './redux/actions/genres';
-import { fetchResultsAC } from './redux/actions/search';
+import React from "react";
+import { connect, batch } from "react-redux";
+import { bindActionCreators } from "redux";
+import debounce from "lodash.debounce";
+import throttle from "lodash.throttle";
+import PropTypes from "prop-types";
+import {
+  getMoviesPending,
+  getMovies,
+  getMoviesError,
+} from "./redux/reducers/movies";
+import {
+  getSeriesPending,
+  getSeries,
+  getSeriesError,
+} from "./redux/reducers/series";
+import {
+  getResultsPending,
+  getResults,
+  getResultsError,
+} from "./redux/reducers/search";
+import { fetchMoviesAC } from "./redux/actions/movies";
+import { fetchSeriesAC } from "./redux/actions/series";
+import { fetchGenresAC } from "./redux/actions/genres";
+import { fetchResultsAC } from "./redux/actions/search";
 
-import './BrowsePage.css';
+import "./BrowsePage.css";
 
-import BrowseHeader from './BrowseHeader';
-import CoverContent from './CoverContent';
-import SearchResults from './SearchResults';
+import BrowseHeader from "./BrowseHeader";
+import CoverContent from "./CoverContent";
+import SearchResults from "./SearchResults";
 
-const START = 'Start';
-const HEADER_BG_COLOR = '#141414';
+const START = "Start";
+const HEADER_BG_COLOR = "#141414";
 
 class Browse extends React.Component {
   state = {
     currentPage: START,
-    headerBackgound: '',
-    input: '',
+    headerBackgound: "",
+    input: "",
     activeId: null,
-    activeKey: '',
+    activeKey: "",
     resultChunks: [],
   };
 
   componentDidMount() {
-    window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener("scroll", this.handleScroll);
     this.howManySlidesInARow();
-    window.addEventListener('resize', this.howManySlidesInARow);
+    window.addEventListener("resize", this.howManySlidesInARow);
 
     const { fetchGenres, fetchMovies, fetchSeries } = this.props;
     batch(() => {
@@ -53,7 +65,7 @@ class Browse extends React.Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.howManySlidesInARow);
+    window.removeEventListener("resize", this.howManySlidesInARow);
   }
 
   // SEARCH
@@ -70,7 +82,7 @@ class Browse extends React.Component {
 
   handleSearch = (text) => {
     if (text === undefined) {
-      this.setState({ input: '' });
+      this.setState({ input: "" });
     } else {
       this.howManySlidesInARow();
       this.getSearchResult(text);
@@ -110,14 +122,16 @@ class Browse extends React.Component {
     if (results.length > 0) {
       this.calculateChunks(slice);
     }
-  }, 800)
+  }, 800);
 
   calculateChunks = (slice) => {
     const { results } = this.props;
     const { resultChunks } = this.state;
     const result = [];
     if (resultChunks.length === 0 || resultChunks[0].length !== slice) {
-      results.forEach((x, y, z) => (!(y % slice) ? result.push(z.slice(y, y + slice)) : ''));
+      results.forEach((x, y, z) =>
+        !(y % slice) ? result.push(z.slice(y, y + slice)) : ""
+      );
       this.setState({ resultChunks: result });
     }
   };
@@ -130,27 +144,30 @@ class Browse extends React.Component {
   // HEADER
   handleHeaderPageChange = (id) => {
     // const redirectPath = id === START ? 'browse' : id.toLowerCase().replace(' ', '');
-    const headerBackgound = id === START ? '' : HEADER_BG_COLOR;
+    const headerBackgound = id === START ? "" : HEADER_BG_COLOR;
     this.setState({
       currentPage: id,
       headerBackgound,
       activeId: null,
-      activeKey: '',
+      activeKey: "",
     });
   };
 
   handleScroll = () => {
     const { currentPage, headerBackgound } = this.state;
     let color;
-    if ((window.pageYOffset > 1 && headerBackgound !== HEADER_BG_COLOR) || currentPage !== START) {
+    if (
+      (window.pageYOffset > 1 && headerBackgound !== HEADER_BG_COLOR) ||
+      currentPage !== START
+    ) {
       color = HEADER_BG_COLOR;
       this.setState({ headerBackgound: color });
     } else if (window.pageYOffset === 0) {
-      color = '';
+      color = "";
       this.setState({ headerBackgound: color });
     }
   };
-  
+
   render() {
     const {
       input,
@@ -167,57 +184,55 @@ class Browse extends React.Component {
     return (
       <div className="browse_container">
         <div className="browse_cover_container">
-          {movies.length > 0
-            ? (
-              <div>
-                {input.length > 0 && resultChunks.length > 0 ? (
-                  <SearchResults
-                    handleItemExpand={this.handleItemExpand}
-                    activeKey={activeKey}
-                    activeId={activeId}
-                    section={section}
-                    resultChunks={resultChunks}
-                  />
-                ) : (
-                  <CoverContent
-                    section={section}
-                    handleItemExpand={this.handleItemExpand}
-                    activeKey={activeKey}
-                    activeId={activeId}
-                    movies={movies}
-                    series={series}
-                    currentPage={currentPage}
-                  />
-                )}
-                <BrowseHeader
-                  onClick={this.handleHeaderPageChange}
-                  handleSearch={this.handleSearch}
-                  handleInput={this.handleSearchInput}
-                  input={input}
-                  currentPage={currentPage}
-                  background={headerBackgound}
+          {movies.length > 0 ? (
+            <div>
+              {input.length > 0 && resultChunks.length > 0 ? (
+                <SearchResults
+                  handleItemExpand={this.handleItemExpand}
+                  activeKey={activeKey}
+                  activeId={activeId}
+                  section={section}
+                  resultChunks={resultChunks}
                 />
-                {' '}
-              </div>
-            )
-            : (<div  style={{backgroundColor:'#141414', display:'flex', justifyContent:'center', alignItems:'center', height:'100vh'}}>{''}<i class="fas fa-spinner fa-5x fa-spin"></i></div>)}
+              ) : (
+                <CoverContent
+                  section={section}
+                  handleItemExpand={this.handleItemExpand}
+                  activeKey={activeKey}
+                  activeId={activeId}
+                  movies={movies}
+                  series={series}
+                  currentPage={currentPage}
+                />
+              )}
+              <BrowseHeader
+                onClick={this.handleHeaderPageChange}
+                handleSearch={this.handleSearch}
+                handleInput={this.handleSearchInput}
+                input={input}
+                currentPage={currentPage}
+                background={headerBackgound}
+              />{" "}
+            </div>
+          ) : (
+            <div
+              style={{
+                backgroundColor: "#141414",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100vh",
+              }}
+            >
+              {""}
+              <i className="fas fa-spinner fa-5x fa-spin"></i>
+            </div>
+          )}
         </div>
       </div>
     );
   }
 }
-
-const mapStateToProps = (state) => ({
-  error: getMoviesError(state),
-  movies: getMovies(state),
-  pending: getMoviesPending(state),
-  errorSeries: getSeriesError(state),
-  series: getSeries(state),
-  pendingSeries: getSeriesPending(state),
-  errorResults: getResultsError(state),
-  results: getResults(state),
-  pendingResults: getResultsPending(state),
-});
 
 Browse.propTypes = {
   results: PropTypes.arrayOf(PropTypes.object),
@@ -233,14 +248,27 @@ Browse.defaultProps = {
   results: [],
 };
 
-const mapDispatchToProps = (dispatch) => bindActionCreators(
-  {
-    fetchMovies: fetchMoviesAC,
-    fetchSeries: fetchSeriesAC,
-    fetchGenres: fetchGenresAC,
-    fetchResults: fetchResultsAC,
-  },
-  dispatch,
-);
+const mapStateToProps = (state) => ({
+  error: getMoviesError(state),
+  movies: getMovies(state),
+  pending: getMoviesPending(state),
+  errorSeries: getSeriesError(state),
+  series: getSeries(state),
+  pendingSeries: getSeriesPending(state),
+  errorResults: getResultsError(state),
+  results: getResults(state),
+  pendingResults: getResultsPending(state),
+});
+
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    {
+      fetchMovies: fetchMoviesAC,
+      fetchSeries: fetchSeriesAC,
+      fetchGenres: fetchGenresAC,
+      fetchResults: fetchResultsAC,
+    },
+    dispatch
+  );
 
 export default connect(mapStateToProps, mapDispatchToProps)(Browse);

@@ -37,7 +37,7 @@ class CarouselItem extends React.Component {
       const popularity = Number(popularityCutDecimal[0]) > 100
         ? 9 + (Math.random() * (9 - 0) + 0).toFixed(0)
         : popularityCutDecimal[0];
-
+      
       return (
         <div
           key={key}
@@ -91,11 +91,21 @@ CarouselItem.propTypes = {
   activeKey: PropTypes.string,
   image: PropTypes.string.isRequired,
   movie:
-    PropTypes.oneOfType(
-      PropTypes.string,
-      PropTypes.array,
-      PropTypes.number,
-    ),
+    PropTypes.shape({
+      backdrop_path: PropTypes.string,
+first_air_date: PropTypes.string,
+genre_ids: PropTypes.arrayOf(PropTypes.number),
+id: PropTypes.number,
+name: PropTypes.string,
+origin_country: PropTypes.arrayOf(PropTypes.string),
+original_language: PropTypes.string,
+original_name: PropTypes.string,
+overview: PropTypes.string,
+popularity: PropTypes.number,
+poster_path: PropTypes.string,
+vote_average: PropTypes.number,
+vote_count: PropTypes.number,
+    }),
   activeId: PropTypes.objectOf(PropTypes.object),
   section: PropTypes.string.isRequired,
 };

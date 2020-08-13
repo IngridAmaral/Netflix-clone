@@ -32,10 +32,10 @@ class App extends React.Component {
               render={(props) => <Login {...props} signup />}
             />
             <PrivateRoute path="/browse" component={BrowsePage} />
-            <PrivateRoute path="/mostrecent" render={(props) => <BrowsePage {...props} page="getTrending" />} />
-            <PrivateRoute path="/movies" render={(props) => <BrowsePage {...props} page="getAllMovies" />} />
-            <PrivateRoute path="/series" render={(props) => <BrowsePage {...props} page="getSeries" />} />
-            <PrivateRoute path="/mylist" render={(props) => <BrowsePage {...props} page="getMyList" />} />
+            <PrivateRoute path="/mostrecent" component={BrowsePage} page="getTrending" />
+            <PrivateRoute path="/movies" component={BrowsePage} page="getAllMovies" />
+            <PrivateRoute path="/series" component={BrowsePage} page="getSeries" />
+            <PrivateRoute path="/mylist" component={BrowsePage} page="getMyList" />
             <Route path="*" />
           </Switch>
         </div>
