@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "create-react-app": "^3.4.1",
     "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
